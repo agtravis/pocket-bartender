@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="search"
+      placeholder="search by ingredient"
+      value="vodka"
+    />
+    <button id="search-button">Search</button>
+    <p id="drink1"></p>
+    <p id="recipe1"></p>
+    <div id="ingredients1"></div>
+    <img id="image1" src="" />
+    <p id="drink2"></p>
+    <p id="recipe2"></p>
+    <div id="ingredients2"></div>
+    <img id="image2" src="" />
+    <p id="drink3"></p>
+    <p id="recipe3"></p>
+    <div id="ingredients3"></div>
+    <img id="image3" src="" />
+
+    <script>
+      var apikey = '9973533';
+      var apiaddress =
+        'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
+      var userInput = document.getElementById('search');
+      var searchButton = document.getElementById('search-button');
+
+      searchButton.addEventListener('click', searchIngredient);
+      userInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          searchIngredient();
+        }
+      });
+
+      function searchIngredient() {
+        var userIngredient = userInput.value;
+        var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            displayDrink(response);
+          }
+        };
+        xmlhttp.open('GET', queryURL, true);
+        xmlhttp.send();
+      }
+
+      function displayDrink(response) {
+        var numDrinks = response.drinks.length;
+
+        for (var i = 1; i <= 3; ++i) {
+          var randomDrinkIndex = Math.floor(Math.random() * numDrinks);
+          document.getElementById('drink' + i).textContent =
+            response.drinks[randomDrinkIndex].strDrink;
+          document
+            .getElementById('image' + i)
+            .setAttribute(
+              'src',
+              response.drinks[randomDrinkIndex].strDrinkThumb
+            );
+          var drinkId = response.drinks[randomDrinkIndex].idDrink;
+          getRecipe(drinkId, i);
+        }
+      }
+
+      function getRecipe(drinkId, i) {
+        var queryURLsub = apiaddress + 'lookup.php?i=' + drinkId;
+        var xmlhttpsub = new XMLHttpRequest();
+        xmlhttpsub.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            document.getElementById('recipe' + i).textContent =
+              response.drinks[0].strInstructions;
+            fillIngredients(response, i);
+          }
+        };
+        xmlhttpsub.open('GET', queryURLsub, true);
+        xmlhttpsub.send();
+      }
+
+      function fillIngredients(response, currentDrink) {
+        var ingredients = [];
+        for (var i = 1; i <= 15; ++i) {
+          var indexString = i.toString();
+          var newIngredient = 'response.drinks[0].strIngredient' + indexString;
+          var newIng = eval(newIngredient);
+          if (newIng !== null) {
+            ingredients.push(newIng);
+          }
+        }
+        var measures = [];
+        for (var k = 1; k <= 15; ++k) {
+          var indexStringk = k.toString();
+          var newMeasure = 'response.drinks[0].strMeasure' + indexStringk;
+          var newMeas = eval(newMeasure);
+          if (newMeas !== null) {
+            measures.push(newMeas);
+          } else {
+            measures.push('');
+          }
+        }
+        var ingredientToAdd = '';
+        for (var j = 0; j < ingredients.length; ++j) {
+          ingredientToAdd += measures[j] + ' ' + ingredients[j] + '<br>';
+        }
+        document.getElementById(
+          'ingredients' + currentDrink
+        ).innerHTML = ingredientToAdd;
+      }
+    </script>
+  </body>
+</html>
