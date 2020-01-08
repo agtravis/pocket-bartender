@@ -7,6 +7,7 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
     <input
       type="text"
       id="search"
@@ -14,6 +15,7 @@
       value="vodka"
     />
     <button id="search-button">Search</button>
+    <!-- each drink has a name, recipe, list of ingredients, and image -->
     <p id="drink1"></p>
     <p id="recipe1"></p>
     <div id="ingredients1"></div>
@@ -28,12 +30,17 @@
     <img id="image3" src="" />
 
     <script>
+      //variables stored are the key, the starting point for the query URL
+
       var apikey = '9973533';
       var apiaddress =
         'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
+
+      //The input field and the search button
       var userInput = document.getElementById('search');
       var searchButton = document.getElementById('search-button');
 
+      //the search function runs whether the user hits ENTER or clicks the button
       searchButton.addEventListener('click', searchIngredient);
       userInput.addEventListener('keyup', function(event) {
         if (event.key === 'Enter') {
@@ -41,6 +48,7 @@
         }
       });
 
+      //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
       function searchIngredient() {
         var userIngredient = userInput.value;
         var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
@@ -56,6 +64,7 @@
         xmlhttp.send();
       }
 
+      //helper function displays drink name and image, uses drink ID to call getRecipe function
       function displayDrink(response) {
         var numDrinks = response.drinks.length;
 
@@ -74,6 +83,7 @@
         }
       }
 
+      //next AJAX call uses drink ID to get recipe and ingredients, helper function called to parse ingredients
       function getRecipe(drinkId, i) {
         var queryURLsub = apiaddress + 'lookup.php?i=' + drinkId;
         var xmlhttpsub = new XMLHttpRequest();
@@ -90,6 +100,9 @@
         xmlhttpsub.send();
       }
 
+      //fills arrays with ingredients and measures. Could also do with a single array of anonymous objects.
+      //accounts for null values. condition is <=15 because each drink response has this many potential ingredients
+      //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
       function fillIngredients(response, currentDrink) {
         var ingredients = [];
         for (var i = 1; i <= 15; ++i) {
