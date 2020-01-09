@@ -61,4 +61,5 @@ Otherwise task can be assigned to an individual
 # Going further
 
 1. CSS for fine-tuning
+1. handling 404
 1. Further API work
