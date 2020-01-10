@@ -75,6 +75,9 @@ function searchIngredient(userChoice) {
     document
       .getElementById('status-button')
       .setAttribute('id', 'status-out-button');
+    document
+      .getElementById('status-out-button')
+      .setAttribute('value', userChoice);
   } else {
     document.getElementById('status-text').textContent =
       'You do not have this in your cabinet. Would you like to add it?';
@@ -106,6 +109,18 @@ function searchIngredient(userChoice) {
 
 document.getElementById('cancel-button').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
+});
+
+document.getElementById('status-button').addEventListener('click', function() {
+  document.getElementById('modal').classList.add('hide');
+  console.log(document.getElementById('status-out-button').value);
+  liquorCabinet.splice(
+    liquorCabinet.indexOf(document.getElementById('status-out-button').value),
+    1
+  );
+  console.log(liquorCabinet);
+  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+  init();
 });
 
 //helper function displays drink name and image, uses drink ID to call getRecipe function
