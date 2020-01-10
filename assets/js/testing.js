@@ -1,6 +1,7 @@
 //variables stored are the key, the starting point for the query URL
 
 var liquorCabinet = [];
+
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 
@@ -16,16 +17,14 @@ userInput.addEventListener('keyup', function(event) {
   }
 });
 
-function init() {}
-
-// function init() {
-//   searchedCities = JSON.parse(localStorage.getItem('searchedCities'));
-//   if (searchedCities) {
-//     renderSearchedCities();
-//   } else {
-//     searchedCities = [];
-//   }
-// }
+function init() {
+  liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
+  if (liquorCabinet) {
+    renderLiquorCabinet();
+  } else {
+    liquorCabinet = [];
+  }
+}
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient() {
