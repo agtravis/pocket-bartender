@@ -15,7 +15,7 @@ var userInput = document.getElementById('search');
 var searchButton = document.getElementById('search-button');
 
 //populates liquor cabinet on page load from local storage
-init();
+initialize();
 
 //the modal opens whether the user hits ENTER or clicks the button, passing the input
 searchButton.addEventListener('click', function() {
@@ -29,7 +29,7 @@ userInput.addEventListener('keyup', function(event) {
 });
 
 //the function that fills the array from local storage
-function init() {
+function initialize() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
     liquorImageLinks = [];
@@ -96,7 +96,7 @@ document
     document.getElementById('modal').classList.add('hide');
     liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
     localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-    init();
+    initialize();
   });
 
 //if the user adds to their cabinet, this function runs
@@ -108,7 +108,7 @@ document
       liquorCabinet.push(currentItem);
     }
     localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-    init();
+    initialize();
   });
 
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
