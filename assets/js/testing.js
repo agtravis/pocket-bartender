@@ -13,10 +13,12 @@ var searchButton = document.getElementById('search-button');
 init();
 
 //the search function runs whether the user hits ENTER or clicks the button
-searchButton.addEventListener('click', searchIngredient);
+searchButton.addEventListener('click', function() {
+  searchIngredient(userInput.value);
+});
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
-    searchIngredient();
+    searchIngredient(userInput.value);
   }
 });
 
@@ -44,26 +46,28 @@ function renderLiquorCabinet() {
   for (var i = 0; i < liquorCabinet.length; ++i) {
     var newImage = document.createElement('img');
     newImage.setAttribute('src', liquorImageLinks[i]);
+    newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
     document.getElementById('liquor-cabinet').appendChild(newImage);
   }
-  //create array of src based on storage array
 }
 
-//ignore this code, reference for George, will delete when done!
-// function renderSearchedCities() {
-//   searchedCitiesUL.innerHTML = '';
-//   for (var i = 0; i < searchedCities.length; ++i) {
-//     var searchedCity = searchedCities[i];
-//     var li = document.createElement('li');
-//     li.textContent = searchedCity;
-//     li.setAttribute('class', 'searched-city');
-//     searchedCitiesUL.appendChild(li);
-//   }
-// }
+document
+  .getElementById('liquor-cabinet')
+  .addEventListener('click', function(event) {
+    var element = event.target;
+    if (element.matches('img')) {
+      var elementName = element.id.slice(8);
+      alert(
+        'stuff will happen for ' +
+          elementName +
+          ' including to be able to remove from liquor cabinet, and showing facts, etc.'
+      );
+    }
+  });
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
-function searchIngredient() {
-  var userIngredient = userInput.value;
+function searchIngredient(userChoice) {
+  var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
