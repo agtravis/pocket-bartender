@@ -38,6 +38,7 @@ _Pop up windows? Animated tabs?_
 ## additional APIS
 
 YouTube for recipes? Giphy for 'loading/shaking' images? google maps for liquor stores near me?
+Look up songs that would have the drink in the lyrics or title? https://docs.genius.com/ Genius API
 
 # Tasks to get MVP
 
