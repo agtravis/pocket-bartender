@@ -57,11 +57,11 @@ document
     var element = event.target;
     if (element.matches('img')) {
       var elementName = element.id.slice(8);
-      alert(
-        'stuff will happen for ' +
-          elementName +
-          ' including to be able to remove from liquor cabinet, and showing facts, etc.'
-      );
+      // alert(
+      //   'stuff will happen for ' +
+      //     elementName +
+      //     ' including to be able to remove from liquor cabinet, and showing facts, etc.'
+      // );
       searchIngredient(elementName);
     }
   });
