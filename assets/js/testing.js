@@ -2,6 +2,7 @@
 
 var liquorCabinet = [];
 var liquorImageLinks = [];
+var currentItem = '';
 
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
@@ -35,8 +36,8 @@ function init() {
         '-Small.png';
       liquorImageLinks.push(imageURL);
     }
-    console.log(liquorCabinet);
-    console.log(liquorImageLinks);
+    // console.log(liquorCabinet);
+    // console.log(liquorImageLinks);
   } else {
     liquorCabinet = [];
   }
@@ -70,20 +71,36 @@ document
   });
 
 function openModal(item) {
-  document.getElementById('modal').classList.remove('hide');
+  currentItem = item;
   if (liquorCabinet.includes(item)) {
     document.getElementById('status-in-text').classList.remove('hide');
     document.getElementById('status-in-button').classList.remove('hide');
     document.getElementById('status-out-text').classList.add('hide');
     document.getElementById('status-out-button').classList.add('hide');
-    console.log(item);
   } else {
     document.getElementById('status-in-text').classList.add('hide');
     document.getElementById('status-in-button').classList.add('hide');
     document.getElementById('status-out-text').classList.remove('hide');
     document.getElementById('status-out-button').classList.remove('hide');
   }
+  document.getElementById('modal').classList.remove('hide');
 }
+
+document
+  .getElementById('status-in-button')
+  .addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hide');
+    liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
+    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+    init();
+  });
+
+document
+  .getElementById('status-out-button')
+  .addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hide');
+    searchIngredient(currentItem);
+  });
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
@@ -94,7 +111,7 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
+      // console.log(response);
       displayDrink(response);
       if (!liquorCabinet.includes(userIngredient)) {
         liquorCabinet.push(userIngredient);
@@ -134,7 +151,7 @@ function getRecipe(drinkId, i) {
   xmlhttpsub.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
+      // console.log(response);
       document.getElementById('recipe' + i).textContent =
         response.drinks[0].strInstructions;
       fillIngredients(response, i);
