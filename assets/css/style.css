@@ -19,3 +19,17 @@ html, body {
 #liquor-cabinet img {
   cursor: pointer;
 }
+
+.hide {
+  display: none;
+}
+
+#modal {
+  border: 5px solid goldenrod;
+  height: 100px;
+  width: 100px;
+  background-color: blueviolet;
+  position: absolute;
+  left: 50px;
+  top: 400px;
+}
