@@ -23,13 +23,12 @@ userInput.addEventListener('keyup', function(event) {
 function init() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
-    renderLiquorCabinet();
     liquorImageLinks = [];
     for (var i = 0; i < liquorCabinet.length; ++i) {
       var imageURL =
         'https://www.thecocktaildb.com/images/ingredients/' +
         liquorCabinet[i] +
-        '-Medium.png';
+        '-Small.png';
       liquorImageLinks.push(imageURL);
     }
     console.log(liquorCabinet);
@@ -37,10 +36,16 @@ function init() {
   } else {
     liquorCabinet = [];
   }
+  renderLiquorCabinet();
 }
 
 function renderLiquorCabinet() {
-  // document.getElementById('liquor-cabinet').innerHTML = '';
+  document.getElementById('liquor-cabinet').innerHTML = '';
+  for (var i = 0; i < liquorCabinet.length; ++i) {
+    var newImage = document.createElement('img');
+    newImage.setAttribute('src', liquorImageLinks[i]);
+    document.getElementById('liquor-cabinet').appendChild(newImage);
+  }
   //create array of src based on storage array
 }
 
