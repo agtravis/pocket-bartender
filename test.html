@@ -121,9 +121,11 @@
           if (newMeas !== null) {
             measures.push(newMeas);
           } else {
+            //this ensures that if the ingredient doesn't have a measure, it doesn't display 'undefined'
             measures.push('');
           }
         }
+        console.log('measures: ' + measures);
         var ingredientToAdd = '';
         for (var j = 0; j < ingredients.length; ++j) {
           ingredientToAdd += measures[j] + ' ' + ingredients[j] + '<br>';
