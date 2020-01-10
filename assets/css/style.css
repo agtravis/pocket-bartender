@@ -1,11 +1,35 @@
 html, body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 #content {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 #left-nav {
-    min-height: 100vh;
+  min-height: 100vh;
+}
+
+#liquor-cabinet {
+  background-image: url("assets/potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg");
+  border: 10px solid coral;
+  height: 600px;
+}
+
+#liquor-cabinet img {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+#modal {
+  border: 5px solid goldenrod;
+  height: 100px;
+  width: 100px;
+  background-color: blueviolet;
+  position: absolute;
+  left: 50px;
+  top: 400px;
 }

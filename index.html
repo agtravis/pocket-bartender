@@ -1,117 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="assets/css/materialize.min.css"
-      media="screen,projection"
-    />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="assets/css/style.css"
-      media="screen,projection"
-    />
-    <title>Your Liquor Cabinet</title>
-  </head>
-  <body>
 
-    <nav class="blue-grey darken-3" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo"><b>Liquor Cabinet</b></a>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="assets/css/style.css" media="screen,projection" />
+  <title>Your Liquor Cabinet</title>
+</head>
 
-    <div class="my-wrapper">
+<body>
 
-        <div class="row" id="content">
-          <div class="col s3 green lighten-2" id="left-nav">
-            <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
-            <input
-              type="text"
-              id="search"
-              placeholder="search by ingredient"
-              value="vodka"
-            />
-            <button id="search-button">Search</button>
-          </div>
-          <div class="col s8 offset-s1">
-            <!-- each drink has a name, recipe, list of ingredients, and image -->
-            <div class="section">
-              <p id="drink1"></p>
-              <p id="recipe1"></p>
-              <div id="ingredients1"></div>
-              <img class="responsive-img" id="image1" src="" />
-            </div>
+  <nav class="blue-grey darken-3" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo"><b>Liquor Cabinet</b></a>
+    </div>
+  </nav>
 
-            <div class="section">
-              <p id="drink2"></p>
-              <p id="recipe2"></p>
-              <div id="ingredients2"></div>
-              <img class="responsive-img" id="image2" src="" />
-            </div>
+  <div class="my-wrapper">
 
-            <div class="section">
-              <p id="drink3"></p>
-              <p id="recipe3"></p>
-              <div id="ingredients3"></div>
-              <img class="responsive-img" id="image3" src="" />
-            </div>
-          </div>
+    <div class="row" id="content">
+      <div class="col s3 green lighten-2" id="left-nav">
+        <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
+        <input type="text" id="search" placeholder="search by ingredient" value="vodka" />
+
+        <button class="btn waves-effect waves-light" type="submit" id="search-button" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+        <div id="liquor-cabinet">
         </div>
+        <div id="modal" class="hide">Content</div>
+        <!-- <img id="bookshelf-image" src="assets/potential-bookshelves/bookcase.png"> -->
+
       </div>
     </div>
+    <div class="col s8 offset-s1">
+      <!-- each drink has a name, recipe, list of ingredients, and image -->
+      <div class="section">
+        <p id="drink1"></p>
+        <p id="recipe1"></p>
+        <div id="ingredients1"></div>
+        <img class="responsive-img" id="image1" src="" />
+      </div>
 
-    <footer class="page-footer blue-grey darken-3">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text"><b>Group Info</b></h5>
-            <p class="grey-text text-lighten-4">
-              Just three boot camp students who like to drink a few here and
-              there!
-            </p>
-          </div>
-          <div class="col l3 s12 offset-l3">
-            <h5 class="white-text"><b>Connect</b></h5>
-            <ul>
-              <li>
-                <a class="white-text" href="https://github.com/ariehh1/">Ari</a>
-              </li>
-              <li>
-                <a class="white-text" href="https://github.com/agtravis/"
-                  >George</a
-                >
-              </li>
-              <li>
-                <a class="white-text" href="https://github.com/twopcz/"
-                  >Justin</a
-                >
-              </li>
-            </ul>
-          </div>
+      <div class="section">
+        <p id="drink2"></p>
+        <p id="recipe2"></p>
+        <div id="ingredients2"></div>
+        <img class="responsive-img" id="image2" src="" />
+      </div>
+
+      <div class="section">
+        <p id="drink3"></p>
+        <p id="recipe3"></p>
+        <div id="ingredients3"></div>
+        <img class="responsive-img" id="image3" src="" />
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <footer class="page-footer blue-grey darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text"><b>Group Info</b></h5>
+          <p class="grey-text text-lighten-4">
+            Just three boot camp students who like to drink a few here and
+            there!
+          </p>
+        </div>
+        <div class="col l3 s12 offset-l3">
+          <h5 class="white-text"><b>Connect</b></h5>
+          <ul>
+            <li>
+              <a class="white-text" href="https://github.com/ariehh1/">Ari</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://github.com/agtravis/">George</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://github.com/twopcz/">Justin</a>
+            </li>
+          </ul>
+        </div>
 
       </div>
       <div class="footer-copyright">
         <div class="container">
           Made with
-          <a class="teal-text text-lighten-3" href="http://materializecss.com"
-            >Materialize</a
-          >
+          <a class="teal-text text-lighten-3" href="http://materializecss.com">Materialize</a>
         </div>
       </div>
-    </footer>
+  </footer>
 
-    <script type="text/javascript" src="assets/js/materialize.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="assets/js/testing.js"></script>
-  </body>
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/testing.js"></script>
+</body>
+
 </html>
