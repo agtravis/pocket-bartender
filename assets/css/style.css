@@ -14,9 +14,22 @@ html, body {
   background-image: url("assets/potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg");
   border: 10px solid coral;
   height: 600px;
-  position: relative;
 }
 
 #liquor-cabinet img {
   cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+#modal {
+  border: 5px solid goldenrod;
+  height: 100px;
+  width: 100px;
+  background-color: blueviolet;
+  position: absolute;
+  left: 50px;
+  top: 400px;
 }

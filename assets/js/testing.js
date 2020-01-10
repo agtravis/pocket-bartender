@@ -68,6 +68,7 @@ document
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
+  document.getElementById('modal').classList.remove('hide');
   var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
   var xmlhttp = new XMLHttpRequest();
@@ -86,6 +87,10 @@ function searchIngredient(userChoice) {
   xmlhttp.open('GET', queryURL, true);
   xmlhttp.send();
 }
+
+document.getElementById('modal').addEventListener('click', function() {
+  document.getElementById('modal').classList.add('hide');
+});
 
 //helper function displays drink name and image, uses drink ID to call getRecipe function
 function displayDrink(response) {
