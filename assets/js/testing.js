@@ -24,6 +24,16 @@ function init() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
     renderLiquorCabinet();
+    liquorImageLinks = [];
+    for (var i = 0; i < liquorCabinet.length; ++i) {
+      var imageURL =
+        'https://www.thecocktaildb.com/images/ingredients/' +
+        liquorCabinet[i] +
+        '-Medium.png';
+      liquorImageLinks.push(imageURL);
+    }
+    console.log(liquorCabinet);
+    console.log(liquorImageLinks);
   } else {
     liquorCabinet = [];
   }
@@ -34,6 +44,7 @@ function renderLiquorCabinet() {
   //create array of src based on storage array
 }
 
+//ignore this code, reference for George, will delete when done!
 // function renderSearchedCities() {
 //   searchedCitiesUL.innerHTML = '';
 //   for (var i = 0; i < searchedCities.length; ++i) {
@@ -55,18 +66,11 @@ function searchIngredient() {
       var response = JSON.parse(this.responseText);
       console.log(response);
       displayDrink(response);
-      liquorCabinet.push(userIngredient);
+      if (!liquorCabinet.includes(userIngredient)) {
+        liquorCabinet.push(userIngredient);
+      }
       localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
       init();
-      for (var i = 0; i < liquorCabinet.length; ++i) {
-        var imageURL =
-          'https://www.thecocktaildb.com/images/ingredients/' +
-          userIngredient +
-          '-Medium.png';
-        liquorImageLinks.push(imageURL);
-      }
-      console.log(liquorCabinet);
-      console.log(liquorImageLinks);
     }
   };
   xmlhttp.open('GET', queryURL, true);
