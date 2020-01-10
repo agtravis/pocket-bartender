@@ -62,6 +62,7 @@ document
           elementName +
           ' including to be able to remove from liquor cabinet, and showing facts, etc.'
       );
+      searchIngredient(elementName);
     }
   });
 
