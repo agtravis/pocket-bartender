@@ -57,36 +57,17 @@ document
     var element = event.target;
     if (element.matches('img')) {
       var elementName = element.id.slice(8);
-      // alert(
-      //   'stuff will happen for ' +
-      //     elementName +
-      //     ' including to be able to remove from liquor cabinet, and showing facts, etc.'
-      // );
+      alert(
+        'stuff will happen for ' +
+          elementName +
+          ' including to be able to remove from liquor cabinet, and showing facts, etc.'
+      );
       searchIngredient(elementName);
     }
   });
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
-  if (liquorCabinet.includes(userChoice)) {
-    document.getElementById('status-text').textContent =
-      'You already have this in your cabinet. Did you run out?';
-    document.getElementById('status-button').textContent = 'Yes, I am out';
-    document
-      .getElementById('status-button')
-      .setAttribute('id', 'status-out-button');
-    document
-      .getElementById('status-out-button')
-      .setAttribute('value', userChoice);
-  } else {
-    document.getElementById('status-text').textContent =
-      'You do not have this in your cabinet. Would you like to add it?';
-    document.getElementById('status-out-button').textContent =
-      'Yes, I would like to add';
-    document
-      .getElementById('status-out-button')
-      .setAttribute('id', 'status-button');
-  }
   document.getElementById('modal').classList.remove('hide');
   var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
@@ -107,20 +88,8 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-document.getElementById('cancel-button').addEventListener('click', function() {
+document.getElementById('modal').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
-});
-
-document.getElementById('status-button').addEventListener('click', function() {
-  document.getElementById('modal').classList.add('hide');
-  console.log(document.getElementById('status-out-button').value);
-  liquorCabinet.splice(
-    liquorCabinet.indexOf(document.getElementById('status-out-button').value),
-    1
-  );
-  console.log(liquorCabinet);
-  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-  init();
 });
 
 //helper function displays drink name and image, uses drink ID to call getRecipe function
