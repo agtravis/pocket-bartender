@@ -14,11 +14,13 @@ init();
 
 //the search function runs whether the user hits ENTER or clicks the button
 searchButton.addEventListener('click', function() {
-  searchIngredient(userInput.value);
+  openModal(userInput.value);
+  // searchIngredient(userInput.value);
 });
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
-    searchIngredient(userInput.value);
+    openModal(userInput.value);
+    // searchIngredient(userInput.value);
   }
 });
 
@@ -69,7 +71,18 @@ document
 
 function openModal(item) {
   document.getElementById('modal').classList.remove('hide');
-  console.log(item);
+  if (liquorCabinet.includes(item)) {
+    document.getElementById('status-in-text').classList.remove('hide');
+    document.getElementById('status-in-button').classList.remove('hide');
+    document.getElementById('status-out-text').classList.add('hide');
+    document.getElementById('status-out-button').classList.add('hide');
+    console.log(item);
+  } else {
+    document.getElementById('status-in-text').classList.add('hide');
+    document.getElementById('status-in-button').classList.add('hide');
+    document.getElementById('status-out-text').classList.remove('hide');
+    document.getElementById('status-out-button').classList.remove('hide');
+  }
 }
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
