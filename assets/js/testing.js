@@ -88,7 +88,7 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-document.getElementById('modal').addEventListener('click', function() {
+document.getElementById('cancel-button').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
 });
 
