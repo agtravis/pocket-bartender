@@ -26,10 +26,14 @@ html, body {
 
 #modal {
   border: 5px solid goldenrod;
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 350px;
   background-color: blueviolet;
   position: absolute;
   left: 50px;
   top: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }

@@ -3,25 +3,32 @@
 var liquorCabinet = [];
 var liquorImageLinks = [];
 
+// globally accessible current item - undefined on page load, defined as soon as it is needed, and changes
+var currentItem = '';
+
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 
 //The input field and the search button
+//I have only stored 2 elements as variables. To clean up the code I can replace each 'document.getElementById' with variables
 var userInput = document.getElementById('search');
 var searchButton = document.getElementById('search-button');
 
+//populates liquor cabinet on page load from local storage
 init();
 
-//the search function runs whether the user hits ENTER or clicks the button
+//the modal opens whether the user hits ENTER or clicks the button, passing the input
 searchButton.addEventListener('click', function() {
-  searchIngredient(userInput.value);
+  openModal(userInput.value);
 });
+
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
-    searchIngredient(userInput.value);
+    openModal(userInput.value);
   }
 });
 
+//the function that fills the array from local storage
 function init() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
@@ -33,14 +40,15 @@ function init() {
         '-Small.png';
       liquorImageLinks.push(imageURL);
     }
-    console.log(liquorCabinet);
-    console.log(liquorImageLinks);
+    // console.log(liquorCabinet);
+    // console.log(liquorImageLinks);
   } else {
     liquorCabinet = [];
   }
   renderLiquorCabinet();
 }
 
+//displays visual representation of the liquor cabinet array
 function renderLiquorCabinet() {
   document.getElementById('liquor-cabinet').innerHTML = '';
   for (var i = 0; i < liquorCabinet.length; ++i) {
@@ -51,51 +59,87 @@ function renderLiquorCabinet() {
   }
 }
 
+//when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
+//evaluated by slicing the dynamically generated id name
 document
   .getElementById('liquor-cabinet')
   .addEventListener('click', function(event) {
     var element = event.target;
     if (element.matches('img')) {
       var elementName = element.id.slice(8);
-      alert(
-        'stuff will happen for ' +
-          elementName +
-          ' including to be able to remove from liquor cabinet, and showing facts, etc.'
-      );
-      searchIngredient(elementName);
+      openModal(elementName);
     }
   });
 
+//sets which buttons or text to display based on inventory status
+//also this is the point where 'currentItem' is assigned (for global use)
+function openModal(item) {
+  currentItem = item;
+  if (liquorCabinet.includes(item)) {
+    document.getElementById('status-in-text').classList.remove('hide');
+    document.getElementById('status-in-button').classList.remove('hide');
+    document.getElementById('status-out-text').classList.add('hide');
+    document.getElementById('status-out-button').classList.add('hide');
+  } else {
+    document.getElementById('status-in-text').classList.add('hide');
+    document.getElementById('status-in-button').classList.add('hide');
+    document.getElementById('status-out-text').classList.remove('hide');
+    document.getElementById('status-out-button').classList.remove('hide');
+  }
+  document.getElementById('modal').classList.remove('hide');
+}
+
+//if the user ran out, this removes it from local storage and hence the cabinet
+document
+  .getElementById('status-in-button')
+  .addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hide');
+    liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
+    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+    init();
+  });
+
+//if the user adds to their cabinet, this function runs
+document
+  .getElementById('status-out-button')
+  .addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hide');
+    if (!liquorCabinet.includes(currentItem)) {
+      liquorCabinet.push(currentItem);
+    }
+    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+    init();
+  });
+
+//regardless of inventory status, this is where the user chooses to display recipes/facts etc.
+document.getElementById('display-info').addEventListener('click', function() {
+  document.getElementById('modal').classList.add('hide');
+  searchIngredient(currentItem);
+});
+
+//just closes the modal without doing anything
+document.getElementById('cancel-button').addEventListener('click', function() {
+  document.getElementById('modal').classList.add('hide');
+});
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
-  document.getElementById('modal').classList.remove('hide');
   var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       displayDrink(response);
-      if (!liquorCabinet.includes(userIngredient)) {
-        liquorCabinet.push(userIngredient);
-      }
-      localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-      init();
     }
   };
   xmlhttp.open('GET', queryURL, true);
   xmlhttp.send();
 }
 
-document.getElementById('modal').addEventListener('click', function() {
-  document.getElementById('modal').classList.add('hide');
-});
-
 //helper function displays drink name and image, uses drink ID to call getRecipe function
 function displayDrink(response) {
   var numDrinks = response.drinks.length;
-
   for (var i = 1; i <= 3; ++i) {
     var randomDrinkIndex = Math.floor(Math.random() * numDrinks);
     document.getElementById('drink' + i).textContent =
@@ -115,7 +159,6 @@ function getRecipe(drinkId, i) {
   xmlhttpsub.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       document.getElementById('recipe' + i).textContent =
         response.drinks[0].strInstructions;
       fillIngredients(response, i);
@@ -157,3 +200,9 @@ function fillIngredients(response, currentDrink) {
     'ingredients' + currentDrink
   ).innerHTML = ingredientToAdd;
 }
+
+//control user input
+
+//handle 404
+
+//control length of array/size of cabinet?
