@@ -68,6 +68,22 @@ document
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
+  if (liquorCabinet.includes(userChoice)) {
+    document.getElementById('status-text').textContent =
+      'You already have this in your cabinet. Did you run out?';
+    document.getElementById('status-button').textContent = 'Yes, I am out';
+    document
+      .getElementById('status-button')
+      .setAttribute('id', 'status-out-button');
+  } else {
+    document.getElementById('status-text').textContent =
+      'You do not have this in your cabinet. Would you like to add it?';
+    document.getElementById('status-out-button').textContent =
+      'Yes, I would like to add';
+    document
+      .getElementById('status-out-button')
+      .setAttribute('id', 'status-button');
+  }
   document.getElementById('modal').classList.remove('hide');
   var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
