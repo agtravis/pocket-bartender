@@ -57,18 +57,24 @@ document
     var element = event.target;
     if (element.matches('img')) {
       var elementName = element.id.slice(8);
-      alert(
-        'stuff will happen for ' +
-          elementName +
-          ' including to be able to remove from liquor cabinet, and showing facts, etc.'
-      );
-      searchIngredient(elementName);
+      // alert(
+      //   'stuff will happen for ' +
+      //     elementName +
+      //     ' including to be able to remove from liquor cabinet, and showing facts, etc.'
+      // );
+      // searchIngredient(elementName);
+      openModal(elementName);
     }
   });
 
+function openModal(item) {
+  document.getElementById('modal').classList.remove('hide');
+  console.log(item);
+}
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
-  document.getElementById('modal').classList.remove('hide');
+  // document.getElementById('modal').classList.remove('hide');
   var userIngredient = userChoice;
   var queryURL = apiaddress + 'filter.php?i=' + userIngredient;
   var xmlhttp = new XMLHttpRequest();
@@ -88,7 +94,7 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-document.getElementById('modal').addEventListener('click', function() {
+document.getElementById('cancel-button').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
 });
 
