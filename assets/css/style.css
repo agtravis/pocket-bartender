@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   min-height: 100vh;
 }
 
@@ -15,4 +14,8 @@ body {
   background-image: url("assets/potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg");
   border: 10px solid coral;
   height: 600px;
+}
+
+#liquor-cabinet img {
+  cursor: pointer;
 }
