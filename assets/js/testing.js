@@ -26,6 +26,22 @@ function init() {
   }
 }
 
+function renderLiquorCabinet() {
+  document.getElementById('liquor-cabinet').innerHTML = '';
+  //create array of src based on storage array
+}
+
+// function renderSearchedCities() {
+//   searchedCitiesUL.innerHTML = '';
+//   for (var i = 0; i < searchedCities.length; ++i) {
+//     var searchedCity = searchedCities[i];
+//     var li = document.createElement('li');
+//     li.textContent = searchedCity;
+//     li.setAttribute('class', 'searched-city');
+//     searchedCitiesUL.appendChild(li);
+//   }
+// }
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient() {
   var userIngredient = userInput.value;
@@ -36,6 +52,9 @@ function searchIngredient() {
       var response = JSON.parse(this.responseText);
       console.log(response);
       displayDrink(response);
+      liquorCabinet.push(userIngredient);
+      localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+      init();
     }
   };
   xmlhttp.open('GET', queryURL, true);
