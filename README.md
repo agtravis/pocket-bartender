@@ -1,3 +1,3 @@
 # pocket-bartender
 
-This is Pocket Bartender.
+Welcome to Pocket Bartender, your personal
