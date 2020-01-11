@@ -137,7 +137,7 @@ function searchIngredient(userChoice) {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
       console.log(response);
-      if ((response.drinks = 'None Found')) {
+      if (response.drinks === 'None Found') {
         alert('none');
       } else {
         displayDrink(response);
