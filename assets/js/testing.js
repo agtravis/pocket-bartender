@@ -208,6 +208,7 @@ function makeDrinks(whichDrink, containerNumber) {
   var drinkContainer = document.getElementById('drink-container-' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
+  drinkBtn.setAttribute('class', 'btn');
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
   drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
 
