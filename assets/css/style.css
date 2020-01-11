@@ -3,17 +3,18 @@ html, body {
 }
 
 #content {
-  margin-bottom: 0;
-}
-
-#left-nav {
+  display: flex;
+  flex-wrap: wrap;
   min-height: 100vh;
+  margin-bottom: 0;
 }
 
 #liquor-cabinet {
   background-image: url("assets/potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg");
   border: 10px solid coral;
   height: 600px;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 #liquor-cabinet img {
