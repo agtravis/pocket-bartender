@@ -136,7 +136,12 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      displayDrink(response);
+      console.log(response);
+      if ((response.drinks = 'None Found')) {
+        alert('none');
+      } else {
+        displayDrink(response);
+      }
     }
   };
   xmlhttp.open('GET', queryURL, true);
