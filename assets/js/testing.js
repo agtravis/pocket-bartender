@@ -225,12 +225,16 @@ function getRecipe(drinkId, i) {
 //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
 function fillIngredients(response, currentDrink) {
   var ingredients = [];
+  var ingredientsWithSpanHTML = [];
   for (var i = 1; i <= 15; ++i) {
     var indexString = i.toString();
     var newIngredient = 'response.drinks[0].strIngredient' + indexString;
     var newIng = eval(newIngredient);
     if (newIng !== null) {
       ingredients.push(newIng);
+      ingredientsWithSpanHTML.push(
+        '<span class="clickable-ingredient">' + newIng + '</span>'
+      );
     }
   }
   var measures = [];
@@ -245,8 +249,8 @@ function fillIngredients(response, currentDrink) {
     }
   }
   var ingredientToAdd = '';
-  for (var j = 0; j < ingredients.length; ++j) {
-    ingredientToAdd += measures[j] + ' ' + ingredients[j] + '<br>';
+  for (var j = 0; j < ingredientsWithSpanHTML.length; ++j) {
+    ingredientToAdd += measures[j] + ' ' + ingredientsWithSpanHTML[j] + '<br>';
   }
   document.getElementById(
     'ingredients' + currentDrink
@@ -255,6 +259,15 @@ function fillIngredients(response, currentDrink) {
   // sets the drinksArray object key and values
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
+}
+
+for (var i = 1; i <= 3; ++i) {
+  document
+    .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      console.log(event.toElement.textContent);
+      openModal(event.toElement.textContent);
+    });
 }
 
 // creates a 'make drink' button for each drink container
@@ -309,5 +322,3 @@ function makeDrinks(whichDrink, containerNumber) {
 function nutritionInformation() {
   console.log(drinksArray);
 }
-
-
