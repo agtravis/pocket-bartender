@@ -142,6 +142,12 @@ document.getElementById('cancel-button').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
 });
 
+// var drinkContainers = [
+//   document.getElementById('drink-container-1'),
+//   document.getElementById('drink-container-2'),
+//   document.getElementById('drink-container-3')
+// ];
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
   var userIngredient = userChoice;
@@ -173,6 +179,9 @@ function displayDrink(response) {
       .getElementById('image' + i)
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
+    document.getElementById('drink-container-1').classList.remove('hide');
+    document.getElementById('drink-container-2').classList.remove('hide');
+    document.getElementById('drink-container-3').classList.remove('hide');
     makeDrinks(drinkId, i);
   }
 }
