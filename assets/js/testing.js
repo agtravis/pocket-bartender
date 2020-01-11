@@ -202,7 +202,7 @@ function fillIngredients(response, currentDrink) {
 }
 
 // creates a 'make drink' button for each drink container
-// then gives each button a click function to display the corresponding recipe
+// then gives each button a click function that calls the getRecipe function
 function makeDrinks(whichDrink, containerNumber) {
   var drinkBtn = document.createElement('button');
   var drinkContainer = document.getElementById('drink-container-' + containerNumber);
