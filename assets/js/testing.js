@@ -286,9 +286,3 @@ function makeDrinks(whichDrink, containerNumber) {
       }
     });
 }
-
-//control user input
-
-//handle 404
-
-//control length of array/size of cabinet?
