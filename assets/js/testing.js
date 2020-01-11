@@ -106,7 +106,21 @@ document
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
     if (!liquorCabinet.includes(currentItem)) {
-      liquorCabinet.push(currentItem);
+      var queryURL = apiaddress + 'filter.php?i=' + currentItem;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          console.log(response);
+          if (response.drinks !== 'None Found') {
+            liquorCabinet.push(currentItem);
+          } else {
+            alert('That is not a real product!');
+          }
+        }
+      };
+      xmlhttp.open('GET', queryURL, true);
+      xmlhttp.send();
     }
     localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
     initialize();
