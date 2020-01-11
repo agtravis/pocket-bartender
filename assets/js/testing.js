@@ -202,19 +202,52 @@ function fillIngredients(response, currentDrink) {
 }
 
 // creates a 'make drink' button for each drink container
-// then gives each button a click function that calls the getRecipe function
+// calls getRecipe function
+// then gives each button a click function that will display the ingredients and instructions
+// if the button already exists (i.e. when choosing a new liquor and getting new recipes)
+// it removes the button and creates a new one so that they do not repeat
+// clicking the button again will hide it
 function makeDrinks(whichDrink, containerNumber) {
   var drinkBtn = document.createElement('button');
-  var drinkContainer = document.getElementById('drink-container-' + containerNumber);
+  var drinkContainer = document.getElementById(
+    'drink-container-' + containerNumber
+  );
+  var drinkRecipes = document.getElementById('recipe' + containerNumber);
+  var drinkIngredients = document.getElementById(
+    'ingredients' + containerNumber
+  );
 
   drinkBtn.innerText = 'Make this drink';
+  drinkBtn.style.display = 'block';
   drinkBtn.setAttribute('class', 'btn');
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
-  drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
+  drinkRecipes.style.display = 'none';
+  drinkIngredients.style.display = 'none';
 
-  document.getElementById('make-drink-' + containerNumber).addEventListener('click', function() {
-    getRecipe(whichDrink, containerNumber);
-  })
+  if (document.getElementById('make-drink-' + containerNumber) === null) {
+    drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
+  } else {
+    var oldDrinkBtn = document.getElementById('make-drink-' + containerNumber);
+    drinkContainer.removeChild(oldDrinkBtn);
+    drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
+  }
+
+  getRecipe(whichDrink, containerNumber);
+
+  document
+    .getElementById('make-drink-' + containerNumber)
+    .addEventListener('click', function() {
+      if (
+        drinkRecipes.style.display === 'block' &&
+        drinkIngredients.style.display === 'block'
+      ) {
+        drinkRecipes.style.display = 'none';
+        drinkIngredients.style.display = 'none';
+      } else {
+        drinkRecipes.style.display = 'block';
+        drinkIngredients.style.display = 'block';
+      }
+    });
 }
 
 //control user input
