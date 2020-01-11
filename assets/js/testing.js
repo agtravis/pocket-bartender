@@ -256,7 +256,7 @@ function makeDrinks(whichDrink, containerNumber) {
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
-  drinkBtn.setAttribute('class', 'btn');
+  drinkBtn.setAttribute('class', 'btn make-drink-button');
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
