@@ -38,3 +38,25 @@ html, body {
   justify-content: center;
   text-align: center;
 }
+
+.cocktail-pic {
+  max-width: 200px;
+}
+
+#information-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1100px) {
+  #information-container {
+    flex-direction: column;
+  }
+  .cocktail-pic {
+    max-width: 400px;
+  }
+}
+
+#information-container div {
+  margin: 0 15px;
+}
