@@ -31,11 +31,11 @@ function nutritionTest() {
         url: queryURL,
         headers: apiHeaders
       })
-        .then(function(response) {
-          console.log(response);
-          console.log('name: ' + response.data.common[0].food_name);
+        .then(function(searchResponse) {
+          console.log(searchResponse);
+          console.log('name: ' + searchResponse.data.common[0].food_name);
 
-          var nutritionQuery = response.data.common[0].food_name;
+          var nutritionQuery = searchResponse.data.common[0].food_name;
           var getNutritionOf = { query: nutritionQuery };
 
           axios({
