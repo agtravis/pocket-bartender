@@ -74,20 +74,25 @@ document
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
 function openModal(item) {
-  currentItem = item;
-  document.getElementById('search').value = '';
-  if (liquorCabinet.includes(item)) {
-    document.getElementById('status-in-text').classList.remove('hide');
-    document.getElementById('status-in-button').classList.remove('hide');
-    document.getElementById('status-out-text').classList.add('hide');
-    document.getElementById('status-out-button').classList.add('hide');
-  } else {
-    document.getElementById('status-in-text').classList.add('hide');
-    document.getElementById('status-in-button').classList.add('hide');
-    document.getElementById('status-out-text').classList.remove('hide');
-    document.getElementById('status-out-button').classList.remove('hide');
+  if (item) {
+    item = item.toLowerCase();
+    item = item.trim();
+    currentItem = item;
+    console.log(currentItem);
+    document.getElementById('search').value = '';
+    if (liquorCabinet.includes(item)) {
+      document.getElementById('status-in-text').classList.remove('hide');
+      document.getElementById('status-in-button').classList.remove('hide');
+      document.getElementById('status-out-text').classList.add('hide');
+      document.getElementById('status-out-button').classList.add('hide');
+    } else {
+      document.getElementById('status-in-text').classList.add('hide');
+      document.getElementById('status-in-button').classList.add('hide');
+      document.getElementById('status-out-text').classList.remove('hide');
+      document.getElementById('status-out-button').classList.remove('hide');
+    }
+    document.getElementById('modal').classList.remove('hide');
   }
-  document.getElementById('modal').classList.remove('hide');
 }
 
 //if the user ran out, this removes it from local storage and hence the cabinet
