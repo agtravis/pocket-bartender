@@ -310,8 +310,4 @@ function nutritionInformation() {
   console.log(drinksArray);
 }
 
-//control user input
 
-//handle 404
-
-//control length of array/size of cabinet?
