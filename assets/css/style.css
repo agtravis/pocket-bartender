@@ -65,3 +65,7 @@ body {
 #information-container div {
   margin: 0 15px;
 }
+
+.footer-copyright {
+  text-align: center;
+}
