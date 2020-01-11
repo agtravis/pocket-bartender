@@ -256,6 +256,23 @@ function makeDrinks(whichDrink, containerNumber) {
   document
     .getElementById('make-drink-' + containerNumber)
     .addEventListener('click', function() {
+      var drinkName = drinksArray[0][containerNumber].name;
+      var getDrinkName = document.getElementById(
+        'drink-container-' + containerNumber
+      ).childNodes[1].textContent;
+      var getIngredients = drinksArray[0][containerNumber].ingredients;
+      // nutritionTest(drinkName);
+
+      if (getDrinkName === drinkName) {
+        console.log(getIngredients);
+        for (var i = 0; i < getIngredients.length; i++) {
+          var ingredientsKeyword = getIngredients[i];
+          nutritionTest(ingredientsKeyword);
+        }
+      } else {
+        console.log('false');
+      }
+
       if (
         drinkRecipes.style.display === 'block' &&
         drinkIngredients.style.display === 'block'
@@ -267,10 +284,6 @@ function makeDrinks(whichDrink, containerNumber) {
         drinkIngredients.style.display = 'block';
       }
     });
-}
-
-function nutritionInformation() {
-  console.log(drinksArray);
 }
 
 //control user input
