@@ -137,7 +137,7 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-//helper function displays drink name and image, uses drink ID to call getRecipe function
+//helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
   var numDrinks = response.drinks.length;
   for (var i = 1; i <= 3; ++i) {
@@ -148,7 +148,7 @@ function displayDrink(response) {
       .getElementById('image' + i)
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
-    getRecipe(drinkId, i);
+    makeDrinks(drinkId, i);
   }
 }
 
@@ -199,6 +199,21 @@ function fillIngredients(response, currentDrink) {
   document.getElementById(
     'ingredients' + currentDrink
   ).innerHTML = ingredientToAdd;
+}
+
+// creates a 'make drink' button for each drink container
+// then gives each button a click function to display the corresponding recipe
+function makeDrinks(whichDrink, containerNumber) {
+  var drinkBtn = document.createElement('button');
+  var drinkContainer = document.getElementById('drink-container-' + containerNumber);
+
+  drinkBtn.innerText = 'Make this drink';
+  drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
+  drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
+
+  document.getElementById('make-drink-' + containerNumber).addEventListener('click', function() {
+    getRecipe(whichDrink, containerNumber);
+  })
 }
 
 //control user input
