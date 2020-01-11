@@ -26,6 +26,7 @@ function nutritionTest() {
   document
     .getElementById('nutrition-test-button')
     .addEventListener('click', function() {
+      nutritionInformation();
       axios({
         method: 'get',
         url: queryURL,

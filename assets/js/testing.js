@@ -14,6 +14,10 @@ var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 var userInput = document.getElementById('search');
 var searchButton = document.getElementById('search-button');
 
+// testing
+var drinksArray;
+var drinksObj;
+
 //populates liquor cabinet on page load from local storage
 initialize();
 
@@ -174,6 +178,10 @@ function searchIngredient(userChoice) {
 //helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
   var numDrinks = response.drinks.length;
+  // going to be used to get the nutrition information
+  drinksArray = [];
+  drinksObj = {};
+
   for (var i = 1; i <= 3; ++i) {
     var randomDrinkIndex = Math.floor(Math.random() * numDrinks);
     document.getElementById('drink' + i).textContent =
@@ -186,7 +194,14 @@ function displayDrink(response) {
     document.getElementById('drink-container-2').classList.remove('hide');
     document.getElementById('drink-container-3').classList.remove('hide');
     makeDrinks(drinkId, i);
+
+    // get the name of the drink, push it to an object
+    drinksObj[i] = {};
+    drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
+
+  // pushes the drinksObj to the drinksArray
+  drinksArray.push(drinksObj);
 }
 
 //next AJAX call uses drink ID to get recipe and ingredients, helper function called to parse ingredients
@@ -236,6 +251,10 @@ function fillIngredients(response, currentDrink) {
   document.getElementById(
     'ingredients' + currentDrink
   ).innerHTML = ingredientToAdd;
+
+  // sets the drinksArray object key and values
+  drinksArray[0][currentDrink]['ingredients'] = ingredients;
+  drinksArray[0][currentDrink]['measures'] = measures;
 }
 
 // creates a 'make drink' button for each drink container
@@ -285,6 +304,10 @@ function makeDrinks(whichDrink, containerNumber) {
         drinkIngredients.style.display = 'block';
       }
     });
+}
+
+function nutritionInformation() {
+  console.log(drinksArray);
 }
 
 //control user input
