@@ -119,6 +119,11 @@ document
           console.log(response);
           if (response.drinks !== 'None Found') {
             liquorCabinet.push(currentItem);
+            localStorage.setItem(
+              'liquor-cabinet',
+              JSON.stringify(liquorCabinet)
+            );
+            initialize();
           } else {
             alert('That is not a real product!');
           }
@@ -127,8 +132,6 @@ document
       xmlhttp.open('GET', queryURL, true);
       xmlhttp.send();
     }
-    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-    initialize();
   });
 
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
