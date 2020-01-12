@@ -332,3 +332,12 @@ function makeDrinks(whichDrink, containerNumber) {
 function nutritionInformation() {
   console.log(drinksArray);
 }
+
+document
+  .getElementById('information-containerSM')
+  .addEventListener('click', function(event) {
+    if (event.target.matches('img')) {
+      document.getElementById('recipe' + '1' + 'SM').classList.toggle('hide');
+      document.getElementById('image' + '1' + 'SM').classList.toggle('opaque');
+    }
+  });

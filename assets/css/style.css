@@ -122,3 +122,7 @@ html, body {
   z-index: 10;
   padding: 15px;
 }
+
+.opaque {
+  opacity: 50%;
+}
