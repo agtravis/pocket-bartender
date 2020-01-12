@@ -309,6 +309,12 @@ for (var i = 1; i <= 3; ++i) {
       console.log(event.toElement.textContent);
       openModal(event.toElement.textContent);
     });
+  document
+    .getElementById('ingredients' + [i] + 'SM')
+    .addEventListener('click', function(event) {
+      console.log(event.toElement.textContent);
+      openModal(event.toElement.textContent);
+    });
 }
 
 // creates a 'make drink' button for each drink container
