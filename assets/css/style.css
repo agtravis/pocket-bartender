@@ -86,3 +86,53 @@ body {
 .make-drink-button {
   margin-left: 10px;
 }
+
+/* responsive ingredients */
+@media screen and (max-width: 480px) {
+  #information-container, #left-nav {
+    display: none;
+  }
+  .cocktail-pic {
+    max-width: 260px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  #information-containerSM {
+    display: none;
+  }
+}
+
+#information-containerSM {}
+
+.cocktail-pic-container {
+  position: relative;
+  max-width: 260px;
+  border-radius: 20px;
+  border: 3px solid black;
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  overflow: scroll;
+}
+
+.cocktail-pic-container img {
+  max-width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.cocktail-pic-container p {
+  position: absolute;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.opaque {
+  opacity: 25%;
+}
