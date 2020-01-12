@@ -88,6 +88,8 @@ html, body {
   }
   .cocktail-pic {
     max-width: 260px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -95,4 +97,28 @@ html, body {
   #information-containerSM {
     display: none;
   }
+}
+
+.cocktail-pic-container {
+  position: relative;
+  max-width: 260px;
+  border-radius: 20px;
+  border: 3px solid black;
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.cocktail-pic-container img {
+  max-width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cocktail-pic-container p {
+  position: absolute;
+  z-index: 10;
+  padding: 15px;
 }
