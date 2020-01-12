@@ -15,6 +15,9 @@ const apiHeaders = {
   'x-remote-user-id': userID
 };
 
+var calsArray;
+var total;
+
 // init();
 
 // function init() {
@@ -22,6 +25,8 @@ const apiHeaders = {
 // }
 
 function nutritionTest(keyword) {
+  calsArray = [];
+  
   axios({
     method: 'get',
     url: searchEndpoint + search + keyword + searchParameters,
@@ -41,8 +46,19 @@ function nutritionTest(keyword) {
         headers: apiHeaders
       }).then(function(nutritionResponse) {
         // console.log(nutritionResponse);
-        console.log('calories: ' + nutritionResponse.data.foods[0].nf_calories);
+        var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
+        calsArray.push(ingredientCals);
+        console.log('calories: ' + ingredientCals);
       });
     })
     .catch(err => console.log(err));
+}
+
+// calculates the calories in the drink
+function totalCals(arr) {
+  total = arr.reduce(function(a,b) {
+    return a + b;
+  });
+  console.log(total);
+  return total;
 }
