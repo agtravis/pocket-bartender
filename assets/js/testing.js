@@ -205,6 +205,7 @@ function displayDrink(response) {
       .getElementById('image' + i + 'SM')
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
+    document.getElementById('information-containerSM').classList.remove('hide');
     document.getElementById('drink-container-1').classList.remove('hide');
     document.getElementById('drink-container-2').classList.remove('hide');
     document.getElementById('drink-container-3').classList.remove('hide');
