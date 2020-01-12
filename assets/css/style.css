@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   min-height: 100vh;
 }
 
@@ -24,7 +23,21 @@ body {
   padding-top: 10px;
 }
 
-#liquor-cabinet img {
+#liquor-cabinetSM {
+  display: flex;
+  background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
+  border: 10px solid coral;
+  width: 90%;
+  margin: 10px auto;
+  height: 100px;
+  overflow: scroll;
+}
+
+#liquor-cabinetSM img {
+  width: 50px;
+}
+
+#liquor-cabinet img, #liquor-cabinetSM img {
   cursor: pointer;
 }
 
@@ -96,9 +109,9 @@ body {
 }
 
 /* responsive ingredients */
+
 @media screen and (max-width: 480px) {
-  #information-container,
-  #left-nav {
+  #information-container, #left-nav {
     display: none;
   }
   .cocktail-pic {
@@ -109,18 +122,16 @@ body {
 }
 
 @media screen and (min-width: 481px) {
-  #information-containerSM,
-  #top-nav-row {
+  #information-containerSM, #top-nav-row {
     display: none;
   }
 }
 
 #top-nav {
-  height: 100px;
+  height: fit-content;
 }
 
-#information-containerSM {
-}
+#information-containerSM {}
 
 .cocktail-pic-container {
   position: relative;
