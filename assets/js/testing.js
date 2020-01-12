@@ -85,6 +85,15 @@ document
       openModal(elementName);
     }
   });
+document
+  .getElementById('liquor-cabinetSM')
+  .addEventListener('click', function(event) {
+    var element = event.target;
+    if (element.matches('img')) {
+      var elementName = element.id.slice(8);
+      openModal(elementName);
+    }
+  });
 
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
