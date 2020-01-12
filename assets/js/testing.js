@@ -346,13 +346,6 @@ function makeDrinks(whichDrink, containerNumber) {
     });
 }
 
-<<<<<<< HEAD
-//control user input
-
-//handle 404
-
-//control length of array/size of cabinet?
-=======
 function nutritionInformation() {
   console.log(drinksArray);
 }
@@ -377,4 +370,3 @@ document
       }
     }
   });
->>>>>>> master
