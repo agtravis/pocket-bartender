@@ -3,6 +3,12 @@ body {
   min-height: 100vh;
 }
 
+#header {
+  height: 120px;
+  display: flex;
+  align-items: center;
+}
+
 #content {
   display: flex;
   flex-wrap: wrap;
@@ -89,7 +95,8 @@ body {
 
 /* responsive ingredients */
 @media screen and (max-width: 480px) {
-  #information-container, #left-nav {
+  #information-container,
+  #left-nav {
     display: none;
   }
   .cocktail-pic {
@@ -100,12 +107,18 @@ body {
 }
 
 @media screen and (min-width: 481px) {
-  #information-containerSM {
+  #information-containerSM,
+  #top-nav-row {
     display: none;
   }
 }
 
-#information-containerSM {}
+#top-nav {
+  height: 100px;
+}
+
+#information-containerSM {
+}
 
 .cocktail-pic-container {
   position: relative;
