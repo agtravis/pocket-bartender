@@ -332,13 +332,12 @@ function makeDrinks(whichDrink, containerNumber) {
         'drink-container-' + containerNumber
       ).childNodes[1].textContent;
       var getIngredients = drinksArray[0][containerNumber].ingredients;
-      // nutritionTest(drinkName);
 
       if (getDrinkName === drinkName) {
         console.log(getIngredients);
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
-          nutritionTest(ingredientsKeyword);
+          // nutritionTest(ingredientsKeyword);
         }
       } else {
         console.log('false');
@@ -357,9 +356,9 @@ function makeDrinks(whichDrink, containerNumber) {
     });
 }
 
-function nutritionInformation() {
-  console.log(drinksArray);
-}
+// function nutritionInformation() {
+//   console.log(drinksArray);
+// }
 
 document
   .getElementById('information-containerSM')
