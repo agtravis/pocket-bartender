@@ -65,6 +65,7 @@ function initialize() {
 //displays visual representation of the liquor cabinet array
 function renderLiquorCabinet() {
   document.getElementById('liquor-cabinet').innerHTML = '';
+  document.getElementById('liquor-cabinetSM').innerHTML = '';
   for (var i = 0; i < liquorCabinet.length; ++i) {
     var newImage = document.createElement('img');
     newImage.setAttribute('src', liquorImageLinks[i]);
