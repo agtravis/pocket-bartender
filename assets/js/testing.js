@@ -336,23 +336,20 @@ function nutritionInformation() {
 document
   .getElementById('information-containerSM')
   .addEventListener('click', function(event) {
-    if (event.target.matches('img')) {
+    console.log(event.target);
+    var i = event.target.id;
+    i = i.charAt(5);
+    if (event.target.matches('img') || event.target.matches('p')) {
       if (
-        document
-          .getElementById('recipe' + '1' + 'SM')
-          .className.includes('hide')
+        document.getElementById('recipe' + i + 'SM').className.includes('hide')
       ) {
-        document.getElementById('recipe' + '1' + 'SM').classList.remove('hide');
-        document.getElementById('image' + '1' + 'SM').classList.add('opaque');
+        document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+        document.getElementById('image' + i + 'SM').classList.add('opaque');
       } else if (
-        !document
-          .getElementById('recipe' + '1' + 'SM')
-          .className.includes('hide')
+        !document.getElementById('recipe' + i + 'SM').className.includes('hide')
       ) {
-        document.getElementById('recipe' + '1' + 'SM').classList.add('hide');
-        document
-          .getElementById('image' + '1' + 'SM')
-          .classList.remove('opaque');
+        document.getElementById('recipe' + i + 'SM').classList.add('hide');
+        document.getElementById('image' + i + 'SM').classList.remove('opaque');
       }
     }
   });
