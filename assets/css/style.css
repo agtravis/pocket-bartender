@@ -99,6 +99,8 @@ html, body {
   }
 }
 
+#information-containerSM {}
+
 .cocktail-pic-container {
   position: relative;
   max-width: 260px;
@@ -108,6 +110,7 @@ html, body {
   margin: 0;
   display: flex;
   align-items: center;
+  overflow: scroll;
 }
 
 .cocktail-pic-container img {
@@ -115,14 +118,13 @@ html, body {
   border: none;
   padding: 0;
   margin: 0;
+  z-index: 10;
 }
 
 .cocktail-pic-container p {
   position: absolute;
-  z-index: -1;
   padding: 15px;
   font-weight: bold;
-  overflow: scroll;
 }
 
 .opaque {
