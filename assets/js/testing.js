@@ -36,6 +36,11 @@ userInput.addEventListener('keyup', function(event) {
     openModal(userInput.value);
   }
 });
+document.getElementById('searchSM').addEventListener('keyup', function(event) {
+  if (event.key === 'Enter') {
+    openModal(document.getElementById('searchSM').value);
+  }
+});
 
 //the function that fills the array from local storage
 function initialize() {
