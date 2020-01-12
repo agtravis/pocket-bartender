@@ -337,7 +337,22 @@ document
   .getElementById('information-containerSM')
   .addEventListener('click', function(event) {
     if (event.target.matches('img')) {
-      document.getElementById('recipe' + '1' + 'SM').classList.toggle('hide');
-      document.getElementById('image' + '1' + 'SM').classList.toggle('opaque');
+      if (
+        document
+          .getElementById('recipe' + '1' + 'SM')
+          .className.includes('hide')
+      ) {
+        document.getElementById('recipe' + '1' + 'SM').classList.remove('hide');
+        document.getElementById('image' + '1' + 'SM').classList.add('opaque');
+      } else if (
+        !document
+          .getElementById('recipe' + '1' + 'SM')
+          .className.includes('hide')
+      ) {
+        document.getElementById('recipe' + '1' + 'SM').classList.add('hide');
+        document
+          .getElementById('image' + '1' + 'SM')
+          .classList.remove('opaque');
+      }
     }
   });
