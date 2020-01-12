@@ -15,7 +15,7 @@
 
   <nav class="blue-grey darken-3" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo"><b>Liquor Cabinet</b></a>
+      <a id="logo-container" href="#" class="brand-logo center"><b>Liquor Cabinet</b></a>
     </div>
   </nav>
 
@@ -24,7 +24,7 @@
     <div class="row" id="content">
       <div class="col s3 green lighten-2" id="left-nav">
         <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
-        <input type="text" id="search" placeholder="search by ingredient" value="vodka" />
+        <input type="text" id="search" placeholder="search by ingredient" />
 
         <button class="btn waves-effect waves-light" type="submit" id="search-button" name="action">Submit
           <i class="material-icons right">send</i>
@@ -40,36 +40,71 @@
             <button id="status-out-button">Yes, I would like to add</button>
             <button id="display-info">Display info</button>
             <button id="cancel-button">Cancel</button>
-        </div>
+          </div>
         </div>
         <!-- <img id="bookshelf-image" src="assets/potential-bookshelves/bookcase.png"> -->
 
       </div>
+      <!-- fullscreen -->
       <div class="col s8 offset-s1" id="information-container">
         <!-- each drink has a name, recipe, list of ingredients, and image -->
-        <div class="section" id="drink-container-1">
+        <div class="section hide" id="drink-container-1">
           <p id="drink1"></p>
           <p id="recipe1"></p>
           <div id="ingredients1"></div>
-          <img class="section responsive-img" id="image1" src="" />
+          <img class="section cocktail-pic" id="image1" src="" />
           <!-- testing here -->
           <button class="hide">make this drink</button>
         </div>
-  
-        <div class="section" id="drink-container-2">
+
+        <div class="section hide" id="drink-container-2">
           <p id="drink2"></p>
           <p id="recipe2"></p>
           <div id="ingredients2"></div>
-          <img class="section responsive-img" id="image2" src="" />
+          <img class="section cocktail-pic" id="image2" src="" />
         </div>
-  
-        <div class="section" id="drink-container-3">
+
+        <div class="section hide" id="drink-container-3">
           <p id="drink3"></p>
           <p id="recipe3"></p>
           <div id="ingredients3"></div>
-          <img class="section responsive-img" id="image3" src="" />
+          <img class="section cocktail-pic" id="image3" src="" />
         </div>
       </div>
+
+      <!--mobile screen-->
+      <div class="col s8 offset-s1" id="information-containerSM">
+        <!-- each drink has a name, recipe, list of ingredients, and image -->
+        <div class="section" id="drink-container-1SM">
+          <p id="drink1SM"></p>
+          <div id="ingredients1SM"></div>
+          <div class="cocktail-pic-container">
+            <p id="recipe1SM" class="hide"></p>
+          <img class="section cocktail-pic" id="image1SM" src="" />
+          </div>
+          <!-- testing here -->
+          <button class="hide">make this drink</button>
+        </div>
+
+        <div class="section" id="drink-container-2SM">
+          <p id="drink2SM"></p>
+          <div id="ingredients2SM"></div>
+          <div class="cocktail-pic-container">
+            <p id="recipe2SM" class="hide"></p>
+          <img class="section cocktail-pic" id="image2SM" src="" />
+          </div>
+        </div>
+
+        <div class="section" id="drink-container-3SM">
+          <p id="drink3SM"></p>
+          <div id="ingredients3SM"></div>
+          <div class="cocktail-pic-container">
+            <p id="recipe3SM" class="hide"></p>
+          <img class="section cocktail-pic" id="image3SM" src="" />
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -110,7 +145,7 @@
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="assets/js/testing.js"></script>
   <script type="text/javascript" src="assets/js/nutrition.js"></script>
 </body>

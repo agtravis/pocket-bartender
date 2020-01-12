@@ -78,19 +78,25 @@ document
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
 function openModal(item) {
-  currentItem = item;
-  if (liquorCabinet.includes(item)) {
-    document.getElementById('status-in-text').classList.remove('hide');
-    document.getElementById('status-in-button').classList.remove('hide');
-    document.getElementById('status-out-text').classList.add('hide');
-    document.getElementById('status-out-button').classList.add('hide');
-  } else {
-    document.getElementById('status-in-text').classList.add('hide');
-    document.getElementById('status-in-button').classList.add('hide');
-    document.getElementById('status-out-text').classList.remove('hide');
-    document.getElementById('status-out-button').classList.remove('hide');
+  if (item) {
+    item = item.toLowerCase();
+    item = item.trim();
+    currentItem = item;
+    console.log(currentItem);
+    document.getElementById('search').value = '';
+    if (liquorCabinet.includes(item)) {
+      document.getElementById('status-in-text').classList.remove('hide');
+      document.getElementById('status-in-button').classList.remove('hide');
+      document.getElementById('status-out-text').classList.add('hide');
+      document.getElementById('status-out-button').classList.add('hide');
+    } else {
+      document.getElementById('status-in-text').classList.add('hide');
+      document.getElementById('status-in-button').classList.add('hide');
+      document.getElementById('status-out-text').classList.remove('hide');
+      document.getElementById('status-out-button').classList.remove('hide');
+    }
+    document.getElementById('modal').classList.remove('hide');
   }
-  document.getElementById('modal').classList.remove('hide');
 }
 
 //if the user ran out, this removes it from local storage and hence the cabinet
@@ -109,10 +115,27 @@ document
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
     if (!liquorCabinet.includes(currentItem)) {
-      liquorCabinet.push(currentItem);
+      var queryURL = apiaddress + 'filter.php?i=' + currentItem;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          console.log(response);
+          if (response.drinks !== 'None Found') {
+            liquorCabinet.push(currentItem);
+            localStorage.setItem(
+              'liquor-cabinet',
+              JSON.stringify(liquorCabinet)
+            );
+            initialize();
+          } else {
+            alert('That is not a real product!');
+          }
+        }
+      };
+      xmlhttp.open('GET', queryURL, true);
+      xmlhttp.send();
     }
-    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-    initialize();
   });
 
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
@@ -126,6 +149,12 @@ document.getElementById('cancel-button').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
 });
 
+// var drinkContainers = [
+//   document.getElementById('drink-container-1'),
+//   document.getElementById('drink-container-2'),
+//   document.getElementById('drink-container-3')
+// ];
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
   var userIngredient = userChoice;
@@ -134,7 +163,12 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      displayDrink(response);
+      console.log(response);
+      if (response.drinks === 'None Found') {
+        alert('none');
+      } else {
+        displayDrink(response);
+      }
     }
   };
   xmlhttp.open('GET', queryURL, true);
@@ -152,10 +186,18 @@ function displayDrink(response) {
     var randomDrinkIndex = Math.floor(Math.random() * numDrinks);
     document.getElementById('drink' + i).textContent =
       response.drinks[randomDrinkIndex].strDrink;
+    document.getElementById('drink' + i + 'SM').textContent =
+      response.drinks[randomDrinkIndex].strDrink;
     document
       .getElementById('image' + i)
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
+    document
+      .getElementById('image' + i + 'SM')
+      .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
+    document.getElementById('drink-container-1').classList.remove('hide');
+    document.getElementById('drink-container-2').classList.remove('hide');
+    document.getElementById('drink-container-3').classList.remove('hide');
     makeDrinks(drinkId, i);
 
     // get the name of the drink, push it to an object
@@ -176,6 +218,8 @@ function getRecipe(drinkId, i) {
       var response = JSON.parse(this.responseText);
       document.getElementById('recipe' + i).textContent =
         response.drinks[0].strInstructions;
+      document.getElementById('recipe' + i + 'SM').textContent =
+        response.drinks[0].strInstructions;
       fillIngredients(response, i);
     }
   };
@@ -188,12 +232,16 @@ function getRecipe(drinkId, i) {
 //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
 function fillIngredients(response, currentDrink) {
   var ingredients = [];
+  var ingredientsWithSpanHTML = [];
   for (var i = 1; i <= 15; ++i) {
     var indexString = i.toString();
     var newIngredient = 'response.drinks[0].strIngredient' + indexString;
     var newIng = eval(newIngredient);
     if (newIng !== null) {
       ingredients.push(newIng);
+      ingredientsWithSpanHTML.push(
+        '<span class="clickable-ingredient">' + newIng + '</span>'
+      );
     }
   }
   var measures = [];
@@ -208,16 +256,28 @@ function fillIngredients(response, currentDrink) {
     }
   }
   var ingredientToAdd = '';
-  for (var j = 0; j < ingredients.length; ++j) {
-    ingredientToAdd += measures[j] + ' ' + ingredients[j] + '<br>';
+  for (var j = 0; j < ingredientsWithSpanHTML.length; ++j) {
+    ingredientToAdd += measures[j] + ' ' + ingredientsWithSpanHTML[j] + '<br>';
   }
   document.getElementById(
     'ingredients' + currentDrink
+  ).innerHTML = ingredientToAdd;
+  document.getElementById(
+    'ingredients' + currentDrink + 'SM'
   ).innerHTML = ingredientToAdd;
 
   // sets the drinksArray object key and values
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
+}
+
+for (var i = 1; i <= 3; ++i) {
+  document
+    .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      console.log(event.toElement.textContent);
+      openModal(event.toElement.textContent);
+    });
 }
 
 // creates a 'make drink' button for each drink container
@@ -238,7 +298,7 @@ function makeDrinks(whichDrink, containerNumber) {
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
-  drinkBtn.setAttribute('class', 'btn');
+  drinkBtn.setAttribute('class', 'btn make-drink-button');
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
@@ -286,8 +346,35 @@ function makeDrinks(whichDrink, containerNumber) {
     });
 }
 
+<<<<<<< HEAD
 //control user input
 
 //handle 404
 
 //control length of array/size of cabinet?
+=======
+function nutritionInformation() {
+  console.log(drinksArray);
+}
+
+document
+  .getElementById('information-containerSM')
+  .addEventListener('click', function(event) {
+    console.log(event.target);
+    var i = event.target.id;
+    i = i.charAt(5);
+    if (event.target.matches('img') || event.target.matches('p')) {
+      if (
+        document.getElementById('recipe' + i + 'SM').className.includes('hide')
+      ) {
+        document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+        document.getElementById('image' + i + 'SM').classList.add('opaque');
+      } else if (
+        !document.getElementById('recipe' + i + 'SM').className.includes('hide')
+      ) {
+        document.getElementById('recipe' + i + 'SM').classList.add('hide');
+        document.getElementById('image' + i + 'SM').classList.remove('opaque');
+      }
+    }
+  });
+>>>>>>> master
