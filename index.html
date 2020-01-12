@@ -33,6 +33,18 @@
       </div>
     </div>
 
+    
+    <div id="modal" class="hide">
+      <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
+      <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
+      <div id="modal-buttons">
+        <button id="status-in-button" class="hide">Yes, I ran out</button>
+        <button id="status-out-button">Yes, I would like to add</button>
+        <button id="display-info">Display info</button>
+        <button id="cancel-button">Cancel</button>
+      </div>
+    </div>
+
     <div class="row" id="content">
       <div class="col s3 green lighten-2" id="left-nav">
         <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
@@ -43,16 +55,6 @@
         </button>
         <button class="btn" id="nutrition-test-button">Nutrition</button>
         <div id="liquor-cabinet">
-        </div>
-        <div id="modal" class="hide">
-          <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
-          <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
-          <div id="modal-buttons">
-            <button id="status-in-button" class="hide">Yes, I ran out</button>
-            <button id="status-out-button">Yes, I would like to add</button>
-            <button id="display-info">Display info</button>
-            <button id="cancel-button">Cancel</button>
-          </div>
         </div>
         <!-- <img id="bookshelf-image" src="assets/potential-bookshelves/bookcase.png"> -->
 

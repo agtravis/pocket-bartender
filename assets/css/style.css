@@ -37,9 +37,11 @@ body {
   height: 200px;
   width: 350px;
   background-color: blueviolet;
-  position: absolute;
-  left: 50px;
-  top: 400px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: -175px;
   display: flex;
   flex-direction: column;
   justify-content: center;

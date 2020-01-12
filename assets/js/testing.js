@@ -25,6 +25,11 @@ initialize();
 searchButton.addEventListener('click', function() {
   openModal(userInput.value);
 });
+document
+  .getElementById('search-buttonSM')
+  .addEventListener('click', function() {
+    openModal(document.getElementById('searchSM').value);
+  });
 
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
