@@ -70,6 +70,7 @@ function renderLiquorCabinet() {
     newImage.setAttribute('src', liquorImageLinks[i]);
     newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
     document.getElementById('liquor-cabinet').appendChild(newImage);
+    document.getElementById('liquor-cabinetSM').appendChild(newImage);
   }
 }
 
