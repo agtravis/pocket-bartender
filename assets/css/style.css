@@ -66,7 +66,6 @@ html, body {
   margin: 0 15px;
 }
 
-
 .clickable-ingredient {
   cursor: pointer;
 }
@@ -81,4 +80,19 @@ html, body {
 
 .make-drink-button {
   margin-left: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  #information-container, #left-nav {
+    display: none;
+  }
+  .cocktail-pic {
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  #information-containerSM {
+    display: none;
+  }
 }

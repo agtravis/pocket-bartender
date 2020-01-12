@@ -186,8 +186,13 @@ function displayDrink(response) {
     var randomDrinkIndex = Math.floor(Math.random() * numDrinks);
     document.getElementById('drink' + i).textContent =
       response.drinks[randomDrinkIndex].strDrink;
+    document.getElementById('drink' + i + 'SM').textContent =
+      response.drinks[randomDrinkIndex].strDrink;
     document
       .getElementById('image' + i)
+      .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
+    document
+      .getElementById('image' + i + 'SM')
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
     document.getElementById('drink-container-1').classList.remove('hide');
@@ -212,6 +217,8 @@ function getRecipe(drinkId, i) {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
       document.getElementById('recipe' + i).textContent =
+        response.drinks[0].strInstructions;
+      document.getElementById('recipe' + i + 'SM').textContent =
         response.drinks[0].strInstructions;
       fillIngredients(response, i);
     }
@@ -254,6 +261,9 @@ function fillIngredients(response, currentDrink) {
   }
   document.getElementById(
     'ingredients' + currentDrink
+  ).innerHTML = ingredientToAdd;
+  document.getElementById(
+    'ingredients' + currentDrink + 'SM'
   ).innerHTML = ingredientToAdd;
 
   // sets the drinksArray object key and values
