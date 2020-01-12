@@ -13,13 +13,37 @@
 
 <body>
 
-  <nav class="blue-grey darken-3" role="navigation">
+  <nav class="blue-grey darken-3" role="navigation" id="header">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo center"><b>Liquor Cabinet</b></a>
     </div>
   </nav>
 
   <div class="my-wrapper">
+
+    <!--top nav, small screen only-->
+    <div class="row" id="top-nav-row">
+      <div class="col s12 green lighten-2" id="top-nav">
+        <input type="text" id="searchSM" placeholder="search by ingredient">
+        <button class="btn waves-effect waves-light" type="submit" id="search-buttonSM" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+        <button class="btn" id="nutrition-test-buttonSM">Nutrition</button>
+
+      </div>
+    </div>
+
+    
+    <div id="modal" class="hide">
+      <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
+      <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
+      <div id="modal-buttons">
+        <button id="status-in-button" class="hide">Yes, I ran out</button>
+        <button id="status-out-button">Yes, I would like to add</button>
+        <button id="display-info">Display info</button>
+        <button id="cancel-button">Cancel</button>
+      </div>
+    </div>
 
     <div class="row" id="content">
       <div class="col s3 green lighten-2" id="left-nav">
@@ -31,16 +55,6 @@
         </button>
         <button class="btn" id="nutrition-test-button">Nutrition</button>
         <div id="liquor-cabinet">
-        </div>
-        <div id="modal" class="hide">
-          <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
-          <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
-          <div id="modal-buttons">
-            <button id="status-in-button" class="hide">Yes, I ran out</button>
-            <button id="status-out-button">Yes, I would like to add</button>
-            <button id="display-info">Display info</button>
-            <button id="cancel-button">Cancel</button>
-          </div>
         </div>
         <!-- <img id="bookshelf-image" src="assets/potential-bookshelves/bookcase.png"> -->
 
@@ -72,8 +86,8 @@
         </div>
       </div>
 
-      <!--mobile screen-->
-      <div class="col s8 offset-s1" id="information-containerSM">
+      <!--small screen-->
+      <div class="col s8 offset-s2 hide" id="information-containerSM">
         <!-- each drink has a name, recipe, list of ingredients, and image -->
         <div class="section" id="drink-container-1SM">
           <p id="drink1SM"></p>
