@@ -71,7 +71,10 @@ function renderLiquorCabinet() {
     newImage.setAttribute('src', liquorImageLinks[i]);
     newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
     document.getElementById('liquor-cabinet').appendChild(newImage);
-    document.getElementById('liquor-cabinetSM').appendChild(newImage);
+    var newImageSM = document.createElement('img');
+    newImageSM.setAttribute('src', liquorImageLinks[i]);
+    newImageSM.setAttribute('id', 'cabinet-' + liquorCabinet[i] + 'SM');
+    document.getElementById('liquor-cabinetSM').appendChild(newImageSM);
   }
 }
 
@@ -103,9 +106,15 @@ function openModal(item) {
     item = item.toLowerCase();
     item = item.trim();
     currentItem = item;
-    console.log(currentItem);
+    if (
+      currentItem.charAt(currentItem.length - 1) === 'm' &&
+      currentItem.charAt(currentItem.length - 2) === 's'
+    ) {
+      currentItem = currentItem.slice(0, length - 2);
+      console.log(currentItem);
+    }
     document.getElementById('search').value = '';
-    if (liquorCabinet.includes(item)) {
+    if (liquorCabinet.includes(currentItem)) {
       document.getElementById('status-in-text').classList.remove('hide');
       document.getElementById('status-in-button').classList.remove('hide');
       document.getElementById('status-out-text').classList.add('hide');
