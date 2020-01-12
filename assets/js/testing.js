@@ -125,6 +125,8 @@ function openModal(item) {
       document.getElementById('status-out-text').classList.remove('hide');
       document.getElementById('status-out-button').classList.remove('hide');
     }
+    document.getElementById('information-container').classList.add('opaque');
+    document.getElementById('information-containerSM').classList.add('opaque');
     document.getElementById('modal').classList.remove('hide');
   }
 }
@@ -134,6 +136,10 @@ document
   .getElementById('status-in-button')
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
+    document.getElementById('information-container').classList.remove('opaque');
+    document
+      .getElementById('information-containerSM')
+      .classList.remove('opaque');
     liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
     localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
     initialize();
@@ -144,6 +150,10 @@ document
   .getElementById('status-out-button')
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
+    document.getElementById('information-container').classList.remove('opaque');
+    document
+      .getElementById('information-containerSM')
+      .classList.remove('opaque');
     if (!liquorCabinet.includes(currentItem)) {
       var queryURL = apiaddress + 'filter.php?i=' + currentItem;
       var xmlhttp = new XMLHttpRequest();
@@ -171,19 +181,17 @@ document
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
 document.getElementById('display-info').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
+  document.getElementById('information-container').classList.remove('opaque');
+  document.getElementById('information-containerSM').classList.remove('opaque');
   searchIngredient(currentItem);
 });
 
 //just closes the modal without doing anything
 document.getElementById('cancel-button').addEventListener('click', function() {
+  document.getElementById('information-container').classList.remove('opaque');
+  document.getElementById('information-containerSM').classList.remove('opaque');
   document.getElementById('modal').classList.add('hide');
 });
-
-// var drinkContainers = [
-//   document.getElementById('drink-container-1'),
-//   document.getElementById('drink-container-2'),
-//   document.getElementById('drink-container-3')
-// ];
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
