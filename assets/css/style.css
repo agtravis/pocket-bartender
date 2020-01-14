@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   min-height: 100vh;
 }
 
@@ -24,7 +23,21 @@ body {
   padding-top: 10px;
 }
 
-#liquor-cabinet img {
+#liquor-cabinetSM {
+  display: flex;
+  background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
+  border: 10px solid coral;
+  width: 90%;
+  margin: 10px auto;
+  height: 100px;
+  overflow: scroll;
+}
+
+#liquor-cabinetSM img {
+  width: 50px;
+}
+
+#liquor-cabinet img, #liquor-cabinetSM img {
   cursor: pointer;
 }
 
@@ -34,6 +47,7 @@ body {
 
 #modal {
   border: 5px solid goldenrod;
+  box-shadow: 0 0 25px 5px black;
   height: 200px;
   width: 350px;
   background-color: blueviolet;
@@ -47,6 +61,7 @@ body {
   justify-content: center;
   text-align: center;
   border-radius: 10px;
+  z-index: 20;
 }
 
 .cocktail-pic {
@@ -96,9 +111,9 @@ body {
 }
 
 /* responsive ingredients */
+
 @media screen and (max-width: 480px) {
-  #information-container,
-  #left-nav {
+  #information-container, #left-nav {
     display: none;
   }
   .cocktail-pic {
@@ -109,17 +124,13 @@ body {
 }
 
 @media screen and (min-width: 481px) {
-  #information-containerSM,
-  #top-nav-row {
+  #information-containerSM, #top-nav-row {
     display: none;
   }
 }
 
 #top-nav {
-  height: 100px;
-}
-
-#information-containerSM {
+  height: fit-content;
 }
 
 .cocktail-pic-container {

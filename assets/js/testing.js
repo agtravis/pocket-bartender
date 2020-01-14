@@ -65,11 +65,16 @@ function initialize() {
 //displays visual representation of the liquor cabinet array
 function renderLiquorCabinet() {
   document.getElementById('liquor-cabinet').innerHTML = '';
+  document.getElementById('liquor-cabinetSM').innerHTML = '';
   for (var i = 0; i < liquorCabinet.length; ++i) {
     var newImage = document.createElement('img');
     newImage.setAttribute('src', liquorImageLinks[i]);
     newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
     document.getElementById('liquor-cabinet').appendChild(newImage);
+    var newImageSM = document.createElement('img');
+    newImageSM.setAttribute('src', liquorImageLinks[i]);
+    newImageSM.setAttribute('id', 'cabinet-' + liquorCabinet[i] + 'SM');
+    document.getElementById('liquor-cabinetSM').appendChild(newImageSM);
   }
 }
 
@@ -77,6 +82,15 @@ function renderLiquorCabinet() {
 //evaluated by slicing the dynamically generated id name
 document
   .getElementById('liquor-cabinet')
+  .addEventListener('click', function(event) {
+    var element = event.target;
+    if (element.matches('img')) {
+      var elementName = element.id.slice(8);
+      openModal(elementName);
+    }
+  });
+document
+  .getElementById('liquor-cabinetSM')
   .addEventListener('click', function(event) {
     var element = event.target;
     if (element.matches('img')) {
@@ -92,9 +106,15 @@ function openModal(item) {
     item = item.toLowerCase();
     item = item.trim();
     currentItem = item;
-    console.log(currentItem);
+    if (
+      currentItem.charAt(currentItem.length - 1) === 'm' &&
+      currentItem.charAt(currentItem.length - 2) === 's'
+    ) {
+      currentItem = currentItem.slice(0, length - 2);
+      console.log(currentItem);
+    }
     document.getElementById('search').value = '';
-    if (liquorCabinet.includes(item)) {
+    if (liquorCabinet.includes(currentItem)) {
       document.getElementById('status-in-text').classList.remove('hide');
       document.getElementById('status-in-button').classList.remove('hide');
       document.getElementById('status-out-text').classList.add('hide');
@@ -105,6 +125,8 @@ function openModal(item) {
       document.getElementById('status-out-text').classList.remove('hide');
       document.getElementById('status-out-button').classList.remove('hide');
     }
+    document.getElementById('information-container').classList.add('opaque');
+    document.getElementById('information-containerSM').classList.add('opaque');
     document.getElementById('modal').classList.remove('hide');
   }
 }
@@ -114,6 +136,10 @@ document
   .getElementById('status-in-button')
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
+    document.getElementById('information-container').classList.remove('opaque');
+    document
+      .getElementById('information-containerSM')
+      .classList.remove('opaque');
     liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
     localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
     initialize();
@@ -124,6 +150,10 @@ document
   .getElementById('status-out-button')
   .addEventListener('click', function() {
     document.getElementById('modal').classList.add('hide');
+    document.getElementById('information-container').classList.remove('opaque');
+    document
+      .getElementById('information-containerSM')
+      .classList.remove('opaque');
     if (!liquorCabinet.includes(currentItem)) {
       var queryURL = apiaddress + 'filter.php?i=' + currentItem;
       var xmlhttp = new XMLHttpRequest();
@@ -151,19 +181,17 @@ document
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
 document.getElementById('display-info').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hide');
+  document.getElementById('information-container').classList.remove('opaque');
+  document.getElementById('information-containerSM').classList.remove('opaque');
   searchIngredient(currentItem);
 });
 
 //just closes the modal without doing anything
 document.getElementById('cancel-button').addEventListener('click', function() {
+  document.getElementById('information-container').classList.remove('opaque');
+  document.getElementById('information-containerSM').classList.remove('opaque');
   document.getElementById('modal').classList.add('hide');
 });
-
-// var drinkContainers = [
-//   document.getElementById('drink-container-1'),
-//   document.getElementById('drink-container-2'),
-//   document.getElementById('drink-container-3')
-// ];
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
@@ -281,6 +309,12 @@ function fillIngredients(response, currentDrink) {
 for (var i = 1; i <= 3; ++i) {
   document
     .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      console.log(event.toElement.textContent);
+      openModal(event.toElement.textContent);
+    });
+  document
+    .getElementById('ingredients' + [i] + 'SM')
     .addEventListener('click', function(event) {
       console.log(event.toElement.textContent);
       openModal(event.toElement.textContent);
