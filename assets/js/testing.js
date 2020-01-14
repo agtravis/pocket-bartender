@@ -188,7 +188,6 @@ function searchIngredient(userChoice) {
 //helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
   var numDrinks = response.drinks.length;
-  // going to be used to get the nutrition information
   drinksArray = [];
   drinksObj = {};
 
@@ -212,12 +211,9 @@ function displayDrink(response) {
 
     makeDrinks(drinkId, i);
 
-    // get the name of the drink, push it to an object
     drinksObj[i] = {};
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
-
-  // pushes the drinksObj to the drinksArray
   drinksArray.push(drinksObj);
 }
 
@@ -278,7 +274,6 @@ function fillIngredients(response, currentDrink) {
     'ingredients' + currentDrink + 'SM'
   ).innerHTML = ingredientToAdd;
 
-  // sets the drinksArray object key and values
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
 }
