@@ -301,6 +301,7 @@ function makeDrinks(whichDrink, containerNumber) {
   var drinkIngredients = document.getElementById(
     'ingredients' + containerNumber
   );
+  var drinkCalories = document.getElementById('calories' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
@@ -308,6 +309,7 @@ function makeDrinks(whichDrink, containerNumber) {
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
+  drinkCalories.style.display = 'none';
 
   if (document.getElementById('make-drink-' + containerNumber) === null) {
     drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
@@ -328,26 +330,21 @@ function makeDrinks(whichDrink, containerNumber) {
       ).childNodes[1].textContent;
       var getIngredients = drinksArray[0][containerNumber].ingredients;
 
-      // calsArray.length = 0;
-
       if (getDrinkName === drinkName) {
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
           nutritionTest(ingredientsKeyword, containerNumber);
         }
-      } 
+      }
 
-      console.log('testing at 340: ' + calsArray);
-
-      if (
-        drinkRecipes.style.display === 'block' &&
-        drinkIngredients.style.display === 'block'
-      ) {
+      if (drinkRecipes.style.display === 'block' && drinkIngredients.style.display === 'block' && drinkCalories.style.display === 'block') {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
+        drinkCalories.style.display = 'none';
       } else {
         drinkRecipes.style.display = 'block';
         drinkIngredients.style.display = 'block';
+        drinkCalories.style.display = 'block';
       }
     });
 }
@@ -375,10 +372,15 @@ document
 
 function testAdd() {
   const total = calsArray.reduce((a, b) => a + b, 0);
-  var totalCalories = Math.round(total);
-  console.log(totalCalories);
+  totalCalories = Math.round(total);
+  // console.log('test add function' + totalCalories);
+  return totalCalories;
 
-  var caloriesP = document.createElement('p');
-  caloriesP.textContent = 'Estimated calories: ' + totalCalories;
-  document.getElementById('ingredients' + 1).appendChild(caloriesP);
+  // var caloriesP = document.createElement('p');
+  // caloriesP.textContent = 'Estimated calories: ' + totalCalories;
+  // document.getElementById('ingredients' + 1).appendChild(caloriesP);
 }
+
+// var calsP = document.createElement('p');
+// calsP.textContent = totalCalories;
+// document.getElementById('ingredients1').appendChild(calsP);

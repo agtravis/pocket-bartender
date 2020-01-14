@@ -17,9 +17,12 @@ const apiHeaders = {
   'x-remote-user-id': userID
 };
 
-var calsArray = [];
+var calsArray;
+var totalCals;
 
 function nutritionTest(keyword, ingredientsNumber) {
+  calsArray = [];
+
   axios({
     method: 'get',
     url: searchEndpoint + search + keyword + searchParameters,
@@ -34,12 +37,16 @@ function nutritionTest(keyword, ingredientsNumber) {
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
-      }).then(function(nutritionResponse) {
-        // console.log(nutritionResponse);
-        var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
-        calsArray.push(ingredientCals);
-        // console.log(calsArray);
-      });
+      })
+        .then(function(nutritionResponse) {
+          var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
+          calsArray.push(ingredientCals);
+          var arraySum = calsArray.reduce((a, b) => a + b, 0);
+          var totalCals = Math.round(arraySum);
+          document.getElementById('calories' + ingredientsNumber).textContent = 'Estimated calories: ' + totalCals;
+          
+          // return calsArray;
+        })
     })
     .catch(err => console.log(err));
 }
