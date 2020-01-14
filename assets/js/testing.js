@@ -321,6 +321,11 @@ for (var i = 1; i <= 3; ++i) {
     });
 }
 
+// creates the MAKE DRINK button and hides the drink information aside from the picture
+// calls getRecipe()
+// calls getNutrition() on click, which gets the value for calories for each ingredient (if it can find it)
+// totals up the calories and adds it to the DOM
+// clicking the button again will hide the elements
 function makeDrinks(whichDrink, containerNumber) {
   var drinkBtn = document.createElement('button');
   var drinkContainer = document.getElementById(
