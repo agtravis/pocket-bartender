@@ -328,7 +328,7 @@ function makeDrinks(whichDrink, containerNumber) {
       ).childNodes[1].textContent;
       var getIngredients = drinksArray[0][containerNumber].ingredients;
 
-      calsArray.length = 0;
+      // calsArray.length = 0;
 
       if (getDrinkName === drinkName) {
         for (var i = 0; i < getIngredients.length; i++) {
@@ -337,7 +337,7 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       } 
 
-      console.log(calsArray);
+      console.log('testing at 340: ' + calsArray);
 
       if (
         drinkRecipes.style.display === 'block' &&

@@ -1,5 +1,7 @@
-const nutritionAppID = 'd308f986';
-const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
+// const nutritionAppID = 'd308f986';
+const nutritionAppID = 'a2375bfd';
+// const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
+const nutritionAPIKey = '987371f8354b28cf2ef7c6815009c509';
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
