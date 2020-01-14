@@ -216,7 +216,6 @@ function searchIngredient(userChoice) {
 //helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
   var numDrinks = response.drinks.length;
-  // going to be used to get the nutrition information
   drinksArray = [];
   drinksObj = {};
 
@@ -237,14 +236,12 @@ function displayDrink(response) {
     document.getElementById('drink-container-1').classList.remove('hide');
     document.getElementById('drink-container-2').classList.remove('hide');
     document.getElementById('drink-container-3').classList.remove('hide');
+
     makeDrinks(drinkId, i);
 
-    // get the name of the drink, push it to an object
     drinksObj[i] = {};
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
-
-  // pushes the drinksObj to the drinksArray
   drinksArray.push(drinksObj);
 }
 
@@ -305,7 +302,6 @@ function fillIngredients(response, currentDrink) {
     'ingredients' + currentDrink + 'SM'
   ).innerHTML = ingredientToAdd;
 
-  // sets the drinksArray object key and values
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
 }
@@ -325,12 +321,11 @@ for (var i = 1; i <= 3; ++i) {
     });
 }
 
-// creates a 'make drink' button for each drink container
-// calls getRecipe function
-// then gives each button a click function that will display the ingredients and instructions
-// if the button already exists (i.e. when choosing a new liquor and getting new recipes)
-// it removes the button and creates a new one so that they do not repeat
-// clicking the button again will hide it
+// creates the MAKE DRINK button and hides the drink information aside from the picture
+// calls getRecipe()
+// calls getNutrition() on click, which gets the value for calories for each ingredient (if it can find it)
+// totals up the calories and adds it to the DOM
+// clicking the button again will hide the elements
 function makeDrinks(whichDrink, containerNumber) {
   var drinkBtn = document.createElement('button');
   var drinkContainer = document.getElementById(
@@ -340,6 +335,7 @@ function makeDrinks(whichDrink, containerNumber) {
   var drinkIngredients = document.getElementById(
     'ingredients' + containerNumber
   );
+  var drinkCalories = document.getElementById('calories' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
@@ -347,6 +343,7 @@ function makeDrinks(whichDrink, containerNumber) {
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
+  drinkCalories.style.display = 'none';
 
   if (document.getElementById('make-drink-' + containerNumber) === null) {
     drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
@@ -368,31 +365,23 @@ function makeDrinks(whichDrink, containerNumber) {
       var getIngredients = drinksArray[0][containerNumber].ingredients;
 
       if (getDrinkName === drinkName) {
-        console.log(getIngredients);
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
-          // nutritionTest(ingredientsKeyword);
+          nutritionTest(ingredientsKeyword, containerNumber);
         }
-      } else {
-        console.log('false');
       }
 
-      if (
-        drinkRecipes.style.display === 'block' &&
-        drinkIngredients.style.display === 'block'
-      ) {
+      if (drinkRecipes.style.display === 'block' && drinkIngredients.style.display === 'block' && drinkCalories.style.display === 'block') {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
+        drinkCalories.style.display = 'none';
       } else {
         drinkRecipes.style.display = 'block';
         drinkIngredients.style.display = 'block';
+        drinkCalories.style.display = 'block';
       }
     });
 }
-
-// function nutritionInformation() {
-//   console.log(drinksArray);
-// }
 
 document
   .getElementById('information-containerSM')
