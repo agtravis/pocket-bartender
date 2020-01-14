@@ -389,31 +389,36 @@ function makeDrinks(whichDrink, containerNumber) {
   document
     .getElementById('image' + containerNumber + 'SM')
     .addEventListener('click', function() {
-      var drinkName = drinksArray[0][containerNumber].name;
-      var getDrinkName = document.getElementById(
-        'drink-container-' + containerNumber
-      ).childNodes[1].textContent;
-      var getIngredients = drinksArray[0][containerNumber].ingredients;
-
-      if (getDrinkName === drinkName) {
-        for (var i = 0; i < getIngredients.length; i++) {
-          var ingredientsKeyword = getIngredients[i];
-          nutritionTest(ingredientsKeyword, containerNumber);
-        }
-      }
-
       if (
-        drinkRecipes.style.display === 'block' &&
-        drinkIngredients.style.display === 'block' &&
-        drinkCalories.style.display === 'block'
+        !document.getElementById('calories' + containerNumber + 'SM')
+          .textContent
       ) {
-        drinkRecipes.style.display = 'none';
-        drinkIngredients.style.display = 'none';
-        drinkCalories.style.display = 'none';
-      } else {
-        drinkRecipes.style.display = 'block';
-        drinkIngredients.style.display = 'block';
-        drinkCalories.style.display = 'block';
+        var drinkName = drinksArray[0][containerNumber].name;
+        var getDrinkName = document.getElementById(
+          'drink-container-' + containerNumber
+        ).childNodes[1].textContent;
+        var getIngredients = drinksArray[0][containerNumber].ingredients;
+
+        if (getDrinkName === drinkName) {
+          for (var i = 0; i < getIngredients.length; i++) {
+            var ingredientsKeyword = getIngredients[i];
+            nutritionTest(ingredientsKeyword, containerNumber);
+          }
+        }
+
+        if (
+          drinkRecipes.style.display === 'block' &&
+          drinkIngredients.style.display === 'block' &&
+          drinkCalories.style.display === 'block'
+        ) {
+          drinkRecipes.style.display = 'none';
+          drinkIngredients.style.display = 'none';
+          drinkCalories.style.display = 'none';
+        } else {
+          drinkRecipes.style.display = 'block';
+          drinkIngredients.style.display = 'block';
+          drinkCalories.style.display = 'block';
+        }
       }
     });
 }
