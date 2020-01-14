@@ -367,7 +367,11 @@ function makeDrinks(whichDrink, containerNumber) {
       if (getDrinkName === drinkName) {
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
-          nutritionTest(ingredientsKeyword, containerNumber);
+          if (
+            !document.getElementById('calories' + containerNumber).textContent
+          ) {
+            nutritionTest(ingredientsKeyword, containerNumber);
+          }
         }
       }
 
