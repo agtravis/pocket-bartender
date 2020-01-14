@@ -18,7 +18,6 @@ const apiHeaders = {
 };
 
 var calsArray;
-var totalCals;
 
 function nutritionTest(keyword, ingredientsNumber) {
   calsArray = [];
@@ -44,8 +43,6 @@ function nutritionTest(keyword, ingredientsNumber) {
           var arraySum = calsArray.reduce((a, b) => a + b, 0);
           var totalCals = Math.round(arraySum);
           document.getElementById('calories' + ingredientsNumber).textContent = 'Estimated calories: ' + totalCals;
-          
-          // return calsArray;
         })
     })
     .catch(err => console.log(err));
