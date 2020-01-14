@@ -369,18 +369,3 @@ document
       }
     }
   });
-
-function testAdd() {
-  const total = calsArray.reduce((a, b) => a + b, 0);
-  totalCalories = Math.round(total);
-  // console.log('test add function' + totalCalories);
-  return totalCalories;
-
-  // var caloriesP = document.createElement('p');
-  // caloriesP.textContent = 'Estimated calories: ' + totalCalories;
-  // document.getElementById('ingredients' + 1).appendChild(caloriesP);
-}
-
-// var calsP = document.createElement('p');
-// calsP.textContent = totalCalories;
-// document.getElementById('ingredients1').appendChild(calsP);
