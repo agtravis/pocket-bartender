@@ -209,6 +209,7 @@ function displayDrink(response) {
     document.getElementById('drink-container-1').classList.remove('hide');
     document.getElementById('drink-container-2').classList.remove('hide');
     document.getElementById('drink-container-3').classList.remove('hide');
+
     makeDrinks(drinkId, i);
 
     // get the name of the drink, push it to an object
@@ -291,12 +292,6 @@ for (var i = 1; i <= 3; ++i) {
     });
 }
 
-// creates a 'make drink' button for each drink container
-// calls getRecipe function
-// then gives each button a click function that will display the ingredients and instructions
-// if the button already exists (i.e. when choosing a new liquor and getting new recipes)
-// it removes the button and creates a new one so that they do not repeat
-// clicking the button again will hide it
 function makeDrinks(whichDrink, containerNumber) {
   var drinkBtn = document.createElement('button');
   var drinkContainer = document.getElementById(
@@ -333,15 +328,16 @@ function makeDrinks(whichDrink, containerNumber) {
       ).childNodes[1].textContent;
       var getIngredients = drinksArray[0][containerNumber].ingredients;
 
+      calsArray.length = 0;
+
       if (getDrinkName === drinkName) {
-        console.log(getIngredients);
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
-          // nutritionTest(ingredientsKeyword);
+          nutritionTest(ingredientsKeyword, containerNumber);
         }
-      } else {
-        console.log('false');
-      }
+      } 
+
+      console.log(calsArray);
 
       if (
         drinkRecipes.style.display === 'block' &&
@@ -355,10 +351,6 @@ function makeDrinks(whichDrink, containerNumber) {
       }
     });
 }
-
-// function nutritionInformation() {
-//   console.log(drinksArray);
-// }
 
 document
   .getElementById('information-containerSM')
@@ -380,3 +372,13 @@ document
       }
     }
   });
+
+function testAdd() {
+  const total = calsArray.reduce((a, b) => a + b, 0);
+  var totalCalories = Math.round(total);
+  console.log(totalCalories);
+
+  var caloriesP = document.createElement('p');
+  caloriesP.textContent = 'Estimated calories: ' + totalCalories;
+  document.getElementById('ingredients' + 1).appendChild(caloriesP);
+}
