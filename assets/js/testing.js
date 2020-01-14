@@ -371,7 +371,11 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
-      if (drinkRecipes.style.display === 'block' && drinkIngredients.style.display === 'block' && drinkCalories.style.display === 'block') {
+      if (
+        drinkRecipes.style.display === 'block' &&
+        drinkIngredients.style.display === 'block' &&
+        drinkCalories.style.display === 'block'
+      ) {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
         drinkCalories.style.display = 'none';
