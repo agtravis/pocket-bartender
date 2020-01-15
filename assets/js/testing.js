@@ -384,7 +384,11 @@ function makeDrinks(whichDrink, containerNumber) {
       if (getDrinkName === drinkName) {
         for (var i = 0; i < getIngredients.length; i++) {
           var ingredientsKeyword = getIngredients[i];
-          nutritionTest(ingredientsKeyword, containerNumber);
+          if (
+            !document.getElementById('calories' + containerNumber).textContent
+          ) {
+            nutritionTest(ingredientsKeyword, containerNumber);
+          }
         }
       }
 
@@ -402,12 +406,47 @@ function makeDrinks(whichDrink, containerNumber) {
         drinkCalories.style.display = 'block';
       }
     });
+
+  document
+    .getElementById('image' + containerNumber + 'SM')
+    .addEventListener('click', function() {
+      if (
+        !document.getElementById('calories' + containerNumber + 'SM')
+          .textContent
+      ) {
+        var drinkName = drinksArray[0][containerNumber].name;
+        var getDrinkName = document.getElementById(
+          'drink-container-' + containerNumber
+        ).childNodes[1].textContent;
+        var getIngredients = drinksArray[0][containerNumber].ingredients;
+
+        if (getDrinkName === drinkName) {
+          for (var i = 0; i < getIngredients.length; i++) {
+            var ingredientsKeyword = getIngredients[i];
+            nutritionTest(ingredientsKeyword, containerNumber);
+          }
+        }
+
+        if (
+          drinkRecipes.style.display === 'block' &&
+          drinkIngredients.style.display === 'block' &&
+          drinkCalories.style.display === 'block'
+        ) {
+          drinkRecipes.style.display = 'none';
+          drinkIngredients.style.display = 'none';
+          drinkCalories.style.display = 'none';
+        } else {
+          drinkRecipes.style.display = 'block';
+          drinkIngredients.style.display = 'block';
+          drinkCalories.style.display = 'block';
+        }
+      }
+    });
 }
 
 document
   .getElementById('information-containerSM')
   .addEventListener('click', function(event) {
-    console.log(event.target);
     var i = event.target.id;
     i = i.charAt(5);
     if (event.target.matches('img') || event.target.matches('p')) {

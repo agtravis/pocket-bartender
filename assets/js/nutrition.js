@@ -1,7 +1,8 @@
 // const nutritionAppID = 'd308f986';
-const nutritionAppID = 'a2375bfd';
+const nutritionAppID = /*'a2375bfd'*/ '252a4b13';
 // const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
-const nutritionAPIKey = '987371f8354b28cf2ef7c6815009c509';
+const nutritionAPIKey =
+  /*'987371f8354b28cf2ef7c6815009c509'*/ 'a9ba2319cc4056e4a82957b93300f146';
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
@@ -36,14 +37,17 @@ function nutritionTest(keyword, ingredientsNumber) {
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
-      })
-        .then(function(nutritionResponse) {
-          var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
-          calsArray.push(ingredientCals);
-          var arraySum = calsArray.reduce((a, b) => a + b, 0);
-          var totalCals = Math.round(arraySum);
-          document.getElementById('calories' + ingredientsNumber).textContent = 'Estimated calories: ' + totalCals;
-        })
+      }).then(function(nutritionResponse) {
+        var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
+        calsArray.push(ingredientCals);
+        var arraySum = calsArray.reduce((a, b) => a + b, 0);
+        var totalCals = Math.round(arraySum);
+        document.getElementById('calories' + ingredientsNumber).textContent =
+          'Estimated calories: ' + totalCals;
+        document.getElementById(
+          'calories' + ingredientsNumber + 'SM'
+        ).textContent = 'Estimated calories: ' + totalCals;
+      });
     })
     .catch(err => console.log(err));
 }
