@@ -1,3 +1,5 @@
+//test comment
+
 //variables stored are the key, the starting point for the query URL
 
 var liquorCabinet = [];
@@ -228,6 +230,12 @@ function searchIngredient(userChoice) {
 
 //helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
+  document.getElementById('drink-container-1').classList.add('hide');
+  document.getElementById('drink-container-2').classList.add('hide');
+  document.getElementById('drink-container-3').classList.add('hide');
+  document.getElementById('drink-container-1SM').classList.add('hide');
+  document.getElementById('drink-container-2SM').classList.add('hide');
+  document.getElementById('drink-container-3SM').classList.add('hide');
   var numDrinks = response.drinks.length;
   drinksArray = [];
   drinksObj = {};
@@ -245,10 +253,6 @@ function displayDrink(response) {
       .getElementById('image' + i + 'SM')
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
-    informationContainerSM.classList.remove('hide');
-    document.getElementById('drink-container-1').classList.remove('hide');
-    document.getElementById('drink-container-2').classList.remove('hide');
-    document.getElementById('drink-container-3').classList.remove('hide');
 
     makeDrinks(drinkId, i);
 
@@ -256,6 +260,42 @@ function displayDrink(response) {
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
   drinksArray.push(drinksObj);
+  // informationContainerSM.classList.remove('hide');
+  document.getElementById('drink-container-1').classList.remove('hide');
+  if (
+    document.getElementById('drink2').textContent !==
+      document.getElementById('drink1').textContent &&
+    document.getElementById('drink2').textContent !==
+      document.getElementById('drink3').textContent
+  ) {
+    document.getElementById('drink-container-2').classList.remove('hide');
+  }
+  if (
+    document.getElementById('drink3').textContent !==
+      document.getElementById('drink1').textContent &&
+    document.getElementById('drink3').textContent !==
+      document.getElementById('drink2').textContent
+  ) {
+    document.getElementById('drink-container-3').classList.remove('hide');
+  }
+
+  document.getElementById('drink-container-1SM').classList.remove('hide');
+  if (
+    document.getElementById('drink2SM').textContent !==
+      document.getElementById('drink1SM').textContent &&
+    document.getElementById('drink2SM').textContent !==
+      document.getElementById('drink3SM').textContent
+  ) {
+    document.getElementById('drink-container-2SM').classList.remove('hide');
+  }
+  if (
+    document.getElementById('drink3SM').textContent !==
+      document.getElementById('drink1SM').textContent &&
+    document.getElementById('drink3SM').textContent !==
+      document.getElementById('drink2SM').textContent
+  ) {
+    document.getElementById('drink-container-3SM').classList.remove('hide');
+  }
 }
 
 //next AJAX call uses drink ID to get recipe and ingredients, helper function called to parse ingredients

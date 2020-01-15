@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   min-height: 100vh;
 }
 
@@ -38,8 +37,7 @@ body {
   width: 50px;
 }
 
-#liquor-cabinet img,
-#liquor-cabinetSM img {
+#liquor-cabinet img, #liquor-cabinetSM img {
   cursor: pointer;
 }
 
@@ -95,7 +93,7 @@ body {
 
 #information-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 @media screen and (max-width: 1150px) {
@@ -134,8 +132,7 @@ body {
 /* responsive ingredients */
 
 @media screen and (max-width: 480px) {
-  #information-container,
-  #left-nav {
+  #information-container, #left-nav {
     display: none;
   }
   .cocktail-pic {
@@ -146,8 +143,7 @@ body {
 }
 
 @media screen and (min-width: 481px) {
-  #information-containerSM,
-  #top-nav-row {
+  #information-containerSM, #top-nav-row {
     display: none;
   }
 }

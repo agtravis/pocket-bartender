@@ -1,10 +1,25 @@
+var credentials = [
+  {
+    name: 'Justin',
+    nutritionAppID: 'a2375bfd',
+    nutritionAPIKey: '987371f8354b28cf2ef7c6815009c509'
+  },
+  {
+    name: 'George',
+    nutritionAppID: '252a4b13',
+    nutritionAPIKey: 'a9ba2319cc4056e4a82957b93300f146'
+  },
+  {
+    name: 'Ari',
+    nutritionAppID: '5fab1244',
+    nutritionAPIKey: '688319b423dfbd88de75a14ebaa97a7d'
+  }
+];
+
 // const nutritionAppID = 'd308f986';
-// const nutritionAppID = /*'a2375bfd'*/ '252a4b13';
-const nutritionAppID = '5fab1244';
-const nutritionAPIKey = '688319b423dfbd88de75a14ebaa97a7d';
+const nutritionAppID = credentials[2].nutritionAppID;
 // const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
-// const nutritionAPIKey =
-/*'987371f8354b28cf2ef7c6815009c509'*/ ('a9ba2319cc4056e4a82957b93300f146');
+const nutritionAPIKey = credentials[2].nutritionAPIKey;
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
