@@ -48,7 +48,7 @@ body {
 }
 
 #modal {
-  border: 5px solid goldenrod;
+  border: 5px goldenrod;
   box-shadow: 0 0 25px 5px black;
   height: 200px;
   width: 350px;
@@ -184,4 +184,16 @@ body {
 
 .opaque {
   opacity: 25%;
+}
+
+#drink1 {
+  font-weight: bold;
+}
+
+#drink2 {
+  font-weight: bold;
+}
+
+#drink3 {
+  font-weight: bold;
 }
