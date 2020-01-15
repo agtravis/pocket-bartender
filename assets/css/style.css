@@ -64,6 +64,25 @@ html, body {
   z-index: 20;
 }
 
+#modal-alert {
+  border: 5px solid goldenrod;
+  box-shadow: 0 0 25px 5px black;
+  height: 200px;
+  width: 350px;
+  background-color: blueviolet;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: -175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  z-index: 20;
+}
+
 .cocktail-pic {
   max-width: 200px;
   border-radius: 20px;

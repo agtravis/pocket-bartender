@@ -99,6 +99,23 @@ document
     }
   });
 
+function modalAlert(message) {
+  document.getElementById('modal-message').textContent = message;
+  document.getElementById('modal-alert').classList.remove('hide');
+  document.getElementById('information-container').classList.add('opaque');
+  document.getElementById('information-containerSM').classList.add('opaque');
+}
+
+document
+  .getElementById('modal-alert-button')
+  .addEventListener('click', function() {
+    document.getElementById('modal-alert').classList.add('hide');
+    document.getElementById('information-container').classList.remove('opaque');
+    document
+      .getElementById('information-containerSM')
+      .classList.remove('opaque');
+  });
+
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
 function openModal(item) {
@@ -169,7 +186,7 @@ document
             );
             initialize();
           } else {
-            alert('That is not a real product!');
+            modalAlert('That is not a real product!');
           }
         }
       };
@@ -203,7 +220,7 @@ function searchIngredient(userChoice) {
       var response = JSON.parse(this.responseText);
       console.log(response);
       if (response.drinks === 'None Found') {
-        alert('none');
+        modalAlert('None Found');
       } else {
         displayDrink(response);
       }
@@ -371,7 +388,11 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
-      if (drinkRecipes.style.display === 'block' && drinkIngredients.style.display === 'block' && drinkCalories.style.display === 'block') {
+      if (
+        drinkRecipes.style.display === 'block' &&
+        drinkIngredients.style.display === 'block' &&
+        drinkCalories.style.display === 'block'
+      ) {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
         drinkCalories.style.display = 'none';
