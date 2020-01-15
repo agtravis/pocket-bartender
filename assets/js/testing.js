@@ -1,3 +1,5 @@
+//test comment
+
 //variables stored are the key, the starting point for the query URL
 
 var liquorCabinet = [];
