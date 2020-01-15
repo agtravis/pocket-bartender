@@ -1,8 +1,8 @@
-// const nutritionAppID = 'd308f986';
-const nutritionAppID = /*'a2375bfd'*/ '252a4b13';
-// const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
-const nutritionAPIKey =
-  /*'987371f8354b28cf2ef7c6815009c509'*/ 'a9ba2319cc4056e4a82957b93300f146';
+const nutritionAppID = 'd308f986';
+// const nutritionAppID = /*'a2375bfd'*/ '252a4b13';
+const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
+// const nutritionAPIKey =
+//   /*'987371f8354b28cf2ef7c6815009c509'*/ 'a9ba2319cc4056e4a82957b93300f146';
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
@@ -18,36 +18,65 @@ const apiHeaders = {
   'x-remote-user-id': userID
 };
 
+// get the measures of the ingredients, calculate calories that way....
+// i.e. 5 oz of Whiskey, find the serving size of the calorie information, compute data
+// this is a stretch goal
+
 var calsArray;
 
 function nutritionTest(keyword, ingredientsNumber) {
   calsArray = [];
+  console.log(keyword);
 
   axios({
     method: 'get',
     url: searchEndpoint + search + keyword + searchParameters,
     headers: apiHeaders
-  })
-    .then(function(searchResponse) {
-      var nutritionQuery = searchResponse.data.common[0].food_name;
-      var getNutritionOf = { query: nutritionQuery };
+  }).then(function(searchResponse) {
+    var nutritionQuery = searchResponse.data.common[0].food_name;
 
+    var getNutritionOf = {
+      query: nutritionQuery
+    };
+    console.log(searchResponse);
+
+    console.log(nutritionQuery);
+    console.log(getNutritionOf);
+
+    if (keyword.toLowerCase() === nutritionQuery) {
       axios({
         method: 'post',
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
-      }).then(function(nutritionResponse) {
-        var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
-        calsArray.push(ingredientCals);
-        var arraySum = calsArray.reduce((a, b) => a + b, 0);
-        var totalCals = Math.round(arraySum);
-        document.getElementById('calories' + ingredientsNumber).textContent =
-          'Estimated calories: ' + totalCals;
-        document.getElementById(
-          'calories' + ingredientsNumber + 'SM'
-        ).textContent = 'Estimated calories: ' + totalCals;
-      });
-    })
-    .catch(err => console.log(err));
+      })
+        .then(function(nutritionResponse) {
+          console.log(nutritionResponse);
+
+          var servingUnit = nutritionResponse.data.foods[0].serving_unit;
+          var servingSize = nutritionResponse.data.foods[0].serving_qty;
+          var alternativeUnits = nutritionResponse.data.foods[0].alt_measures;
+
+          console.log(servingUnit);
+          console.log(servingSize);
+          console.log(alternativeUnits);
+
+          var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
+
+          console.log(ingredientCals);
+
+          calsArray.push(ingredientCals);
+          var arraySum = calsArray.reduce((a, b) => a + b, 0);
+          var totalCals = Math.round(arraySum);
+          document.getElementById('calories' + ingredientsNumber).textContent =
+            'Estimated calories: ' + totalCals;
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).textContent = 'Estimated calories: ' + totalCals;
+        })
+        .catch(err => console.log(err));
+    } else {
+      console.log(keyword + ' not found');
+    }
+  });
 }
