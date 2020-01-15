@@ -14,7 +14,6 @@ var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 var userInput = document.getElementById('search');
 var searchButton = document.getElementById('search-button');
 
-// testing
 var drinksArray;
 var drinksObj;
 
@@ -307,6 +306,7 @@ function fillIngredients(response, currentDrink) {
     } else {
       measures.push('');
     }
+    console.log(measures);
   }
   var ingredientToAdd = '';
   for (var j = 0; j < ingredientsWithSpanHTML.length; ++j) {
