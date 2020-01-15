@@ -13,6 +13,22 @@ var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 //I have only stored 2 elements as variables. To clean up the code I can replace each 'document.getElementById' with variables
 var userInput = document.getElementById('search');
 var searchButton = document.getElementById('search-button');
+var searchButtonSM = document.getElementById('search-buttonSM');
+var userInputSM = document.getElementById('searchSM');
+var liquorCabinetDiv = document.getElementById('liquor-cabinet');
+var liquorCabinetDivSM = document.getElementById('liquor-cabinetSM');
+var modalMessage = document.getElementById('modal-message');
+var modalAlertElement = document.getElementById('modal-alert');
+var informationContainer = document.getElementById('information-container');
+var informationContainerSM = document.getElementById('information-containerSM');
+var modalAlertButton = document.getElementById('modal-alert-button');
+var statusInText = document.getElementById('status-in-text');
+var statusInButton = document.getElementById('status-in-button');
+var statusOutText = document.getElementById('status-out-text');
+var statusOutButton = document.getElementById('status-out-button');
+var modalElement = document.getElementById('modal');
+var displayInfoButton = document.getElementById('display-info');
+var cancelButton = document.getElementById('cancel-button');
 
 // testing
 var drinksArray;
@@ -25,20 +41,18 @@ initialize();
 searchButton.addEventListener('click', function() {
   openModal(userInput.value);
 });
-document
-  .getElementById('search-buttonSM')
-  .addEventListener('click', function() {
-    openModal(document.getElementById('searchSM').value);
-  });
+searchButtonSM.addEventListener('click', function() {
+  openModal(userInputSM.value);
+});
 
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     openModal(userInput.value);
   }
 });
-document.getElementById('searchSM').addEventListener('keyup', function(event) {
+userInputSM.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
-    openModal(document.getElementById('searchSM').value);
+    openModal(userInputSM.value);
   }
 });
 
@@ -64,57 +78,49 @@ function initialize() {
 
 //displays visual representation of the liquor cabinet array
 function renderLiquorCabinet() {
-  document.getElementById('liquor-cabinet').innerHTML = '';
-  document.getElementById('liquor-cabinetSM').innerHTML = '';
+  liquorCabinetDiv.innerHTML = '';
+  liquorCabinetDivSM.innerHTML = '';
   for (var i = 0; i < liquorCabinet.length; ++i) {
     var newImage = document.createElement('img');
     newImage.setAttribute('src', liquorImageLinks[i]);
     newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
-    document.getElementById('liquor-cabinet').appendChild(newImage);
+    liquorCabinetDiv.appendChild(newImage);
     var newImageSM = document.createElement('img');
     newImageSM.setAttribute('src', liquorImageLinks[i]);
     newImageSM.setAttribute('id', 'cabinet-' + liquorCabinet[i] + 'SM');
-    document.getElementById('liquor-cabinetSM').appendChild(newImageSM);
+    liquorCabinetDivSM.appendChild(newImageSM);
   }
 }
 
 //when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
 //evaluated by slicing the dynamically generated id name
-document
-  .getElementById('liquor-cabinet')
-  .addEventListener('click', function(event) {
-    var element = event.target;
-    if (element.matches('img')) {
-      var elementName = element.id.slice(8);
-      openModal(elementName);
-    }
-  });
-document
-  .getElementById('liquor-cabinetSM')
-  .addEventListener('click', function(event) {
-    var element = event.target;
-    if (element.matches('img')) {
-      var elementName = element.id.slice(8);
-      openModal(elementName);
-    }
-  });
+liquorCabinetDiv.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
+liquorCabinetDivSM.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
 
 function modalAlert(message) {
-  document.getElementById('modal-message').textContent = message;
-  document.getElementById('modal-alert').classList.remove('hide');
-  document.getElementById('information-container').classList.add('opaque');
-  document.getElementById('information-containerSM').classList.add('opaque');
+  modalMessage.textContent = message;
+  modalAlertElement.classList.remove('hide');
+  informationContainer.classList.add('opaque');
+  informationContainerSM.classList.add('opaque');
 }
 
-document
-  .getElementById('modal-alert-button')
-  .addEventListener('click', function() {
-    document.getElementById('modal-alert').classList.add('hide');
-    document.getElementById('information-container').classList.remove('opaque');
-    document
-      .getElementById('information-containerSM')
-      .classList.remove('opaque');
-  });
+modalAlertButton.addEventListener('click', function() {
+  modalAlertElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+});
 
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
@@ -130,84 +136,74 @@ function openModal(item) {
       currentItem = currentItem.slice(0, length - 2);
       console.log(currentItem);
     }
-    document.getElementById('search').value = '';
+    userInput.value = '';
+    userInputSM.value = '';
     if (liquorCabinet.includes(currentItem)) {
-      document.getElementById('status-in-text').classList.remove('hide');
-      document.getElementById('status-in-button').classList.remove('hide');
-      document.getElementById('status-out-text').classList.add('hide');
-      document.getElementById('status-out-button').classList.add('hide');
+      statusInText.classList.remove('hide');
+      statusInButton.classList.remove('hide');
+      statusOutText.classList.add('hide');
+      statusOutButton.classList.add('hide');
     } else {
-      document.getElementById('status-in-text').classList.add('hide');
-      document.getElementById('status-in-button').classList.add('hide');
-      document.getElementById('status-out-text').classList.remove('hide');
-      document.getElementById('status-out-button').classList.remove('hide');
+      statusInText.classList.add('hide');
+      statusInButton.classList.add('hide');
+      statusOutText.classList.remove('hide');
+      statusOutButton.classList.remove('hide');
     }
-    document.getElementById('information-container').classList.add('opaque');
-    document.getElementById('information-containerSM').classList.add('opaque');
-    document.getElementById('modal').classList.remove('hide');
+    informationContainer.classList.add('opaque');
+    informationContainerSM.classList.add('opaque');
+    modalElement.classList.remove('hide');
   }
 }
 
 //if the user ran out, this removes it from local storage and hence the cabinet
-document
-  .getElementById('status-in-button')
-  .addEventListener('click', function() {
-    document.getElementById('modal').classList.add('hide');
-    document.getElementById('information-container').classList.remove('opaque');
-    document
-      .getElementById('information-containerSM')
-      .classList.remove('opaque');
-    liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
-    localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-    initialize();
-  });
+statusInButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
+  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+  initialize();
+});
 
 //if the user adds to their cabinet, this function runs
-document
-  .getElementById('status-out-button')
-  .addEventListener('click', function() {
-    document.getElementById('modal').classList.add('hide');
-    document.getElementById('information-container').classList.remove('opaque');
-    document
-      .getElementById('information-containerSM')
-      .classList.remove('opaque');
-    if (!liquorCabinet.includes(currentItem)) {
-      var queryURL = apiaddress + 'filter.php?i=' + currentItem;
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          var response = JSON.parse(this.responseText);
-          console.log(response);
-          if (response.drinks !== 'None Found') {
-            liquorCabinet.push(currentItem);
-            localStorage.setItem(
-              'liquor-cabinet',
-              JSON.stringify(liquorCabinet)
-            );
-            initialize();
-          } else {
-            modalAlert('That is not a real product!');
-          }
+statusOutButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  if (!liquorCabinet.includes(currentItem)) {
+    var queryURL = apiaddress + 'filter.php?i=' + currentItem;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log(response);
+        if (response.drinks !== 'None Found') {
+          liquorCabinet.push(currentItem);
+          localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+          initialize();
+        } else {
+          modalAlert('That is not a real product!');
         }
-      };
-      xmlhttp.open('GET', queryURL, true);
-      xmlhttp.send();
-    }
-  });
+      }
+    };
+    xmlhttp.open('GET', queryURL, true);
+    xmlhttp.send();
+  }
+});
 
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
-document.getElementById('display-info').addEventListener('click', function() {
-  document.getElementById('modal').classList.add('hide');
-  document.getElementById('information-container').classList.remove('opaque');
-  document.getElementById('information-containerSM').classList.remove('opaque');
+displayInfoButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
   searchIngredient(currentItem);
 });
 
 //just closes the modal without doing anything
-document.getElementById('cancel-button').addEventListener('click', function() {
-  document.getElementById('information-container').classList.remove('opaque');
-  document.getElementById('information-containerSM').classList.remove('opaque');
-  document.getElementById('modal').classList.add('hide');
+cancelButton.addEventListener('click', function() {
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  modalElement.classList.add('hide');
 });
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
@@ -249,7 +245,7 @@ function displayDrink(response) {
       .getElementById('image' + i + 'SM')
       .setAttribute('src', response.drinks[randomDrinkIndex].strDrinkThumb);
     var drinkId = response.drinks[randomDrinkIndex].idDrink;
-    document.getElementById('information-containerSM').classList.remove('hide');
+    informationContainerSM.classList.remove('hide');
     document.getElementById('drink-container-1').classList.remove('hide');
     document.getElementById('drink-container-2').classList.remove('hide');
     document.getElementById('drink-container-3').classList.remove('hide');
@@ -444,22 +440,20 @@ function makeDrinks(whichDrink, containerNumber) {
     });
 }
 
-document
-  .getElementById('information-containerSM')
-  .addEventListener('click', function(event) {
-    var i = event.target.id;
-    i = i.charAt(5);
-    if (event.target.matches('img') || event.target.matches('p')) {
-      if (
-        document.getElementById('recipe' + i + 'SM').className.includes('hide')
-      ) {
-        document.getElementById('recipe' + i + 'SM').classList.remove('hide');
-        document.getElementById('image' + i + 'SM').classList.add('opaque');
-      } else if (
-        !document.getElementById('recipe' + i + 'SM').className.includes('hide')
-      ) {
-        document.getElementById('recipe' + i + 'SM').classList.add('hide');
-        document.getElementById('image' + i + 'SM').classList.remove('opaque');
-      }
+informationContainerSM.addEventListener('click', function(event) {
+  var i = event.target.id;
+  i = i.charAt(5);
+  if (event.target.matches('img') || event.target.matches('p')) {
+    if (
+      document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+      document.getElementById('image' + i + 'SM').classList.add('opaque');
+    } else if (
+      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.add('hide');
+      document.getElementById('image' + i + 'SM').classList.remove('opaque');
     }
-  });
+  }
+});
