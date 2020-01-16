@@ -33,6 +33,8 @@ var cancelButton = document.getElementById('cancel-button');
 //populates liquor cabinet on page load from local storage
 initialize();
 
+//EVENT LISTENERS
+
 //the modal opens whether the user hits ENTER or clicks the button, passing the input
 searchButton.addEventListener('click', function() {
   openModal(userInput.value);
@@ -40,7 +42,6 @@ searchButton.addEventListener('click', function() {
 searchButtonSM.addEventListener('click', function() {
   openModal(userInputSM.value);
 });
-
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     openModal(userInput.value);
@@ -105,6 +106,7 @@ statusOutButton.addEventListener('click', function() {
   }
 });
 
+//button to close custom alert pop up
 modalAlertButton.addEventListener('click', function() {
   modalAlertElement.classList.add('hide');
   informationContainer.classList.remove('opaque');
@@ -126,6 +128,7 @@ cancelButton.addEventListener('click', function() {
   modalElement.classList.add('hide');
 });
 
+//for loop add event listeners on ingredients list to be able to target words
 for (var i = 1; i <= 3; ++i) {
   document
     .getElementById('ingredients' + [i])
@@ -255,6 +258,10 @@ function searchIngredient(userChoice) {
 
 //helper function displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
+  for (var i = 1; i <= 3; ++i) {
+    document.getElementById('recipe' + i + 'SM').classList.add('hide');
+    document.getElementById('image' + i + 'SM').classList.remove('opaque');
+  }
   document.getElementById('drink-container-1').classList.add('hide');
   document.getElementById('drink-container-2').classList.add('hide');
   document.getElementById('drink-container-3').classList.add('hide');
