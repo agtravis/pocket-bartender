@@ -161,6 +161,8 @@ informationContainerSM.addEventListener('click', function(event) {
   }
 });
 
+//FUNCTION DECLARATIONS
+
 //fills the array from local storage (called on page load)
 function initialize() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
@@ -245,7 +247,6 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       if (response.drinks === 'None Found') {
         modalAlert('None Found');
       } else {
