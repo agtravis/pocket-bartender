@@ -142,6 +142,7 @@ for (var i = 1; i <= 3; ++i) {
     });
 }
 
+//toggles opacity on coasters to show recipe on click, accounts for paragraph obscuring image
 informationContainerSM.addEventListener('click', function(event) {
   var i = event.target.id;
   i = i.charAt(5);
@@ -160,7 +161,7 @@ informationContainerSM.addEventListener('click', function(event) {
   }
 });
 
-//the function that fills the array from local storage
+//fills the array from local storage (called on page load)
 function initialize() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
@@ -196,6 +197,7 @@ function renderLiquorCabinet() {
   }
 }
 
+//custom alert pop-up
 function modalAlert(message) {
   modalMessage.textContent = message;
   modalAlertElement.classList.remove('hide');
@@ -215,7 +217,6 @@ function openModal(item) {
       currentItem.charAt(currentItem.length - 2) === 's'
     ) {
       currentItem = currentItem.slice(0, length - 2);
-      console.log(currentItem);
     }
     userInput.value = '';
     userInputSM.value = '';
@@ -256,7 +257,7 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-//helper function displays drink name and image, uses drink ID to now call makeDrinks function
+//displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
   for (var i = 1; i <= 3; ++i) {
     document.getElementById('recipe' + i + 'SM').classList.add('hide');
@@ -290,7 +291,6 @@ function displayDrink(response) {
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
   drinksArray.push(drinksObj);
-  // informationContainerSM.classList.remove('hide');
   document.getElementById('drink-container-1').classList.remove('hide');
   if (
     document.getElementById('drink2').textContent !==
@@ -350,11 +350,12 @@ function getRecipe(drinkId, i) {
 //accounts for null values. condition is <=15 because each drink response has this many potential ingredients
 //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
 function fillIngredients(response, currentDrink) {
+  //VS CODE shows response here as not called but it is....
   var ingredients = [];
   var ingredientsWithSpanHTML = [];
   for (var i = 1; i <= 15; ++i) {
     var indexString = i.toString();
-    var newIngredient = 'response.drinks[0].strIngredient' + indexString;
+    var newIngredient = 'response.drinks[0].strIngredient' + indexString; //...here where it is evaluated from a string...
     var newIng = eval(newIngredient);
     if (newIng !== null) {
       ingredients.push(newIng);
@@ -366,7 +367,7 @@ function fillIngredients(response, currentDrink) {
   var measures = [];
   for (var k = 1; k <= 15; ++k) {
     var indexStringk = k.toString();
-    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk;
+    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk; //...and here
     var newMeas = eval(newMeasure);
     if (newMeas !== null) {
       measures.push(newMeas);
