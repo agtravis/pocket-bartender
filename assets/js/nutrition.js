@@ -61,6 +61,12 @@ function nutritionTest(keyword, ingredientsNumber) {
           console.log(servingSize);
           console.log(alternativeUnits);
 
+          console.log(drinksArray);
+
+          var measuresArray = drinksArray[0][ingredientsNumber].measures;
+          console.log(measuresArray);
+          // i want to get the measuring unit, match it to servingUnit
+          // then calculate actual calories by multiplying measure amount by servingSize
           var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
 
           console.log(ingredientCals);
@@ -77,6 +83,7 @@ function nutritionTest(keyword, ingredientsNumber) {
         .catch(err => console.log(err));
     } else {
       console.log(keyword + ' not found');
+      // add could not find nutrition information for keyword
     }
   });
 }
