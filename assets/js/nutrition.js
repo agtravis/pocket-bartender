@@ -17,7 +17,7 @@ var credentials = [
   {
     name: 'Bonus',
     nutritionAppID: 'd308f986',
-    nutritionAPIKey: '2d7ae686c06de5bd7f5b9300309bd166';
+    nutritionAPIKey: '2d7ae686c06de5bd7f5b9300309bd166'
   }
 ];
 const nutritionAppID = credentials[2].nutritionAppID;

@@ -1,13 +1,11 @@
-//test comment
-
 //variables stored are the key, the starting point for the query URL
-
 var liquorCabinet = [];
 var liquorImageLinks = [];
+var drinksArray;
+var drinksObj;
 
 // globally accessible current item - undefined on page load, defined as soon as it is needed, and changes
 var currentItem = '';
-
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 
@@ -32,10 +30,6 @@ var modalElement = document.getElementById('modal');
 var displayInfoButton = document.getElementById('display-info');
 var cancelButton = document.getElementById('cancel-button');
 
-// testing
-var drinksArray;
-var drinksObj;
-
 //populates liquor cabinet on page load from local storage
 initialize();
 
@@ -55,6 +49,111 @@ userInput.addEventListener('keyup', function(event) {
 userInputSM.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     openModal(userInputSM.value);
+  }
+});
+
+//when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
+//evaluated by slicing the dynamically generated id name
+liquorCabinetDiv.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
+liquorCabinetDivSM.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
+
+//if the user ran out, this removes it from local storage and hence the cabinet
+statusInButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
+  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+  initialize();
+});
+
+//if the user adds to their cabinet, this function runs
+statusOutButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  if (!liquorCabinet.includes(currentItem)) {
+    var queryURL = apiaddress + 'filter.php?i=' + currentItem;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log(response);
+        if (response.drinks !== 'None Found') {
+          liquorCabinet.push(currentItem);
+          localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+          initialize();
+        } else {
+          modalAlert('That is not a real product!');
+        }
+      }
+    };
+    xmlhttp.open('GET', queryURL, true);
+    xmlhttp.send();
+  }
+});
+
+modalAlertButton.addEventListener('click', function() {
+  modalAlertElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+});
+
+//regardless of inventory status, this is where the user chooses to display recipes/facts etc.
+displayInfoButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  searchIngredient(currentItem);
+});
+
+//just closes the modal without doing anything
+cancelButton.addEventListener('click', function() {
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  modalElement.classList.add('hide');
+});
+
+for (var i = 1; i <= 3; ++i) {
+  document
+    .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+  document
+    .getElementById('ingredients' + [i] + 'SM')
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+}
+
+informationContainerSM.addEventListener('click', function(event) {
+  var i = event.target.id;
+  i = i.charAt(5);
+  if (event.target.matches('img') || event.target.matches('p')) {
+    if (
+      document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+      document.getElementById('image' + i + 'SM').classList.add('opaque');
+    } else if (
+      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.add('hide');
+      document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    }
   }
 });
 
@@ -94,35 +193,12 @@ function renderLiquorCabinet() {
   }
 }
 
-//when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
-//evaluated by slicing the dynamically generated id name
-liquorCabinetDiv.addEventListener('click', function(event) {
-  var element = event.target;
-  if (element.matches('img')) {
-    var elementName = element.id.slice(8);
-    openModal(elementName);
-  }
-});
-liquorCabinetDivSM.addEventListener('click', function(event) {
-  var element = event.target;
-  if (element.matches('img')) {
-    var elementName = element.id.slice(8);
-    openModal(elementName);
-  }
-});
-
 function modalAlert(message) {
   modalMessage.textContent = message;
   modalAlertElement.classList.remove('hide');
   informationContainer.classList.add('opaque');
   informationContainerSM.classList.add('opaque');
 }
-
-modalAlertButton.addEventListener('click', function() {
-  modalAlertElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-});
 
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
@@ -156,57 +232,6 @@ function openModal(item) {
     modalElement.classList.remove('hide');
   }
 }
-
-//if the user ran out, this removes it from local storage and hence the cabinet
-statusInButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
-  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-  initialize();
-});
-
-//if the user adds to their cabinet, this function runs
-statusOutButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  if (!liquorCabinet.includes(currentItem)) {
-    var queryURL = apiaddress + 'filter.php?i=' + currentItem;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        console.log(response);
-        if (response.drinks !== 'None Found') {
-          liquorCabinet.push(currentItem);
-          localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-          initialize();
-        } else {
-          modalAlert('That is not a real product!');
-        }
-      }
-    };
-    xmlhttp.open('GET', queryURL, true);
-    xmlhttp.send();
-  }
-});
-
-//regardless of inventory status, this is where the user chooses to display recipes/facts etc.
-displayInfoButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  searchIngredient(currentItem);
-});
-
-//just closes the modal without doing anything
-cancelButton.addEventListener('click', function() {
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  modalElement.classList.add('hide');
-});
 
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
@@ -359,21 +384,6 @@ function fillIngredients(response, currentDrink) {
   drinksArray[0][currentDrink]['measures'] = measures;
 }
 
-for (var i = 1; i <= 3; ++i) {
-  document
-    .getElementById('ingredients' + [i])
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
-  document
-    .getElementById('ingredients' + [i] + 'SM')
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
-}
-
 // creates the MAKE DRINK button and hides the drink information aside from the picture
 // calls getRecipe()
 // calls getNutrition() on click, which gets the value for calories for each ingredient (if it can find it)
@@ -479,21 +489,3 @@ function makeDrinks(whichDrink, containerNumber) {
       }
     });
 }
-
-informationContainerSM.addEventListener('click', function(event) {
-  var i = event.target.id;
-  i = i.charAt(5);
-  if (event.target.matches('img') || event.target.matches('p')) {
-    if (
-      document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
-      document.getElementById('image' + i + 'SM').classList.add('opaque');
-    } else if (
-      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.add('hide');
-      document.getElementById('image' + i + 'SM').classList.remove('opaque');
-    }
-  }
-});
