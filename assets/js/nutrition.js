@@ -13,12 +13,14 @@ var credentials = [
     name: 'Ari',
     nutritionAppID: '5fab1244',
     nutritionAPIKey: '688319b423dfbd88de75a14ebaa97a7d'
+  },
+  {
+    name: 'Bonus',
+    nutritionAppID: 'd308f986',
+    nutritionAPIKey: '2d7ae686c06de5bd7f5b9300309bd166';
   }
 ];
-
-// const nutritionAppID = 'd308f986';
 const nutritionAppID = credentials[2].nutritionAppID;
-// const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
 const nutritionAPIKey = credentials[2].nutritionAPIKey;
 const userID = 0;
 const nutritionEndpoint =
