@@ -261,13 +261,11 @@ function displayDrink(response) {
   for (var i = 1; i <= 3; ++i) {
     document.getElementById('recipe' + i + 'SM').classList.add('hide');
     document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    document.getElementById('drink-container-' + i).classList.add('hide');
+    document
+      .getElementById('drink-container-' + i + 'SM')
+      .classList.add('hide');
   }
-  document.getElementById('drink-container-1').classList.add('hide');
-  document.getElementById('drink-container-2').classList.add('hide');
-  document.getElementById('drink-container-3').classList.add('hide');
-  document.getElementById('drink-container-1SM').classList.add('hide');
-  document.getElementById('drink-container-2SM').classList.add('hide');
-  document.getElementById('drink-container-3SM').classList.add('hide');
   var numDrinks = response.drinks.length;
   drinksArray = [];
   drinksObj = {};
