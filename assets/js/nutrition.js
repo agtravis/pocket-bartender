@@ -67,6 +67,22 @@ function nutritionTest(keyword, ingredientsNumber) {
         document.getElementById(
           'calories' + ingredientsNumber + 'SM'
         ).textContent = totalCals;
+        if (totalCals > 500) {
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).style.color = 'red';
+        } else if (totalCals <= 500) {
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).style.color = 'green';
+        }
+        if (totalCals > 500) {
+          document.getElementById('calories' + ingredientsNumber).style.color =
+            'red';
+        } else if (totalCals <= 500) {
+          document.getElementById('calories' + ingredientsNumber).style.color =
+            'green';
+        }
       });
     })
     .catch(err => console.log(err));
