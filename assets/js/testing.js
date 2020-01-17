@@ -429,6 +429,8 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
+      console.log('test');
+
       if (
         drinkRecipes.style.display === 'block' &&
         drinkIngredients.style.display === 'block' &&
