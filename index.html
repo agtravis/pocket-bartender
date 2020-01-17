@@ -40,9 +40,9 @@
       <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
       <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
       <div id="modal-buttons">
-        <button class="btn" id="status-in-button" class="hide">Yes, I ran out</button class="btn">
-        <button class="btn" id="status-out-button">Yes, I would like to add</button class="btn">
-        <button class="btn" id="display-info">Display info</button class="btn">
+        <button class="btn" id="status-in-button" class="hide">86'd!</button class="btn">
+        <button class="btn" id="status-out-button">Add to My Cabinet!</button class="btn">
+        <button class="btn" id="display-info">Display Recipes</button class="btn">
         <button class="btn" id="cancel-button">Cancel</button class="btn">
       </div>
     </div>
@@ -68,8 +68,29 @@
         <!-- <img id="bookshelf-image" src="assets/potential-bookshelves/bookcase.png"> -->
 
       </div>
+      
       <!-- fullscreen -->
       <div class="col s8 offset-s1" id="information-container">
+        
+        <div class="row">
+          <div class="col s12">
+            
+            <div id="user-instructions">
+              <h2>Welcome!</h2>
+              <p>Here's how it works...</p>
+              <p>Start adding stuff to your liquor cabinet!</p>
+              <ul>
+                <li>Type in the name of an ingredient you like in the search bar</li>
+                <li>When prompted, select 'Add to My Cabinet</li>
+                <li>The ingredient should appear!</li>
+                <li>Your cabinet never gets full, you can scroll to see any hidden ingredients.</li>
+                <li>To remove an item, click on it and select '86'd'</li>
+              </ul>
+              <p>Whether or not an ingredient is in your cabinet, you can see some cool drinks ideas by selecting 'Display Recipes' instead.</p>
+              <p>If you are counting calories, don't worry, we have you covered! Estimated calorie counts are calculated when you choose to see the recipe for a drink that looks good. Choose to see the recipe by clicking on the 'Make This Drink Button'!</p>
+            </div>
+          </div>
+        </div>
         <!-- each drink has a name, recipe, list of ingredients, and image -->
         <div class="section hide" id="drink-container-1">
           <p id="drink1"></p>
@@ -101,6 +122,7 @@
           <img class="section cocktail-pic" id="image3" src="" />
         </div>
       </div>
+      
 
       <!--small screen-->
       <div class="col s8 offset-s2" id="information-containerSM">
@@ -136,9 +158,30 @@
           </div>
           <p id="calories3SM"></p>
         </div>
+        
+      <div class="row">
+        <div class="col s12">
+          
+          <div id="user-instructionsSM">
+            <h2>Welcome!</h2>
+            <p>Here's how it works...</p>
+            <p>Start adding stuff to your liquor cabinet!</p>
+            <ul>
+              <li>Type in the name of an ingredient you like in the search bar</li>
+              <li>When prompted, select 'Add to My Cabinet</li>
+              <li>The ingredient should appear!</li>
+              <li>Your cabinet never gets full, you can scroll to see any hidden ingredients.</li>
+              <li>To remove an item, click on it and select '86'd'</li>
+            </ul>
+            <p>Whether or not an ingredient is in your cabinet, you can see some cool drinks ideas by selecting 'Display Recipes' instead.</p>
+            <p>If you are counting calories, don't worry, we have you covered! Estimated calorie counts are calculated when you choose to see the recipe for a drink that looks good. Choose to see the recipe by clicking on the photo of the cocktail!</p>
+          </div>
+        </div>
+      </div>
       </div>
 
     </div>
+
   </div>
 
   <footer class="page-footer blue-grey darken-3">
