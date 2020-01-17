@@ -342,7 +342,6 @@ function fillIngredients(response, currentDrink) {
     } else {
       measures.push('');
     }
-    console.log(measures);
   }
   var ingredientToAdd = '';
   for (var j = 0; j < ingredientsWithSpanHTML.length; ++j) {
@@ -389,6 +388,7 @@ function makeDrinks(whichDrink, containerNumber) {
     'ingredients' + containerNumber
   );
   var drinkCalories = document.getElementById('calories' + containerNumber);
+  var drinkError = document.getElementById('error' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
@@ -397,6 +397,7 @@ function makeDrinks(whichDrink, containerNumber) {
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
   drinkCalories.style.display = 'none';
+  drinkError.style.display = 'none';
 
   if (document.getElementById('make-drink-' + containerNumber) === null) {
     drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
@@ -431,15 +432,18 @@ function makeDrinks(whichDrink, containerNumber) {
       if (
         drinkRecipes.style.display === 'block' &&
         drinkIngredients.style.display === 'block' &&
-        drinkCalories.style.display === 'block'
+        drinkCalories.style.display === 'block' &&
+        drinkError.style.display === 'block'
       ) {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
         drinkCalories.style.display = 'none';
+        drinkError.style.display = 'none';
       } else {
         drinkRecipes.style.display = 'block';
         drinkIngredients.style.display = 'block';
         drinkCalories.style.display = 'block';
+        drinkError.style.display = 'block';
       }
     });
 
