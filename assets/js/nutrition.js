@@ -35,10 +35,6 @@ const apiHeaders = {
   'x-remote-user-id': userID
 };
 
-// get the measures of the ingredients, calculate calories that way....
-// i.e. 5 oz of Whiskey, find the serving size of the calorie information, compute data
-// this is a stretch goal
-
 var calsArray;
 
 function nutritionTest(keyword, ingredientsNumber) {
@@ -55,10 +51,6 @@ function nutritionTest(keyword, ingredientsNumber) {
     var getNutritionOf = {
       query: nutritionQuery
     };
-    // console.log(searchResponse);
-
-    // console.log(nutritionQuery);
-    // console.log(getNutritionOf);
 
     if (keyword.toLowerCase() === nutritionQuery) {
       axios({
@@ -68,44 +60,7 @@ function nutritionTest(keyword, ingredientsNumber) {
         headers: apiHeaders
       })
         .then(function(nutritionResponse) {
-          // i want to get the measuring unit, match it to servingUnit
-          // then calculate actual calories by multiplying measure amount by servingSize
-          // var servingUnit = nutritionResponse.data.foods[0].serving_unit;
-          // var servingSize = nutritionResponse.data.foods[0].serving_qty;
-          // var alternativeUnits = nutritionResponse.data.foods[0].alt_measures;
-
-          // console.log('serving unit is: ' + servingUnit);
-          // console.log('the serving size is: ' + servingSize);
-
-          // var measuresArray = drinksArray[0][ingredientsNumber].measures;
-          // var measureUnits = [];
-
-          // for (var i = 0; i < measuresArray.length; i++) {
-          //   var splitArrays = measuresArray[i].split(' ');
-          //   if (splitArrays.length > 1) {
-          //     measureUnits.push(splitArrays);
-
-          //     if (measureUnits[i][1] === servingUnit){
-          //       var actualCalories = measureUnits[i] *  ;
-          //       console.log('actualCalories');
-          //     } else {
-          //       console.log(alternativeUnits);
-          //       for (var j = 0; j < alternativeUnits.length; j++) {
-          //         if (alternativeUnits[i].measure.includes('oz')) {
-          //           console.log('has oz');
-          //           console.log(alternativeUnits[i].measure);
-          //         } else {
-          //           console.log('no alt units');
-          //         }
-          //       }
-          //     }
-          //   }
-          // }
-
           var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
-
-          console.log(ingredientCals);
-
           calsArray.push(ingredientCals);
           var arraySum = calsArray.reduce((a, b) => a + b, 0);
           var totalCals = Math.round(arraySum);
@@ -117,19 +72,14 @@ function nutritionTest(keyword, ingredientsNumber) {
         })
         .catch(err => console.log(err));
     } else {
-      console.log(keyword + ' not found in Nutrionix Database.');
-      // add could not find nutrition information for keyword
+      var notFound = document.getElementById('error' + ingredientsNumber);
+      notFound.textContent =
+        keyword + ' was not found in the Nutritionix database.';
+        notFound.style.fontSize = '10px';
+
+        var notFoundSM = document.getElementById('error' + ingredientsNumber + 'SM');
+        notFoundSM.textContent = keyword + ' was not found in the Nutritionix database.';
+        notFoundSM.style.fontSize = '10px';
     }
   });
-}
-
-function searchUnits(unit, unitArray) {
-  for (var i = 0; i < unitArray.length; i++) {
-    var alternativeUnits = unitArray[i].measure;
-    console.log(alternativeUnits);
-    // if (alternativeUnits.includes(unit)) {
-    //   console.log(alternativeUnits);
-    //   // return unitArray[i];
-    // }
-  }
 }
