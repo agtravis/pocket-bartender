@@ -61,11 +61,12 @@ function nutritionTest(keyword, ingredientsNumber) {
         calsArray.push(ingredientCals);
         var arraySum = calsArray.reduce((a, b) => a + b, 0);
         var totalCals = Math.round(arraySum);
-        document.getElementById('calories' + ingredientsNumber).textContent =
-          'Estimated calories: ' + totalCals;
+        document.getElementById(
+          'calories' + ingredientsNumber
+        ).textContent = totalCals;
         document.getElementById(
           'calories' + ingredientsNumber + 'SM'
-        ).textContent = 'Estimated calories: ' + totalCals;
+        ).textContent = totalCals;
       });
     })
     .catch(err => console.log(err));
