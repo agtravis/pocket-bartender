@@ -2,7 +2,9 @@ var credentials = [
   {
     name: 'Justin',
     nutritionAppID: 'a2375bfd',
-    nutritionAPIKey: '987371f8354b28cf2ef7c6815009c509'
+    nutritionAppIDTwo: 'd308f986',
+    nutritionAPIKey: '987371f8354b28cf2ef7c6815009c509',
+    nutritionAPIKeyTwo: '2d7ae686c06de5bd7f5b9300309bd166'
   },
   {
     name: 'George',
@@ -20,6 +22,7 @@ var credentials = [
     nutritionAPIKey: '2d7ae686c06de5bd7f5b9300309bd166'
   }
 ];
+
 const nutritionAppID = credentials[2].nutritionAppID;
 const nutritionAPIKey = credentials[2].nutritionAPIKey;
 const userID = 0;
@@ -41,33 +44,37 @@ var calsArray;
 
 function nutritionTest(keyword, ingredientsNumber) {
   calsArray = [];
+  console.log(keyword);
 
   axios({
     method: 'get',
     url: searchEndpoint + search + keyword + searchParameters,
     headers: apiHeaders
-  })
-    .then(function(searchResponse) {
-      var nutritionQuery = searchResponse.data.common[0].food_name;
-      var getNutritionOf = { query: nutritionQuery };
+  }).then(function(searchResponse) {
+    var nutritionQuery = searchResponse.data.common[0].food_name;
 
+    var getNutritionOf = {
+      query: nutritionQuery
+    };
+
+    if (keyword.toLowerCase() === nutritionQuery) {
       axios({
         method: 'post',
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
       }).then(function(nutritionResponse) {
-        var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
-        calsArray.push(ingredientCals);
-        var arraySum = calsArray.reduce((a, b) => a + b, 0);
-        var totalCals = Math.round(arraySum);
-        document.getElementById(
-          'calories' + ingredientsNumber
-        ).textContent = totalCals;
-        document.getElementById(
-          'calories' + ingredientsNumber + 'SM'
-        ).textContent = totalCals;
-        if (totalCals > 500) {
+          var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
+          calsArray.push(ingredientCals);
+          var arraySum = calsArray.reduce((a, b) => a + b, 0);
+          var totalCals = Math.round(arraySum);
+          document.getElementById('calories' + ingredientsNumber).textContent =
+            'Estimated calories: ' + totalCals;
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).textContent = 'Estimated calories: ' + totalCals;
+        
+                if (totalCals > 500) {
           document.getElementById(
             'calories' + ingredientsNumber + 'SM'
           ).style.color = 'red';
@@ -83,7 +90,17 @@ function nutritionTest(keyword, ingredientsNumber) {
           document.getElementById('calories' + ingredientsNumber).style.color =
             'green';
         }
-      });
-    })
-    .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    } else {
+      var notFound = document.getElementById('error' + ingredientsNumber);
+      notFound.textContent =
+        keyword + ' was not found in the Nutritionix database.';
+        notFound.style.fontSize = '10px';
+
+        var notFoundSM = document.getElementById('error' + ingredientsNumber + 'SM');
+        notFoundSM.textContent = keyword + ' was not found in the Nutritionix database.';
+        notFoundSM.style.fontSize = '10px';
+    }
+  });
 }

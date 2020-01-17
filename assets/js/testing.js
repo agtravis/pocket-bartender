@@ -29,6 +29,8 @@ var statusOutButton = document.getElementById('status-out-button');
 var modalElement = document.getElementById('modal');
 var displayInfoButton = document.getElementById('display-info');
 var cancelButton = document.getElementById('cancel-button');
+var drinksArray;
+var drinksObj;
 var userInstructions = document.getElementById('user-instructions');
 var userInstructionsSM = document.getElementById('user-instructionsSM');
 
@@ -410,6 +412,7 @@ function makeDrinks(whichDrink, containerNumber) {
     'ingredients' + containerNumber
   );
   var drinkCalories = document.getElementById('calories' + containerNumber);
+  var drinkError = document.getElementById('error' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
@@ -418,6 +421,7 @@ function makeDrinks(whichDrink, containerNumber) {
   drinkRecipes.style.display = 'none';
   drinkIngredients.style.display = 'none';
   drinkCalories.style.display = 'none';
+  drinkError.style.display = 'none';
 
   if (document.getElementById('make-drink-' + containerNumber) === null) {
     drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
@@ -449,18 +453,23 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
+      console.log('test');
+
       if (
         drinkRecipes.style.display === 'block' &&
         drinkIngredients.style.display === 'block' &&
-        drinkCalories.style.display === 'block'
+        drinkCalories.style.display === 'block' &&
+        drinkError.style.display === 'block'
       ) {
         drinkRecipes.style.display = 'none';
         drinkIngredients.style.display = 'none';
         drinkCalories.style.display = 'none';
+        drinkError.style.display = 'none';
       } else {
         drinkRecipes.style.display = 'block';
         drinkIngredients.style.display = 'block';
         drinkCalories.style.display = 'block';
+        drinkError.style.display = 'block';
       }
     });
 
