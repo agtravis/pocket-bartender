@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   min-height: 100vh;
 }
 
@@ -81,8 +80,7 @@ body {
   width: 50px;
 }
 
-#liquor-cabinet img,
-#liquor-cabinetSM img {
+#liquor-cabinet img, #liquor-cabinetSM img {
   cursor: pointer;
 }
 
@@ -144,6 +142,8 @@ body {
 #information-container {
   display: flex;
   justify-content: space-around;
+  position: relative;
+  left: -100px;
 }
 
 @media screen and (max-width: 1150px) {
@@ -160,7 +160,7 @@ body {
 
 #information-container div {
   margin: 0 15px;
-  max-width: 220px;
+  /* max-width: 220px; */
 }
 
 .clickable-ingredient {
@@ -182,8 +182,7 @@ body {
 /* responsive ingredients */
 
 @media screen and (max-width: 480px) {
-  #information-container,
-  #left-nav {
+  #information-container, #left-nav {
     display: none;
   }
   .cocktail-pic {
@@ -194,8 +193,7 @@ body {
 }
 
 @media screen and (min-width: 481px) {
-  #information-containerSM,
-  #top-nav-row {
+  #information-containerSM, #top-nav-row {
     display: none;
   }
 }
@@ -234,15 +232,11 @@ body {
   opacity: 25%;
 }
 
-#drink1,
-#drink2,
-#drink3 {
+#drink1, #drink2, #drink3 {
   font-weight: bold;
 }
 
-#calories1,
-#calories2,
-#calories3 {
+#calories1, #calories2, #calories3 {
   font-family: 'Orbitron', sans-serif;
 }
 

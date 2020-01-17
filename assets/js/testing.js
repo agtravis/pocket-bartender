@@ -29,6 +29,8 @@ var statusOutButton = document.getElementById('status-out-button');
 var modalElement = document.getElementById('modal');
 var displayInfoButton = document.getElementById('display-info');
 var cancelButton = document.getElementById('cancel-button');
+var userInstructions = document.getElementById('user-instructions');
+var userInstructionsSM = document.getElementById('user-instructionsSM');
 
 //populates liquor cabinet on page load from local storage
 initialize();
@@ -260,6 +262,8 @@ function searchIngredient(userChoice) {
 
 //displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
+  userInstructions.classList.add('hide');
+  userInstructionsSM.classList.add('hide');
   for (var i = 1; i <= 3; ++i) {
     document.getElementById('recipe' + i + 'SM').classList.add('hide');
     document.getElementById('image' + i + 'SM').classList.remove('opaque');
