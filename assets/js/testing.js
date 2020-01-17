@@ -475,13 +475,14 @@ function makeDrinks(whichDrink, containerNumber) {
           }
         }
 
-        if (
-          drinkInfoSM.style.display === 'block'
-        ) {
-          drinkInfoSM.style.display = 'none';
-        } else {
-          drinkInfoSM.style.display = 'block';
-        }
+        // do not think this code is required..
+        // if (
+        //   drinkInfoSM.style.display === 'block'
+        // ) {
+        //   drinkInfoSM.style.display = 'none';
+        // } else {
+        //   drinkInfoSM.style.display = 'block';
+        // }
       }
     });
 }
