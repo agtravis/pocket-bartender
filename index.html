@@ -14,9 +14,9 @@
 
 <body>
 
-  <nav class="blue-grey darken-3" role="navigation" id="header">
+  <nav  role="navigation" id="header">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo center"><b>Pocket Bartender</b></a>
+      <a id="logo-container" href="#" class="brand-logo center">Pocket Bartender</a>
     </div>
   </nav>
 
@@ -24,9 +24,9 @@
 
     <!--top nav, small screen only-->
     <div class="row" id="top-nav-row">
-      <div class="col s12 green lighten-2" id="top-nav">
+      <div class="col s12" id="top-nav">
         <input type="text" id="searchSM" placeholder="search by ingredient">
-        <button class="btn waves-effect waves-light" type="submit" id="search-buttonSM" name="action">Search
+        <button class="btn" type="submit" id="search-buttonSM" name="action">Search
           <i class="material-icons right">search</i>
         </button>
 
@@ -40,10 +40,10 @@
       <p id="status-in-text" class="hide">You already have this item in your cabinet. Did you run out?</p>
       <p id="status-out-text">You do not have this item in your cabinet. Did you get some?</p>
       <div id="modal-buttons">
-        <button id="status-in-button" class="hide">Yes, I ran out</button>
-        <button id="status-out-button">Yes, I would like to add</button>
-        <button id="display-info">Display info</button>
-        <button id="cancel-button">Cancel</button>
+        <button class="btn" id="status-in-button" class="hide">Yes, I ran out</button class="btn">
+        <button class="btn" id="status-out-button">Yes, I would like to add</button class="btn">
+        <button class="btn" id="display-info">Display info</button class="btn">
+        <button class="btn" id="cancel-button">Cancel</button class="btn">
       </div>
     </div>
 
@@ -51,16 +51,16 @@
     <div id="modal-alert" class="hide">
       <p id="modal-message"></p>
       <div id="modal-alert-buttons">
-        <button id="modal-alert-button">OK</button>
+        <button class="btn" id="modal-alert-button">OK</button>
       </div>
     </div>
 
     <div class="row" id="content">
-      <div class="col s3 green lighten-2" id="left-nav">
+      <div class="col s3" id="left-nav">
         <!-- input for user to type in an ingredient - no checking done on input yet, but multiple ingredients can be seperated with a comma and it works -->
         <input type="text" id="search" placeholder="search by ingredient" />
 
-        <button class="btn waves-effect waves-light" type="submit" id="search-button" name="action">Search
+        <button class="btn" type="submit" id="search-button" name="action">Search
           <i class="material-icons right">search</i>
         </button>
         <div id="liquor-cabinet">

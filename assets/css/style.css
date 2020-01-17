@@ -4,9 +4,47 @@ body {
 }
 
 #header {
+  background-color: #fad87b;
   height: 120px;
   display: flex;
   align-items: center;
+  border-bottom: 8px solid #00572d;
+}
+
+#logo-container {
+  color: #00572d;
+  font-weight: bold;
+}
+
+#top-nav-row, #left-nav {
+  background-color: #ffc21b;
+  text-align: center;
+}
+
+#left-nav {
+  border-right: 3px solid #00572d;
+  padding-right: 20px;
+}
+
+#top-nav-row {
+  border-bottom: 3px solid #00572d;
+  padding-right: 10px;
+}
+
+#search, #searchSM {
+  margin-top: 10px;
+  background-color: #fff;
+  border: 2px solid #00572d;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: #00572d;
+}
+
+.btn:hover {
+  background-color: #278d5c;
 }
 
 #content {
@@ -18,20 +56,25 @@ body {
 
 #liquor-cabinet {
   background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
-  border: 10px solid coral;
+  border: 10px solid #00572d;
+  border-radius: 10px;
   height: 600px;
   margin-top: 10px;
   padding-top: 10px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 #liquor-cabinetSM {
   display: flex;
   background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
-  border: 10px solid coral;
+  border: 10px solid #00572d;
+  border-radius: 5px;
   width: 90%;
   margin: 10px auto;
   height: 100px;
   overflow: scroll;
+  overflow-y: hidden;
 }
 
 #liquor-cabinetSM img {
@@ -48,11 +91,31 @@ body {
 }
 
 #modal {
-  border: 5px goldenrod;
+  border: 5px solid #00572d;
   box-shadow: 0 0 25px 5px black;
   height: 200px;
   width: 350px;
-  background-color: blueviolet;
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: -175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  z-index: 20;
+  padding: 5px;
+}
+
+#modal-alert {
+  border: 5px solid #00572d;
+  box-shadow: 0 0 25px 5px black;
+  height: 200px;
+  width: 350px;
+  background-color: #fff;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -66,29 +129,14 @@ body {
   z-index: 20;
 }
 
-#modal-alert {
-  border: 5px solid goldenrod;
-  box-shadow: 0 0 25px 5px black;
-  height: 200px;
-  width: 350px;
-  background-color: blueviolet;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-top: -100px;
-  margin-left: -175px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  border-radius: 10px;
-  z-index: 20;
+#modal-buttons button {
+  margin: 5px;
 }
 
 .cocktail-pic {
   max-width: 200px;
   border-radius: 20px;
-  border: 3px solid black;
+  border: 3px solid #00572d;
   padding: 10px;
   margin: 10px;
 }
@@ -160,7 +208,7 @@ body {
   position: relative;
   max-width: 260px;
   border-radius: 20px;
-  border: 3px solid black;
+  border: 3px solid #00572d;
   padding: 10px;
   margin: 0;
   display: flex;
@@ -196,4 +244,31 @@ body {
 #calories2,
 #calories3 {
   font-family: 'Orbitron', sans-serif;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px grey; */
+  border-radius: 10px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #00572d;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
 }
