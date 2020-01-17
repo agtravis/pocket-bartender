@@ -3,9 +3,26 @@ html, body {
 }
 
 #header {
+  background-color: #fff;
   height: 120px;
   display: flex;
   align-items: center;
+  border-bottom: 8px solid #00572d;
+}
+
+#logo-container {
+  color: #00572d;
+  font-weight: bold;
+}
+
+#top-nav-row, #left-nav {
+  background-color: #ffc21b;
+}
+
+#search, #searchSM {
+  margin-top: 10px;
+  background-color: #fff;
+  border: 2px solid #00572d
 }
 
 #content {
