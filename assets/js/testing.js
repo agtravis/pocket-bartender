@@ -273,6 +273,7 @@ function displayDrink(response) {
     document
       .getElementById('drink-container-' + i + 'SM')
       .classList.add('hide');
+    document.getElementById('calories' + i + 'SM').textContent = '';
   }
   var numDrinks = response.drinks.length;
   drinksArray = [];
@@ -475,11 +476,13 @@ function makeDrinks(whichDrink, containerNumber) {
           }
         }
 
-        if (drinkInfoSM.style.display === 'block') {
-          drinkInfoSM.style.display = 'none';
-        } else {
-          drinkInfoSM.style.display = 'block';
-        }
+        // if (
+        //   drinkInfoSM.style.display === 'block'
+        // ) {
+        //   drinkInfoSM.style.display = 'none';
+        // } else {
+        //   drinkInfoSM.style.display = 'block';
+        // }
       }
     });
 }
