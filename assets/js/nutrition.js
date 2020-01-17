@@ -15,11 +15,16 @@ var credentials = [
     name: 'Ari',
     nutritionAppID: '5fab1244',
     nutritionAPIKey: '688319b423dfbd88de75a14ebaa97a7d'
+  },
+  {
+    name: 'Bonus',
+    nutritionAppID: 'd308f986',
+    nutritionAPIKey: '2d7ae686c06de5bd7f5b9300309bd166'
   }
 ];
 
-const nutritionAppID = credentials[0].nutritionAppID;
-const nutritionAPIKey = credentials[0].nutritionAPIKey;
+const nutritionAppID = credentials[2].nutritionAppID;
+const nutritionAPIKey = credentials[2].nutritionAPIKey;
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
@@ -58,8 +63,7 @@ function nutritionTest(keyword, ingredientsNumber) {
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
-      })
-        .then(function(nutritionResponse) {
+      }).then(function(nutritionResponse) {
           var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
           calsArray.push(ingredientCals);
           var arraySum = calsArray.reduce((a, b) => a + b, 0);
@@ -69,6 +73,23 @@ function nutritionTest(keyword, ingredientsNumber) {
           document.getElementById(
             'calories' + ingredientsNumber + 'SM'
           ).textContent = 'Estimated calories: ' + totalCals;
+        
+                if (totalCals > 500) {
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).style.color = 'red';
+        } else if (totalCals <= 500) {
+          document.getElementById(
+            'calories' + ingredientsNumber + 'SM'
+          ).style.color = 'green';
+        }
+        if (totalCals > 500) {
+          document.getElementById('calories' + ingredientsNumber).style.color =
+            'red';
+        } else if (totalCals <= 500) {
+          document.getElementById('calories' + ingredientsNumber).style.color =
+            'green';
+        }
         })
         .catch(err => console.log(err));
     } else {

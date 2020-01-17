@@ -1,13 +1,11 @@
-//test comment
-
 //variables stored are the key, the starting point for the query URL
-
 var liquorCabinet = [];
 var liquorImageLinks = [];
+var drinksArray;
+var drinksObj;
 
 // globally accessible current item - undefined on page load, defined as soon as it is needed, and changes
 var currentItem = '';
-
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 
@@ -31,12 +29,15 @@ var statusOutButton = document.getElementById('status-out-button');
 var modalElement = document.getElementById('modal');
 var displayInfoButton = document.getElementById('display-info');
 var cancelButton = document.getElementById('cancel-button');
-
 var drinksArray;
 var drinksObj;
+var userInstructions = document.getElementById('user-instructions');
+var userInstructionsSM = document.getElementById('user-instructionsSM');
 
 //populates liquor cabinet on page load from local storage
 initialize();
+
+//EVENT LISTENERS
 
 //the modal opens whether the user hits ENTER or clicks the button, passing the input
 searchButton.addEventListener('click', function() {
@@ -45,7 +46,6 @@ searchButton.addEventListener('click', function() {
 searchButtonSM.addEventListener('click', function() {
   openModal(userInputSM.value);
 });
-
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     openModal(userInput.value);
@@ -57,7 +57,117 @@ userInputSM.addEventListener('keyup', function(event) {
   }
 });
 
-//the function that fills the array from local storage
+//when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
+//evaluated by slicing the dynamically generated id name
+liquorCabinetDiv.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
+liquorCabinetDivSM.addEventListener('click', function(event) {
+  var element = event.target;
+  if (element.matches('img')) {
+    var elementName = element.id.slice(8);
+    openModal(elementName);
+  }
+});
+
+//if the user ran out, this removes it from local storage and hence the cabinet
+statusInButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
+  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+  initialize();
+});
+
+//if the user adds to their cabinet, this function runs
+statusOutButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  if (!liquorCabinet.includes(currentItem)) {
+    var queryURL = apiaddress + 'filter.php?i=' + currentItem;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log(response);
+        if (response.drinks !== 'None Found') {
+          liquorCabinet.unshift(currentItem);
+          localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
+          initialize();
+        } else {
+          modalAlert('That is not a real product!');
+        }
+      }
+    };
+    xmlhttp.open('GET', queryURL, true);
+    xmlhttp.send();
+  }
+});
+
+//button to close custom alert pop up
+modalAlertButton.addEventListener('click', function() {
+  modalAlertElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+});
+
+//regardless of inventory status, this is where the user chooses to display recipes/facts etc.
+displayInfoButton.addEventListener('click', function() {
+  modalElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  searchIngredient(currentItem);
+});
+
+//just closes the modal without doing anything
+cancelButton.addEventListener('click', function() {
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+  modalElement.classList.add('hide');
+});
+
+//for loop add event listeners on ingredients list to be able to target words
+for (var i = 1; i <= 3; ++i) {
+  document
+    .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+  document
+    .getElementById('ingredients' + [i] + 'SM')
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+}
+
+//toggles opacity on coasters to show recipe on click, accounts for paragraph obscuring image
+informationContainerSM.addEventListener('click', function(event) {
+  var i = event.target.id;
+  i = i.charAt(5);
+  if (event.target.matches('img') || event.target.matches('p')) {
+    if (
+      document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+      document.getElementById('image' + i + 'SM').classList.add('opaque');
+    } else if (
+      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.add('hide');
+      document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    }
+  }
+});
+
+//FUNCTION DECLARATIONS
+
+//fills the array from local storage (called on page load)
 function initialize() {
   liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
   if (liquorCabinet) {
@@ -93,35 +203,13 @@ function renderLiquorCabinet() {
   }
 }
 
-//when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
-//evaluated by slicing the dynamically generated id name
-liquorCabinetDiv.addEventListener('click', function(event) {
-  var element = event.target;
-  if (element.matches('img')) {
-    var elementName = element.id.slice(8);
-    openModal(elementName);
-  }
-});
-liquorCabinetDivSM.addEventListener('click', function(event) {
-  var element = event.target;
-  if (element.matches('img')) {
-    var elementName = element.id.slice(8);
-    openModal(elementName);
-  }
-});
-
+//custom alert pop-up
 function modalAlert(message) {
   modalMessage.textContent = message;
   modalAlertElement.classList.remove('hide');
   informationContainer.classList.add('opaque');
   informationContainerSM.classList.add('opaque');
 }
-
-modalAlertButton.addEventListener('click', function() {
-  modalAlertElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-});
 
 //sets which buttons or text to display based on inventory status
 //also this is the point where 'currentItem' is assigned (for global use)
@@ -135,7 +223,6 @@ function openModal(item) {
       currentItem.charAt(currentItem.length - 2) === 's'
     ) {
       currentItem = currentItem.slice(0, length - 2);
-      console.log(currentItem);
     }
     userInput.value = '';
     userInputSM.value = '';
@@ -156,57 +243,6 @@ function openModal(item) {
   }
 }
 
-//if the user ran out, this removes it from local storage and hence the cabinet
-statusInButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  liquorCabinet.splice(liquorCabinet.indexOf(currentItem), 1);
-  localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-  initialize();
-});
-
-//if the user adds to their cabinet, this function runs
-statusOutButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  if (!liquorCabinet.includes(currentItem)) {
-    var queryURL = apiaddress + 'filter.php?i=' + currentItem;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        console.log(response);
-        if (response.drinks !== 'None Found') {
-          liquorCabinet.push(currentItem);
-          localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
-          initialize();
-        } else {
-          modalAlert('That is not a real product!');
-        }
-      }
-    };
-    xmlhttp.open('GET', queryURL, true);
-    xmlhttp.send();
-  }
-});
-
-//regardless of inventory status, this is where the user chooses to display recipes/facts etc.
-displayInfoButton.addEventListener('click', function() {
-  modalElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  searchIngredient(currentItem);
-});
-
-//just closes the modal without doing anything
-cancelButton.addEventListener('click', function() {
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-  modalElement.classList.add('hide');
-});
-
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
   var userIngredient = userChoice;
@@ -215,7 +251,6 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       if (response.drinks === 'None Found') {
         modalAlert('None Found');
       } else {
@@ -227,14 +262,18 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-//helper function displays drink name and image, uses drink ID to now call makeDrinks function
+//displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
-  document.getElementById('drink-container-1').classList.add('hide');
-  document.getElementById('drink-container-2').classList.add('hide');
-  document.getElementById('drink-container-3').classList.add('hide');
-  document.getElementById('drink-container-1SM').classList.add('hide');
-  document.getElementById('drink-container-2SM').classList.add('hide');
-  document.getElementById('drink-container-3SM').classList.add('hide');
+  userInstructions.classList.add('hide');
+  userInstructionsSM.classList.add('hide');
+  for (var i = 1; i <= 3; ++i) {
+    document.getElementById('recipe' + i + 'SM').classList.add('hide');
+    document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    document.getElementById('drink-container-' + i).classList.add('hide');
+    document
+      .getElementById('drink-container-' + i + 'SM')
+      .classList.add('hide');
+  }
   var numDrinks = response.drinks.length;
   drinksArray = [];
   drinksObj = {};
@@ -259,7 +298,6 @@ function displayDrink(response) {
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
   drinksArray.push(drinksObj);
-  // informationContainerSM.classList.remove('hide');
   document.getElementById('drink-container-1').classList.remove('hide');
   if (
     document.getElementById('drink2').textContent !==
@@ -319,11 +357,12 @@ function getRecipe(drinkId, i) {
 //accounts for null values. condition is <=15 because each drink response has this many potential ingredients
 //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
 function fillIngredients(response, currentDrink) {
+  //VS CODE shows response here as not called but it is....
   var ingredients = [];
   var ingredientsWithSpanHTML = [];
   for (var i = 1; i <= 15; ++i) {
     var indexString = i.toString();
-    var newIngredient = 'response.drinks[0].strIngredient' + indexString;
+    var newIngredient = 'response.drinks[0].strIngredient' + indexString; //...here where it is evaluated from a string...
     var newIng = eval(newIngredient);
     if (newIng !== null) {
       ingredients.push(newIng);
@@ -335,7 +374,7 @@ function fillIngredients(response, currentDrink) {
   var measures = [];
   for (var k = 1; k <= 15; ++k) {
     var indexStringk = k.toString();
-    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk;
+    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk; //...and here
     var newMeas = eval(newMeasure);
     if (newMeas !== null) {
       measures.push(newMeas);
@@ -356,21 +395,6 @@ function fillIngredients(response, currentDrink) {
 
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
-}
-
-for (var i = 1; i <= 3; ++i) {
-  document
-    .getElementById('ingredients' + [i])
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
-  document
-    .getElementById('ingredients' + [i] + 'SM')
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
 }
 
 // creates the MAKE DRINK button and hides the drink information aside from the picture
@@ -485,21 +509,3 @@ function makeDrinks(whichDrink, containerNumber) {
       }
     });
 }
-
-informationContainerSM.addEventListener('click', function(event) {
-  var i = event.target.id;
-  i = i.charAt(5);
-  if (event.target.matches('img') || event.target.matches('p')) {
-    if (
-      document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
-      document.getElementById('image' + i + 'SM').classList.add('opaque');
-    } else if (
-      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.add('hide');
-      document.getElementById('image' + i + 'SM').classList.remove('opaque');
-    }
-  }
-});
