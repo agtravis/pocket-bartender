@@ -2,7 +2,9 @@ var credentials = [
   {
     name: 'Justin',
     nutritionAppID: 'a2375bfd',
-    nutritionAPIKey: '987371f8354b28cf2ef7c6815009c509'
+    nutritionAppIDTwo: 'd308f986',
+    nutritionAPIKey: '987371f8354b28cf2ef7c6815009c509',
+    nutritionAPIKeyTwo: '2d7ae686c06de5bd7f5b9300309bd166'
   },
   {
     name: 'George',
@@ -16,10 +18,8 @@ var credentials = [
   }
 ];
 
-// const nutritionAppID = 'd308f986';
-const nutritionAppID = credentials[2].nutritionAppID;
-// const nutritionAPIKey = '2d7ae686c06de5bd7f5b9300309bd166';
-const nutritionAPIKey = credentials[2].nutritionAPIKey;
+const nutritionAppID = credentials[0].nutritionAppID;
+const nutritionAPIKey = credentials[0].nutritionAPIKey;
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
@@ -55,10 +55,10 @@ function nutritionTest(keyword, ingredientsNumber) {
     var getNutritionOf = {
       query: nutritionQuery
     };
-    console.log(searchResponse);
+    // console.log(searchResponse);
 
-    console.log(nutritionQuery);
-    console.log(getNutritionOf);
+    // console.log(nutritionQuery);
+    // console.log(getNutritionOf);
 
     if (keyword.toLowerCase() === nutritionQuery) {
       axios({
@@ -68,22 +68,40 @@ function nutritionTest(keyword, ingredientsNumber) {
         headers: apiHeaders
       })
         .then(function(nutritionResponse) {
-          console.log(nutritionResponse);
-
-          var servingUnit = nutritionResponse.data.foods[0].serving_unit;
-          var servingSize = nutritionResponse.data.foods[0].serving_qty;
-          var alternativeUnits = nutritionResponse.data.foods[0].alt_measures;
-
-          console.log(servingUnit);
-          console.log(servingSize);
-          console.log(alternativeUnits);
-
-          console.log(drinksArray);
-
-          var measuresArray = drinksArray[0][ingredientsNumber].measures;
-          console.log(measuresArray);
           // i want to get the measuring unit, match it to servingUnit
           // then calculate actual calories by multiplying measure amount by servingSize
+          // var servingUnit = nutritionResponse.data.foods[0].serving_unit;
+          // var servingSize = nutritionResponse.data.foods[0].serving_qty;
+          // var alternativeUnits = nutritionResponse.data.foods[0].alt_measures;
+
+          // console.log('serving unit is: ' + servingUnit);
+          // console.log('the serving size is: ' + servingSize);
+
+          // var measuresArray = drinksArray[0][ingredientsNumber].measures;
+          // var measureUnits = [];
+
+          // for (var i = 0; i < measuresArray.length; i++) {
+          //   var splitArrays = measuresArray[i].split(' ');
+          //   if (splitArrays.length > 1) {
+          //     measureUnits.push(splitArrays);
+
+          //     if (measureUnits[i][1] === servingUnit){
+          //       var actualCalories = measureUnits[i] *  ;
+          //       console.log('actualCalories');
+          //     } else {
+          //       console.log(alternativeUnits);
+          //       for (var j = 0; j < alternativeUnits.length; j++) {
+          //         if (alternativeUnits[i].measure.includes('oz')) {
+          //           console.log('has oz');
+          //           console.log(alternativeUnits[i].measure);
+          //         } else {
+          //           console.log('no alt units');
+          //         }
+          //       }
+          //     }
+          //   }
+          // }
+
           var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
 
           console.log(ingredientCals);
@@ -99,8 +117,19 @@ function nutritionTest(keyword, ingredientsNumber) {
         })
         .catch(err => console.log(err));
     } else {
-      console.log(keyword + ' not found');
+      console.log(keyword + ' not found in Nutrionix Database.');
       // add could not find nutrition information for keyword
     }
   });
+}
+
+function searchUnits(unit, unitArray) {
+  for (var i = 0; i < unitArray.length; i++) {
+    var alternativeUnits = unitArray[i].measure;
+    console.log(alternativeUnits);
+    // if (alternativeUnits.includes(unit)) {
+    //   console.log(alternativeUnits);
+    //   // return unitArray[i];
+    // }
+  }
 }
