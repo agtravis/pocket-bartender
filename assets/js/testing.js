@@ -93,7 +93,7 @@ statusOutButton.addEventListener('click', function() {
         var response = JSON.parse(this.responseText);
         console.log(response);
         if (response.drinks !== 'None Found') {
-          liquorCabinet.push(currentItem);
+          liquorCabinet.unshift(currentItem);
           localStorage.setItem('liquor-cabinet', JSON.stringify(liquorCabinet));
           initialize();
         } else {
