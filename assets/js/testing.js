@@ -466,6 +466,7 @@ function makeDrinks(whichDrink, containerNumber) {
           'drink-container-' + containerNumber
         ).childNodes[1].textContent;
         var getIngredients = drinksArray[0][containerNumber].ingredients;
+        var drinkInfoSM = document.getElementById('drink-info-' + containerNumber + 'SM');
 
         if (getDrinkName === drinkName) {
           for (var i = 0; i < getIngredients.length; i++) {
@@ -474,14 +475,13 @@ function makeDrinks(whichDrink, containerNumber) {
           }
         }
 
-        // finish this up
-        // if (
-        //   drinkInfo.style.display === 'block'
-        // ) {
-        //   drinkInfo.style.display = 'none';
-        // } else {
-        //   drinkInfo.style.display = 'block';
-        // }
+        if (
+          drinkInfoSM.style.display === 'block'
+        ) {
+          drinkInfoSM.style.display = 'none';
+        } else {
+          drinkInfoSM.style.display = 'block';
+        }
       }
     });
 }
