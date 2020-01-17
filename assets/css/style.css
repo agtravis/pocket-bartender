@@ -142,8 +142,6 @@ html, body {
 #information-container {
   display: flex;
   justify-content: space-around;
-  position: relative;
-  left: -100px;
 }
 
 @media screen and (max-width: 1150px) {
@@ -161,6 +159,7 @@ html, body {
 #information-container div {
   margin: 0 15px;
   /* max-width: 220px; */
+  /* margin-left: -100px; */
 }
 
 .clickable-ingredient {
