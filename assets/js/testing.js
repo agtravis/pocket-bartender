@@ -1,13 +1,11 @@
-//test comment
-
 //variables stored are the key, the starting point for the query URL
-
 var liquorCabinet = [];
 var liquorImageLinks = [];
+var drinksArray;
+var drinksObj;
 
 // globally accessible current item - undefined on page load, defined as soon as it is needed, and changes
 var currentItem = '';
-
 var apikey = '9973533';
 var apiaddress = 'https://www.thecocktaildb.com/api/json/v2/' + apikey + '/';
 
@@ -32,12 +30,10 @@ var modalElement = document.getElementById('modal');
 var displayInfoButton = document.getElementById('display-info');
 var cancelButton = document.getElementById('cancel-button');
 
-// testing
-var drinksArray;
-var drinksObj;
-
 //populates liquor cabinet on page load from local storage
 initialize();
+
+//EVENT LISTENERS
 
 //the modal opens whether the user hits ENTER or clicks the button, passing the input
 searchButton.addEventListener('click', function() {
@@ -46,7 +42,6 @@ searchButton.addEventListener('click', function() {
 searchButtonSM.addEventListener('click', function() {
   openModal(userInputSM.value);
 });
-
 userInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     openModal(userInput.value);
@@ -57,42 +52,6 @@ userInputSM.addEventListener('keyup', function(event) {
     openModal(userInputSM.value);
   }
 });
-
-//the function that fills the array from local storage
-function initialize() {
-  liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
-  if (liquorCabinet) {
-    liquorImageLinks = [];
-    for (var i = 0; i < liquorCabinet.length; ++i) {
-      var imageURL =
-        'https://www.thecocktaildb.com/images/ingredients/' +
-        liquorCabinet[i] +
-        '-Small.png';
-      liquorImageLinks.push(imageURL);
-    }
-    // console.log(liquorCabinet);
-    // console.log(liquorImageLinks);
-  } else {
-    liquorCabinet = [];
-  }
-  renderLiquorCabinet();
-}
-
-//displays visual representation of the liquor cabinet array
-function renderLiquorCabinet() {
-  liquorCabinetDiv.innerHTML = '';
-  liquorCabinetDivSM.innerHTML = '';
-  for (var i = 0; i < liquorCabinet.length; ++i) {
-    var newImage = document.createElement('img');
-    newImage.setAttribute('src', liquorImageLinks[i]);
-    newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
-    liquorCabinetDiv.appendChild(newImage);
-    var newImageSM = document.createElement('img');
-    newImageSM.setAttribute('src', liquorImageLinks[i]);
-    newImageSM.setAttribute('id', 'cabinet-' + liquorCabinet[i] + 'SM');
-    liquorCabinetDivSM.appendChild(newImageSM);
-  }
-}
 
 //when the liquor cabinet is clicked, if the item clicked is an image, the modal opens passing the element name
 //evaluated by slicing the dynamically generated id name
@@ -110,52 +69,6 @@ liquorCabinetDivSM.addEventListener('click', function(event) {
     openModal(elementName);
   }
 });
-
-function modalAlert(message) {
-  modalMessage.textContent = message;
-  modalAlertElement.classList.remove('hide');
-  informationContainer.classList.add('opaque');
-  informationContainerSM.classList.add('opaque');
-}
-
-modalAlertButton.addEventListener('click', function() {
-  modalAlertElement.classList.add('hide');
-  informationContainer.classList.remove('opaque');
-  informationContainerSM.classList.remove('opaque');
-});
-
-//sets which buttons or text to display based on inventory status
-//also this is the point where 'currentItem' is assigned (for global use)
-function openModal(item) {
-  if (item) {
-    item = item.toLowerCase();
-    item = item.trim();
-    currentItem = item;
-    if (
-      currentItem.charAt(currentItem.length - 1) === 'm' &&
-      currentItem.charAt(currentItem.length - 2) === 's'
-    ) {
-      currentItem = currentItem.slice(0, length - 2);
-      console.log(currentItem);
-    }
-    userInput.value = '';
-    userInputSM.value = '';
-    if (liquorCabinet.includes(currentItem)) {
-      statusInText.classList.remove('hide');
-      statusInButton.classList.remove('hide');
-      statusOutText.classList.add('hide');
-      statusOutButton.classList.add('hide');
-    } else {
-      statusInText.classList.add('hide');
-      statusInButton.classList.add('hide');
-      statusOutText.classList.remove('hide');
-      statusOutButton.classList.remove('hide');
-    }
-    informationContainer.classList.add('opaque');
-    informationContainerSM.classList.add('opaque');
-    modalElement.classList.remove('hide');
-  }
-}
 
 //if the user ran out, this removes it from local storage and hence the cabinet
 statusInButton.addEventListener('click', function() {
@@ -193,6 +106,13 @@ statusOutButton.addEventListener('click', function() {
   }
 });
 
+//button to close custom alert pop up
+modalAlertButton.addEventListener('click', function() {
+  modalAlertElement.classList.add('hide');
+  informationContainer.classList.remove('opaque');
+  informationContainerSM.classList.remove('opaque');
+});
+
 //regardless of inventory status, this is where the user chooses to display recipes/facts etc.
 displayInfoButton.addEventListener('click', function() {
   modalElement.classList.add('hide');
@@ -208,6 +128,117 @@ cancelButton.addEventListener('click', function() {
   modalElement.classList.add('hide');
 });
 
+//for loop add event listeners on ingredients list to be able to target words
+for (var i = 1; i <= 3; ++i) {
+  document
+    .getElementById('ingredients' + [i])
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+  document
+    .getElementById('ingredients' + [i] + 'SM')
+    .addEventListener('click', function(event) {
+      openModal(event.toElement.textContent);
+    });
+}
+
+//toggles opacity on coasters to show recipe on click, accounts for paragraph obscuring image
+informationContainerSM.addEventListener('click', function(event) {
+  var i = event.target.id;
+  i = i.charAt(5);
+  if (event.target.matches('img') || event.target.matches('p')) {
+    if (
+      document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
+      document.getElementById('image' + i + 'SM').classList.add('opaque');
+    } else if (
+      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
+    ) {
+      document.getElementById('recipe' + i + 'SM').classList.add('hide');
+      document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    }
+  }
+});
+
+//FUNCTION DECLARATIONS
+
+//fills the array from local storage (called on page load)
+function initialize() {
+  liquorCabinet = JSON.parse(localStorage.getItem('liquor-cabinet'));
+  if (liquorCabinet) {
+    liquorImageLinks = [];
+    for (var i = 0; i < liquorCabinet.length; ++i) {
+      var imageURL =
+        'https://www.thecocktaildb.com/images/ingredients/' +
+        liquorCabinet[i] +
+        '-Small.png';
+      liquorImageLinks.push(imageURL);
+    }
+    // console.log(liquorCabinet);
+    // console.log(liquorImageLinks);
+  } else {
+    liquorCabinet = [];
+  }
+  renderLiquorCabinet();
+}
+
+//displays visual representation of the liquor cabinet array
+function renderLiquorCabinet() {
+  liquorCabinetDiv.innerHTML = '';
+  liquorCabinetDivSM.innerHTML = '';
+  for (var i = 0; i < liquorCabinet.length; ++i) {
+    var newImage = document.createElement('img');
+    newImage.setAttribute('src', liquorImageLinks[i]);
+    newImage.setAttribute('id', 'cabinet-' + liquorCabinet[i]);
+    liquorCabinetDiv.appendChild(newImage);
+    var newImageSM = document.createElement('img');
+    newImageSM.setAttribute('src', liquorImageLinks[i]);
+    newImageSM.setAttribute('id', 'cabinet-' + liquorCabinet[i] + 'SM');
+    liquorCabinetDivSM.appendChild(newImageSM);
+  }
+}
+
+//custom alert pop-up
+function modalAlert(message) {
+  modalMessage.textContent = message;
+  modalAlertElement.classList.remove('hide');
+  informationContainer.classList.add('opaque');
+  informationContainerSM.classList.add('opaque');
+}
+
+//sets which buttons or text to display based on inventory status
+//also this is the point where 'currentItem' is assigned (for global use)
+function openModal(item) {
+  if (item) {
+    item = item.toLowerCase();
+    item = item.trim();
+    currentItem = item;
+    if (
+      currentItem.charAt(currentItem.length - 1) === 'm' &&
+      currentItem.charAt(currentItem.length - 2) === 's'
+    ) {
+      currentItem = currentItem.slice(0, length - 2);
+    }
+    userInput.value = '';
+    userInputSM.value = '';
+    if (liquorCabinet.includes(currentItem)) {
+      statusInText.classList.remove('hide');
+      statusInButton.classList.remove('hide');
+      statusOutText.classList.add('hide');
+      statusOutButton.classList.add('hide');
+    } else {
+      statusInText.classList.add('hide');
+      statusInButton.classList.add('hide');
+      statusOutText.classList.remove('hide');
+      statusOutButton.classList.remove('hide');
+    }
+    informationContainer.classList.add('opaque');
+    informationContainerSM.classList.add('opaque');
+    modalElement.classList.remove('hide');
+  }
+}
+
 //first AJAX call looks for ingredient(s), returns object 'response', calls helper function passing response
 function searchIngredient(userChoice) {
   var userIngredient = userChoice;
@@ -216,7 +247,6 @@ function searchIngredient(userChoice) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       if (response.drinks === 'None Found') {
         modalAlert('None Found');
       } else {
@@ -228,14 +258,16 @@ function searchIngredient(userChoice) {
   xmlhttp.send();
 }
 
-//helper function displays drink name and image, uses drink ID to now call makeDrinks function
+//displays drink name and image, uses drink ID to now call makeDrinks function
 function displayDrink(response) {
-  document.getElementById('drink-container-1').classList.add('hide');
-  document.getElementById('drink-container-2').classList.add('hide');
-  document.getElementById('drink-container-3').classList.add('hide');
-  document.getElementById('drink-container-1SM').classList.add('hide');
-  document.getElementById('drink-container-2SM').classList.add('hide');
-  document.getElementById('drink-container-3SM').classList.add('hide');
+  for (var i = 1; i <= 3; ++i) {
+    document.getElementById('recipe' + i + 'SM').classList.add('hide');
+    document.getElementById('image' + i + 'SM').classList.remove('opaque');
+    document.getElementById('drink-container-' + i).classList.add('hide');
+    document
+      .getElementById('drink-container-' + i + 'SM')
+      .classList.add('hide');
+  }
   var numDrinks = response.drinks.length;
   drinksArray = [];
   drinksObj = {};
@@ -260,7 +292,6 @@ function displayDrink(response) {
     drinksObj[i]['name'] = response.drinks[randomDrinkIndex].strDrink;
   }
   drinksArray.push(drinksObj);
-  // informationContainerSM.classList.remove('hide');
   document.getElementById('drink-container-1').classList.remove('hide');
   if (
     document.getElementById('drink2').textContent !==
@@ -320,11 +351,12 @@ function getRecipe(drinkId, i) {
 //accounts for null values. condition is <=15 because each drink response has this many potential ingredients
 //code kind of clunky inside for loops, perhaps can be streamlined - not sure of scope for iterators?
 function fillIngredients(response, currentDrink) {
+  //VS CODE shows response here as not called but it is....
   var ingredients = [];
   var ingredientsWithSpanHTML = [];
   for (var i = 1; i <= 15; ++i) {
     var indexString = i.toString();
-    var newIngredient = 'response.drinks[0].strIngredient' + indexString;
+    var newIngredient = 'response.drinks[0].strIngredient' + indexString; //...here where it is evaluated from a string...
     var newIng = eval(newIngredient);
     if (newIng !== null) {
       ingredients.push(newIng);
@@ -336,7 +368,7 @@ function fillIngredients(response, currentDrink) {
   var measures = [];
   for (var k = 1; k <= 15; ++k) {
     var indexStringk = k.toString();
-    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk;
+    var newMeasure = 'response.drinks[0].strMeasure' + indexStringk; //...and here
     var newMeas = eval(newMeasure);
     if (newMeas !== null) {
       measures.push(newMeas);
@@ -357,21 +389,6 @@ function fillIngredients(response, currentDrink) {
 
   drinksArray[0][currentDrink]['ingredients'] = ingredients;
   drinksArray[0][currentDrink]['measures'] = measures;
-}
-
-for (var i = 1; i <= 3; ++i) {
-  document
-    .getElementById('ingredients' + [i])
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
-  document
-    .getElementById('ingredients' + [i] + 'SM')
-    .addEventListener('click', function(event) {
-      console.log(event.toElement.textContent);
-      openModal(event.toElement.textContent);
-    });
 }
 
 // creates the MAKE DRINK button and hides the drink information aside from the picture
@@ -479,21 +496,3 @@ function makeDrinks(whichDrink, containerNumber) {
       }
     });
 }
-
-informationContainerSM.addEventListener('click', function(event) {
-  var i = event.target.id;
-  i = i.charAt(5);
-  if (event.target.matches('img') || event.target.matches('p')) {
-    if (
-      document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.remove('hide');
-      document.getElementById('image' + i + 'SM').classList.add('opaque');
-    } else if (
-      !document.getElementById('recipe' + i + 'SM').className.includes('hide')
-    ) {
-      document.getElementById('recipe' + i + 'SM').classList.add('hide');
-      document.getElementById('image' + i + 'SM').classList.remove('opaque');
-    }
-  }
-});
