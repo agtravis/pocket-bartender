@@ -407,21 +407,13 @@ function makeDrinks(whichDrink, containerNumber) {
   var drinkContainer = document.getElementById(
     'drink-container-' + containerNumber
   );
-  var drinkRecipes = document.getElementById('recipe' + containerNumber);
-  var drinkIngredients = document.getElementById(
-    'ingredients' + containerNumber
-  );
-  var drinkCalories = document.getElementById('calories' + containerNumber);
-  var drinkError = document.getElementById('error' + containerNumber);
+  var drinkInfo = document.getElementById('drink-info-' + containerNumber);
 
   drinkBtn.innerText = 'Make this drink';
   drinkBtn.style.display = 'block';
   drinkBtn.setAttribute('class', 'btn make-drink-button');
   drinkBtn.setAttribute('id', 'make-drink-' + containerNumber);
-  drinkRecipes.style.display = 'none';
-  drinkIngredients.style.display = 'none';
-  drinkCalories.style.display = 'none';
-  drinkError.style.display = 'none';
+  drinkInfo.style.display = 'none';
 
   if (document.getElementById('make-drink-' + containerNumber) === null) {
     drinkContainer.insertBefore(drinkBtn, drinkContainer.childNodes[2]);
@@ -453,23 +445,12 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
-      console.log('test');
-
       if (
-        drinkRecipes.style.display === 'block' &&
-        drinkIngredients.style.display === 'block' &&
-        drinkCalories.style.display === 'block' &&
-        drinkError.style.display === 'block'
+        drinkInfo.style.display === 'block'
       ) {
-        drinkRecipes.style.display = 'none';
-        drinkIngredients.style.display = 'none';
-        drinkCalories.style.display = 'none';
-        drinkError.style.display = 'none';
+        drinkInfo.style.display = 'none';
       } else {
-        drinkRecipes.style.display = 'block';
-        drinkIngredients.style.display = 'block';
-        drinkCalories.style.display = 'block';
-        drinkError.style.display = 'block';
+        drinkInfo.style.display = 'block';
       }
     });
 
@@ -485,6 +466,7 @@ function makeDrinks(whichDrink, containerNumber) {
           'drink-container-' + containerNumber
         ).childNodes[1].textContent;
         var getIngredients = drinksArray[0][containerNumber].ingredients;
+        var drinkInfoSM = document.getElementById('drink-info-' + containerNumber + 'SM');
 
         if (getDrinkName === drinkName) {
           for (var i = 0; i < getIngredients.length; i++) {
@@ -493,19 +475,14 @@ function makeDrinks(whichDrink, containerNumber) {
           }
         }
 
-        if (
-          drinkRecipes.style.display === 'block' &&
-          drinkIngredients.style.display === 'block' &&
-          drinkCalories.style.display === 'block'
-        ) {
-          drinkRecipes.style.display = 'none';
-          drinkIngredients.style.display = 'none';
-          drinkCalories.style.display = 'none';
-        } else {
-          drinkRecipes.style.display = 'block';
-          drinkIngredients.style.display = 'block';
-          drinkCalories.style.display = 'block';
-        }
+        // do not think this code is required..
+        // if (
+        //   drinkInfoSM.style.display === 'block'
+        // ) {
+        //   drinkInfoSM.style.display = 'none';
+        // } else {
+        //   drinkInfoSM.style.display = 'block';
+        // }
       }
     });
 }
