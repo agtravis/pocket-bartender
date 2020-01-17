@@ -3,7 +3,7 @@ html, body {
 }
 
 #header {
-  background-color: #fff;
+  background-color: #fad87b;
   height: 120px;
   display: flex;
   align-items: center;
@@ -105,6 +105,7 @@ html, body {
   text-align: center;
   border-radius: 10px;
   z-index: 20;
+  padding: 5px;
 }
 
 #modal-alert {
@@ -126,10 +127,14 @@ html, body {
   z-index: 20;
 }
 
+#modal-buttons button {
+  margin: 5px;
+}
+
 .cocktail-pic {
   max-width: 200px;
   border-radius: 20px;
-  border: 3px solid black;
+  border: 3px solid #00572d;
   padding: 10px;
   margin: 10px;
 }
@@ -199,7 +204,7 @@ html, body {
   position: relative;
   max-width: 260px;
   border-radius: 20px;
-  border: 3px solid black;
+  border: 3px solid #00572d;
   padding: 10px;
   margin: 0;
   display: flex;
