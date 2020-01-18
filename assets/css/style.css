@@ -54,7 +54,7 @@ html, body {
 }
 
 #liquor-cabinet {
-  background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
+  background-image: url('../potential-bookshelves/liquor_texture2.png');
   border: 10px solid #00572d;
   border-radius: 10px;
   height: 600px;
@@ -66,7 +66,7 @@ html, body {
 
 #liquor-cabinetSM {
   display: flex;
-  background-image: url('../potential-bookshelves/barn-wood-texture-red-barn-wood-wood-background-wood.jpg');
+  background-image: url('../potential-bookshelves/liquor_texture2.png');
   border: 10px solid #00572d;
   border-radius: 5px;
   width: 90%;
