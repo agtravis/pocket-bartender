@@ -63,44 +63,56 @@ function nutritionTest(keyword, ingredientsNumber) {
         url: nutritionEndpoint,
         data: getNutritionOf,
         headers: apiHeaders
-      }).then(function(nutritionResponse) {
+      })
+        .then(function(nutritionResponse) {
           var ingredientCals = nutritionResponse.data.foods[0].nf_calories;
           calsArray.push(ingredientCals);
           var arraySum = calsArray.reduce((a, b) => a + b, 0);
           var totalCals = Math.round(arraySum);
-          document.getElementById('calories' + ingredientsNumber).textContent =
-            'Estimated calories: ' + totalCals;
+          document.getElementById(
+            'calories' + ingredientsNumber
+          ).textContent = totalCals;
           document.getElementById(
             'calories' + ingredientsNumber + 'SM'
-          ).textContent = 'Estimated calories: ' + totalCals;
-        
-                if (totalCals > 500) {
-          document.getElementById(
-            'calories' + ingredientsNumber + 'SM'
-          ).style.color = 'red';
-        } else if (totalCals <= 500) {
-          document.getElementById(
-            'calories' + ingredientsNumber + 'SM'
-          ).style.color = 'green';
-        }
-        if (totalCals > 500) {
-          document.getElementById('calories' + ingredientsNumber).style.color =
-            'red';
-        } else if (totalCals <= 500) {
-          document.getElementById('calories' + ingredientsNumber).style.color =
-            'green';
-        }
+          ).innerHTML =
+            'Estimated calories: <span id="caloriesNumSM' +
+            ingredientsNumber +
+            '">' +
+            totalCals +
+            '</span>';
+
+          if (totalCals > 500) {
+            document.getElementById(
+              'caloriesNumSM' + ingredientsNumber
+            ).style.color = 'red';
+          } else if (totalCals <= 500) {
+            document.getElementById(
+              'caloriesNumSM' + ingredientsNumber
+            ).style.color = 'green';
+          }
+          if (totalCals > 500) {
+            document.getElementById(
+              'calories' + ingredientsNumber
+            ).style.color = 'red';
+          } else if (totalCals <= 500) {
+            document.getElementById(
+              'calories' + ingredientsNumber
+            ).style.color = 'green';
+          }
         })
         .catch(err => console.log(err));
     } else {
       var notFound = document.getElementById('error' + ingredientsNumber);
       notFound.textContent =
         keyword + ' was not found in the Nutritionix database.';
-        notFound.style.fontSize = '10px';
+      notFound.style.fontSize = '10px';
 
-        var notFoundSM = document.getElementById('error' + ingredientsNumber + 'SM');
-        notFoundSM.textContent = keyword + ' was not found in the Nutritionix database.';
-        notFoundSM.style.fontSize = '10px';
+      var notFoundSM = document.getElementById(
+        'error' + ingredientsNumber + 'SM'
+      );
+      notFoundSM.textContent =
+        keyword + ' was not found in the Nutritionix database.';
+      notFoundSM.style.fontSize = '10px';
     }
   });
 }
