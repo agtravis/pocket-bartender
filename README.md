@@ -56,4 +56,4 @@ Project is: MVP. Some code could be rewritten to avoid a) having some hardcoded 
 
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/), [@ariehh1](https://github.com/ariehh1),
+Created by [@agtravis](https://agtravis.github.io/), [@ariehh1](https://github.com/ariehh1), & [@twopcz](https://github.com/twopcz).
