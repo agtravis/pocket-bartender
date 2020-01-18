@@ -274,6 +274,8 @@ function displayDrink(response) {
       .getElementById('drink-container-' + i + 'SM')
       .classList.add('hide');
     document.getElementById('calories' + i + 'SM').textContent = '';
+    document.getElementById('error' + i + 'SM').textContent = '';
+    document.getElementById('calories' + i).textContent = '';
   }
   var numDrinks = response.drinks.length;
   drinksArray = [];
