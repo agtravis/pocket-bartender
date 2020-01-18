@@ -29,6 +29,8 @@ The purpose of the app is to help users get more creative when either hosting a 
 
 - [Materialize](https://materializecss.com/)
 - [Axios](https://github.com/axios/axios)
+- [Nutritionix](https://www.nutritionix.com/business/api)
+- [TheCocktailDB](https://thecocktaildb.com/)
 
 ## Setup
 
