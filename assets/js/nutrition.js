@@ -23,8 +23,8 @@ var credentials = [
   }
 ];
 
-const nutritionAppID = credentials[0].nutritionAppID;
-const nutritionAPIKey = credentials[0].nutritionAPIKey;
+const nutritionAppID = credentials[1].nutritionAppID;
+const nutritionAPIKey = credentials[1].nutritionAPIKey;
 const userID = 0;
 const nutritionEndpoint =
   'https://trackapi.nutritionix.com/v2/natural/nutrients';
