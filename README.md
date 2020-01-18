@@ -46,6 +46,7 @@ List of features ready and TODOs for future development
 
 To-do list:
 
+- create a 'cocktail shaker' modal that the user fills with multiple ingredients before searching for a recipe.
 - Interface with Google maps and geolocation APIs to display maps to nearby liquor store
 - Embed Youtube videos of available cocktails being made
 - Perform additional queries with as yet undefined APIs that would generate facts, trivia, or quotes about ingredients and cocktails at random.
@@ -53,8 +54,6 @@ To-do list:
 ## Status
 
 Project is: MVP. Some code could be rewritten to avoid a) having some hardcoded HTML, and b) to DRY out the script. A few bugs remain, but nothing to decrease the user's experience substantially. These are being worked on. Please feel free to contact one of the contributers if a bug is discovered.
-
-## Inspiration
 
 ## Contact
 
