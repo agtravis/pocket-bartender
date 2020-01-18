@@ -19,6 +19,7 @@ The purpose of the app is to help users get more creative when either hosting a 
 
 ## Screenshots
 
+![UML](./assets/screenshots/Pocket-Bartender-UML.png)
 ![FullScreen](./assets/screenshots/full-screen.PNG)
 ![SmallScreen](./assets/screenshots/small-screen.PNG)
 
@@ -29,34 +30,28 @@ The purpose of the app is to help users get more creative when either hosting a 
 
 ## Setup
 
-Describe how to install / setup your local environement / add link to demo version.
-
-## Code Examples
-
-Show examples of usage:
-`put-your-code-here`
+This is an app that runs in the browser, and interacts with the user's local storage. No additional setup required.
 
 ## Features
 
 List of features ready and TODOs for future development
 
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- Tracks user's ingredients and liquor cabinet
+- Suggests recipes to the user based on their inventory or potential future purchases
+- Estimates calorific values so the user can decide based on their diet which recipe to follow
 
 To-do list:
 
-- Wow improvement to be done 1
-- Wow improvement to be done 2
+- Interface with Google maps and geolocation APIs to display maps to nearby liquor store
+- Embed Youtube videos of available cocktails being made
+- Perform additional queries with as yet undefined APIs that would generate facts, trivia, or quotes about ingredients and cocktails at random.
 
 ## Status
 
-Project is: _in progress_, _finished_, _no longer continue_ and why?
+Project is: MVP. Some code could be rewritten to avoid a) having some hardcoded HTML, and b) to DRY out the script. A few bugs remain, but nothing to decrease the user's experience substantially. These are being worked on. Please feel free to contact one of the contributers if a bug is discovered.
 
 ## Inspiration
 
-Add here credits. Project inspired by..., based on...
-
 ## Contact
 
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
+Created by [@agtravis](https://agtravis.github.io/),
