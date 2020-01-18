@@ -176,7 +176,7 @@ html, body {
   margin-left: 10px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 680px) {
   #information-container, #left-nav {
     display: none;
   }
@@ -187,7 +187,7 @@ html, body {
   }
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 681px) {
   #information-containerSM, #top-nav-row {
     display: none;
   }
