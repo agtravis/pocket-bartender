@@ -32,7 +32,6 @@ The purpose of the app is to help users get more creative when either hosting a 
 
 This is an app that runs in the browser, and interacts with the user's local storage. No additional setup required.
 
-
 ## Features
 
 List of features ready and TODOs for future development
@@ -55,4 +54,4 @@ Project is: MVP. Some code could be rewritten to avoid a) having some hardcoded 
 
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/),
+Created by [@agtravis](https://agtravis.github.io/), [@ariehh1](https://github.com/ariehh1),
