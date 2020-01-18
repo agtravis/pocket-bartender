@@ -273,6 +273,7 @@ function displayDrink(response) {
     document
       .getElementById('drink-container-' + i + 'SM')
       .classList.add('hide');
+    document.getElementById('calories' + i + 'SM').textContent = '';
   }
   var numDrinks = response.drinks.length;
   drinksArray = [];
@@ -445,9 +446,7 @@ function makeDrinks(whichDrink, containerNumber) {
         }
       }
 
-      if (
-        drinkInfo.style.display === 'block'
-      ) {
+      if (drinkInfo.style.display === 'block') {
         drinkInfo.style.display = 'none';
       } else {
         drinkInfo.style.display = 'block';
@@ -466,7 +465,9 @@ function makeDrinks(whichDrink, containerNumber) {
           'drink-container-' + containerNumber
         ).childNodes[1].textContent;
         var getIngredients = drinksArray[0][containerNumber].ingredients;
-        var drinkInfoSM = document.getElementById('drink-info-' + containerNumber + 'SM');
+        var drinkInfoSM = document.getElementById(
+          'drink-info-' + containerNumber + 'SM'
+        );
 
         if (getDrinkName === drinkName) {
           for (var i = 0; i < getIngredients.length; i++) {
@@ -475,7 +476,6 @@ function makeDrinks(whichDrink, containerNumber) {
           }
         }
 
-        // do not think this code is required..
         // if (
         //   drinkInfoSM.style.display === 'block'
         // ) {
