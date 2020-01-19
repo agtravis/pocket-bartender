@@ -44,7 +44,6 @@ var calsArray;
 
 function nutritionTest(keyword, ingredientsNumber) {
   calsArray = [];
-  console.log(keyword);
 
   axios({
     method: 'get',
